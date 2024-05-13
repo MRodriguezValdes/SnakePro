@@ -1,0 +1,60 @@
+body {
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #32822b;
+}
+
+.snake-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(90deg, #85E86C 50%, #6FB852 50%);
+  background-size: 10px 10px; /* Tamaño del patrón */
+}
+
+.snake-row {
+  display: flex;
+}
+
+.snake-cell {
+  width: 35px;
+  height: 30px;
+  border: 1px solid #324f1a;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #74c365;
+
+}
+.invisible {
+  visibility: hidden;
+}
+
+.green-light {
+  background-color: #74c365; /* Verde claro */
+}
+
+.green-dark {
+  background-color: #32822b; /* Verde oscuro */
+}
+
+/* Establece el patrón utilizando nth-child */
+.snake-row:nth-child(odd) .snake-cell:nth-child(odd),
+.snake-row:nth-child(even) .snake-cell:nth-child(even) {
+  /* Fondo verde claro para celdas impares de filas impares y celdas pares de filas pares */
+  background-color: #74c365;
+}
+
+.snake-row:nth-child(odd) .snake-cell:nth-child(even),
+.snake-row:nth-child(even) .snake-cell:nth-child(odd) {
+  /* Fondo verde oscuro para celdas pares de filas impares y celdas impares de filas pares */
+  background-color: #a3ea99;
+}
+
