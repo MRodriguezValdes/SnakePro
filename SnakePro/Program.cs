@@ -1,3 +1,5 @@
+
+
 using WebApplication2.hubs;
 
 var builder = WebApplication.CreateBuilder(args);

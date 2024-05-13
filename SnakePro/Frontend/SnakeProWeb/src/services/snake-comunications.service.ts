@@ -15,6 +15,10 @@ export class SnakeComunicationsService {
     this.hubConnection.on("ReceiveMessage", (message) => {
       console.log("Message received: ", message);
     });
+    this.hubConnection.on("ReceiveBoard", (boardJson: string) => {
+      const board = JSON.parse(boardJson);
+      console.log("Board received: ", board);
+    });
   }
 
   public startConnection(): Promise<void> {
@@ -27,6 +31,12 @@ export class SnakeComunicationsService {
   public sendMessage(message: string): void {
     this.hubConnection
       .invoke("SendMessage", message)
+      .catch(err => console.error(err));
+  }
+
+  public sendBoard(): void {
+    this.hubConnection
+      .invoke("SendBoard")
       .catch(err => console.error(err));
   }
 }

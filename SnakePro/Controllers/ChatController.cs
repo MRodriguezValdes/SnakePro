@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using System.Threading.Tasks;
 using WebApplication2.hubs;
+
 
 [ApiController]
 [Route("[controller]")]
@@ -13,11 +13,10 @@ public class ChatController : ControllerBase
     {
         _hubContext = hubContext;
     }
-
-    [HttpGet("send")]
-    public async Task<string> Send()
+    [HttpGet("board")]
+    public async Task<IActionResult> SendBoard()
     {
-        await _hubContext.Clients.All.SendAsync("ReceiveMessage", "hola");
-        return "hola";
+        await _hubContext.Clients.All.SendAsync("ReceiveBoard");
+        return Ok();
     }
 }
