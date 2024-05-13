@@ -4,8 +4,14 @@ namespace WebApplication2.hubs;
 
 public class ChatHub : Hub
 {
-    public async Task SendMessage()
+    public override async Task OnConnectedAsync()
     {
-        await Clients.All.SendAsync("ReceiveMessage", "hola");
+        await SendMessage("hola");
+        await base.OnConnectedAsync();
+    }
+
+    public async Task SendMessage(string message)
+    {
+        await Clients.All.SendAsync("ReceiveMessage", message);
     }
 }
