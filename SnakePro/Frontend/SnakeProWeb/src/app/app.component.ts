@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.snakeComunicationsService.startConnection().then(() => {
       this.snakeComunicationsService.sendMessage("hola");
-      this.snakeComunicationsService.sendBoard();
+      this.snakeComunicationsService.sendBoard(2,2);
     });
   }
 }
