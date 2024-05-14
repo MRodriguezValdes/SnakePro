@@ -1,25 +1,38 @@
 {
   "format": 1,
   "restore": {
-    "/Users/marcosrodriguezvaldes/RiderProjects/SnakePro/SnakePro/SnakePro.csproj": {}
+    "C:\\Users\\marcos.rodriguez\\RiderProjects\\SnakePro\\SnakePro\\SnakePro.csproj": {}
   },
   "projects": {
-    "/Users/marcosrodriguezvaldes/RiderProjects/SnakePro/SnakePro/SnakePro.csproj": {
+    "C:\\Users\\marcos.rodriguez\\RiderProjects\\SnakePro\\SnakePro\\SnakePro.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/marcosrodriguezvaldes/RiderProjects/SnakePro/SnakePro/SnakePro.csproj",
+        "projectUniqueName": "C:\\Users\\marcos.rodriguez\\RiderProjects\\SnakePro\\SnakePro\\SnakePro.csproj",
         "projectName": "SnakePro",
-        "projectPath": "/Users/marcosrodriguezvaldes/RiderProjects/SnakePro/SnakePro/SnakePro.csproj",
-        "packagesPath": "/Users/marcosrodriguezvaldes/.nuget/packages/",
-        "outputPath": "/Users/marcosrodriguezvaldes/RiderProjects/SnakePro/SnakePro/obj/",
+        "projectPath": "C:\\Users\\marcos.rodriguez\\RiderProjects\\SnakePro\\SnakePro\\SnakePro.csproj",
+        "packagesPath": "C:\\Users\\marcos.rodriguez\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\marcos.rodriguez\\RiderProjects\\SnakePro\\SnakePro\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\Offline Packages",
+          "C:\\Program Files\\DevExpress 22.2\\Components\\Offline Packages",
+          "C:\\Program Files\\DevExpress 23.2\\Components\\Offline Packages"
+        ],
         "configFilePaths": [
-          "/Users/marcosrodriguezvaldes/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\marcos.rodriguez\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 21.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 22.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 23.2.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\DevExpress 21.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\DevExpress 22.2\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files\\DevExpress 23.2\\Components\\System\\Components\\Packages": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -70,7 +83,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/Users/marcosrodriguezvaldes/.dotnet/sdk/8.0.100/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
