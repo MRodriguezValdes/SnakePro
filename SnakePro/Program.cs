@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using WebApplication2.hubs;
 
 var builder = WebApplication.CreateBuilder(args);
