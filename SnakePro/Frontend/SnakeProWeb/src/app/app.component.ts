@@ -13,7 +13,8 @@ export class AppComponent implements OnInit {
   public boardArray: CellType[][] = [];
   public visible: boolean = true;
 
-  constructor(public snakeComunicationsService: SnakeComunicationsService) {}
+  constructor(public snakeComunicationsService: SnakeComunicationsService) {
+  }
 
   ngOnInit() {
     this.snakeComunicationsService.startConnection().then(() => {
@@ -25,10 +26,20 @@ export class AppComponent implements OnInit {
   updateBoardArray() {
     this.boardArray = this.snakeComunicationsService.getBoardArray();
     this.visible = false;
-    if (this.boardArray[0][0] == CellType.Empty){
-
-    }
   }
 
-
+  colorCell(row: number, col: number): string {
+    switch (this.boardArray[row][col]) {
+      case CellType.Empty:
+        return 'green';
+      case CellType.Block:
+        return 'black';
+      case CellType.Food:
+        return 'red';
+      case CellType.Snake:
+        return 'yellow';
+      default:
+        return 'white';
+    }
+  }
 }

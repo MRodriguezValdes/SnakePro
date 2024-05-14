@@ -2,13 +2,13 @@
 <h1>Definitive Snake Game</h1>
 
 <div class="snake-container">
-  <div class="snake-row" *ngFor="let row of boardArray">
-    <div class="snake-cell" *ngFor="let cell of row">
-      <span class="invisible">{{ cell }}</span>
+  <div class="snake-row" *ngFor="let row of boardArray; let i = index">
+    <div class="snake-cell" *ngFor="let cell of row; let j = index" [ngStyle]="{'background-color': colorCell(i, j)}">
+      <span>{{ cell }}</span>
     </div>
   </div>
 </div>
 
-<button *ngIf="visible" (click)="updateBoardArray()">Actualizar BoardArray</button>
+<button *ngIf="visible" (click)="updateBoardArray()">Start Game</button>
 
 
