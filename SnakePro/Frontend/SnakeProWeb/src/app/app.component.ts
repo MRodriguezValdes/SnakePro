@@ -1,35 +1,32 @@
-import { Component, OnInit } from '@angular/core';
-import { SnakeComunicationsService } from '../services/snake-comunications.service';
+import {ChangeDetectorRef, Component, OnInit, ViewEncapsulation} from '@angular/core';
+import {SnakeComunicationsService} from '../services/snake-comunications.service';
+import {CellType} from "../common/Board";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  encapsulation: ViewEncapsulation.None
 })
 export class AppComponent implements OnInit {
-  title = 'my-app';
+  title = 'SnakeProWeb';
+  public boardArray: CellType[][] = [];
+  public visible: boolean = true;
 
-  rows = 20;
-  cols = 40;
-  board: number[][] = [];
-
-  constructor(private snakeComunicationsService: SnakeComunicationsService,) { this.initializeBoard();}
+  constructor(public snakeComunicationsService: SnakeComunicationsService) {}
 
   ngOnInit() {
     this.snakeComunicationsService.startConnection().then(() => {
       this.snakeComunicationsService.sendMessage("hola");
-      this.snakeComunicationsService.sendBoard(2,2);
+      this.snakeComunicationsService.sendBoard(20, 20);
     });
   }
 
+  updateBoardArray() {
+    this.boardArray = this.snakeComunicationsService.getBoardArray();
+    this.visible = false;
+    if (this.boardArray[0][0] == CellType.Empty){
 
-
-  initializeBoard(): void {
-    for (let i = 0; i < this.rows; i++) {
-      this.board[i] = [];
-      for (let j = 0; j < this.cols; j++) {
-        this.board[i][j] = 0;
-      }
     }
   }
 

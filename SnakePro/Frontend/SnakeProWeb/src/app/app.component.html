@@ -1,11 +1,14 @@
 <app-navbar></app-navbar>
-<body>
-  <h1>Definitive Snake Game</h1>
-  <div class="snake-container">
-    <div *ngFor="let row of board" class="snake-row">
-      <div *ngFor="let cell of row" class="snake-cell">
-        <span class="invisible">{{ cell }}</span>
-      </div>
+<h1>Definitive Snake Game</h1>
+
+<div class="snake-container">
+  <div class="snake-row" *ngFor="let row of boardArray">
+    <div class="snake-cell" *ngFor="let cell of row">
+      <span class="invisible">{{ cell }}</span>
     </div>
   </div>
-</body>
+</div>
+
+<button *ngIf="visible" (click)="updateBoardArray()">Actualizar BoardArray</button>
+
+
