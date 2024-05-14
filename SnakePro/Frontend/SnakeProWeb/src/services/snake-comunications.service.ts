@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
+import {CellType} from "../common/Board";
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,9 @@ export class SnakeComunicationsService {
     this.hubConnection.on("ReceiveMessage", (message) => {
       console.log("Message received: ", message);
     });
+    this.hubConnection.on("ReceiveBoard", (boardArray : CellType [][]) => {
+      console.log("Board received: ", boardArray);
+    });
   }
 
   public startConnection(): Promise<void> {
@@ -27,6 +31,12 @@ export class SnakeComunicationsService {
   public sendMessage(message: string): void {
     this.hubConnection
       .invoke("SendMessage", message)
+      .catch(err => console.error(err));
+  }
+
+  public sendBoard(columns : number , rows : number): void {
+    this.hubConnection
+      .invoke("SendBoard", columns, rows)
       .catch(err => console.error(err));
   }
 }
