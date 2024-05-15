@@ -3,7 +3,7 @@ import { BrowserModule, provideClientHydration } from '@angular/platform-browser
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import {SnakeComunicationsService} from "../services/snake-comunications.service";
+import {SnakeCommunicationsService} from "../services/snake-communications.service";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 @NgModule({
@@ -17,7 +17,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
   ],
   providers: [
     provideClientHydration(),
-    SnakeComunicationsService
+    SnakeCommunicationsService
   ],
   bootstrap: [AppComponent]
 })

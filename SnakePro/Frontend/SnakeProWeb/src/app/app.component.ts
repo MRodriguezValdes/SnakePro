@@ -1,5 +1,5 @@
 import { Component, OnInit ,HostListener} from '@angular/core';
-import { SnakeComunicationsService } from '../services/snake-comunications.service';
+import { SnakeCommunicationsService } from '../services/snake-communications.service';
 import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-root',
@@ -9,18 +9,18 @@ import { HttpClient } from '@angular/common/http';
 export class AppComponent implements OnInit {
   title = 'my-app';
 
-  constructor(private snakeComunicationsService: SnakeComunicationsService, private http:HttpClient) { }
+  constructor(private snakeCommunicationsService: SnakeCommunicationsService, private http:HttpClient) { }
 
   ngOnInit() {
-    this.snakeComunicationsService.startConnection().then(() => {
-      this.snakeComunicationsService.sendMessage("hola");
-      this.snakeComunicationsService.sendBoard(2,2);
+    this.snakeCommunicationsService.startConnection().then(() => {
+      this.snakeCommunicationsService.sendMessage("hola");
+      this.snakeCommunicationsService.sendBoard(2,2);
     });
   }
 
   @HostListener('document:keydown', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    this.http.post('http://localhost:5273/api/KeysStrokeController', event.key).subscribe();
+  handleKeyPress(event: KeyboardEvent) {
+    this.snakeCommunicationsService.sendKeyStroke(event.key).subscribe();
   }
 
 }

@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SnakeComunicationsService } from './snake-comunications.service';
+import { SnakeCommunicationsService } from './snake-communications.service';
 
 describe('SnakeComunicationsService', () => {
-  let service: SnakeComunicationsService;
+  let service: SnakeCommunicationsService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SnakeComunicationsService);
+    service = TestBed.inject(SnakeCommunicationsService);
   });
 
   it('should be created', () => {

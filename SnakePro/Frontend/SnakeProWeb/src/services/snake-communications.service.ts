@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import {CellType} from "../common/Board";
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SnakeComunicationsService {
+export class SnakeCommunicationsService {
   private hubConnection: signalR.HubConnection;
+  private readonly endpointUrl = 'http://localhost:5273/api/KeysStroke';
 
-  constructor() {
+  constructor(private http: HttpClient) {
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl("http://localhost:5273/chathub")
       .build();
@@ -38,5 +41,11 @@ export class SnakeComunicationsService {
     this.hubConnection
       .invoke("SendBoard", columns, rows)
       .catch(err => console.error(err));
+  }
+
+  public sendKeyStroke(key: string): Observable<any> {
+    const headers = { 'content-type': 'application/json' };
+    const body = JSON.stringify(key);
+    return this.http.post(this.endpointUrl, body, { 'headers': headers });
   }
 }
