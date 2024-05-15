@@ -10,39 +10,51 @@ public class Board
     public Board(int columns, int rows)
     {
         _board = new CellType[columns][];
-        for (int i = 0; i < columns; i++)
+        GenerateBoard(columns, rows);
+        FillBoard();
+        PlaceSnakeAtRandomPosition();
+    }
+
+    private void GenerateBoard(int columns, int rows)
+    {
+        for (var i = 0; i < columns; i++)
         {
             _board[i] = new CellType[rows];
         }
-        FillBoard();
     }
 
     private void FillBoard()
     {
-        for (int i = 0; i < _board.Length; i++)
+        foreach (var row in _board)
         {
-            for (int j = 0; j < _board[i].Length; j++)
+            for (var columns = 0; columns < row.Length; columns++)
             {
-                _board[i][j] = CellType.Empty;
+                row[columns] = CellType.Empty;
             }
         }
+    }
 
-        // Generate random objects
-        for (int i = 0; i < _board.Length; i++)
+    private bool IsValidCell(int x, int y)
+    {
+        return x >= 0 && x < _board.Length && y >= 0 && y < _board[0].Length && _board[x][y] == CellType.Empty;
+    }
+
+    public (int, int) GetRandomValidCell()
+    {
+        int x, y;
+        do
         {
-            for (int j = 0; j < _board[i].Length; j++)
-            {
-                // Check if the cell is empty
-                if (_board[i][j] == CellType.Empty)
-                {
-                    // Generate a random number between 1 and 3
-                    int randomNumber = _random.Next(0, 4);
+            x = _random.Next(0, _board.Length);
+            y = _random.Next(0, _board[0].Length);
+        } while (!IsValidCell(x, y));
 
-                    // Place a random object in the cell
-                    _board[i][j] = (CellType)randomNumber;
-                }
-            }
-        }
+        return (x, y);
+    }
+
+    private void PlaceSnakeAtRandomPosition()
+    {
+        var (x, y) = GetRandomValidCell();
+        _board[x][y] = CellType.Snake;
     }
 
     public CellType[][] GetBoard()

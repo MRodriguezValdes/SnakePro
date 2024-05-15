@@ -15,12 +15,19 @@ export class AppComponent implements OnInit {
     this.snakeCommunicationsService.startConnection().then(() => {
       this.snakeCommunicationsService.sendMessage("hola");
       this.snakeCommunicationsService.sendBoard(2,2);
+      this.snakeCommunicationsService.getSnakeBoardUpdate().subscribe((board) => {
+        console.log("Board received: ", board);
+      });
     });
   }
-
+  startGame(): void {
+    this.snakeCommunicationsService.startConnection().then(() => {
+      console.log('Game started');
+    });
+  }
   @HostListener('document:keydown', ['$event'])
   handleKeyPress(event: KeyboardEvent) {
-    this.snakeCommunicationsService.sendKeyStroke(event.key).subscribe();
+    this.snakeCommunicationsService.setMovement(event.key).subscribe();
   }
 
 }
