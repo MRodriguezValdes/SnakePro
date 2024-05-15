@@ -63,7 +63,7 @@ body{
   border-radius: 7px;
   box-shadow: 0 .2em gray;
   cursor: pointer;
-  font-size: 30pt;
+  font-size: 25pt;
 
 }
 .start-btn:active {
@@ -77,5 +77,14 @@ body{
   margin-left: auto;
 }
 
+.title {
+  font-size: 2em;
+  font-weight: bold;
+  color: #76ff03;
+  text-shadow: 2px 2px #000;
+  margin: 10px 10px;
+}
 
-
+h3{
+  margin-left:5px
+}
