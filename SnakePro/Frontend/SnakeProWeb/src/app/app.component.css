@@ -4,6 +4,7 @@ body{
   height: 100vh;
   margin: 0;
   background-color: #32822b;
+  font-family: VideoGameFont;
 }
 
 .snake-container {
@@ -40,5 +41,41 @@ body{
 .invisible {
   visibility: hidden;
 }
+
+.my-component {
+  font-family: 'VideoGameFont';
+}
+
+/* BUTTON */
+
+.start-btn{
+  text-align: center;
+  display: inline-block;
+  margin:5px;
+  font-weight: bold;
+  padding: 10px 0 10px 10px ;
+  background-color: lightgray;
+  text-shadow: -1px -1px black, 1px 1px white;
+  color: gray;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -o-border-radius: 7px;
+  border-radius: 7px;
+  box-shadow: 0 .2em gray;
+  cursor: pointer;
+  font-size: 30pt;
+
+}
+.start-btn:active {
+  box-shadow: none;
+  position: relative;
+  top: .2em;
+
+}
+
+.snake-navbar ul li.login {
+  margin-left: auto;
+}
+
 
 
