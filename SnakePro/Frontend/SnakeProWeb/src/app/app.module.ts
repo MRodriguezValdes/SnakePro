@@ -5,15 +5,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {SnakeComunicationsService} from "../services/snake-comunications.service";
 import { NavbarComponent } from './navbar/navbar.component';
+import { SettingsComponent } from './settings/settings.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
+
   ],
   providers: [
     provideClientHydration(),

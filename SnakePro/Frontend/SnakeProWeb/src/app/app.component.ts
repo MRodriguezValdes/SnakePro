@@ -12,6 +12,8 @@ export class AppComponent implements OnInit {
   title = 'SnakeProWeb';
   public boardArray: CellType[][] = [];
   public visible: boolean = true;
+  settingsVisible = false;
+  speed: number = 5;
 
   constructor(public snakeComunicationsService: SnakeComunicationsService) {
   }
@@ -21,6 +23,10 @@ export class AppComponent implements OnInit {
       this.snakeComunicationsService.sendMessage("hola");
       this.snakeComunicationsService.sendBoard(20, 20);
     });
+
+    const savedSpeed = localStorage.getItem('snakeSpeed');
+    if (savedSpeed !== null) {
+      this.speed = +savedSpeed;}
   }
 
   updateBoardArray() {
@@ -42,4 +48,15 @@ export class AppComponent implements OnInit {
         return 'white';
     }
   }
+  showSettings() {
+    this.settingsVisible = true;
+  }
+
+  hideSettings() {
+    this.settingsVisible = false;
+  }
+
+
+
+
 }

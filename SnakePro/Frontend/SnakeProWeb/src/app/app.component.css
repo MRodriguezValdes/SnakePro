@@ -16,7 +16,7 @@ body{
   display: grid;
   gap: 2px;
   background-color: #ddd;
-  padding: 10px; /
+  padding: 10px;
   border-radius: 5px;
 }
 
@@ -73,6 +73,8 @@ body{
 
 }
 
+/* NAVBAR */
+
 .snake-navbar ul li.login {
   margin-left: auto;
 }
@@ -88,3 +90,5 @@ body{
 h3{
   margin-left:5px
 }
+
+

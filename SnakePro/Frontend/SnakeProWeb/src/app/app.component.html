@@ -1,6 +1,6 @@
 <app-navbar></app-navbar>
 <div class="container">
-  <h1 class="title">Ultimate Serpent Game</h1>
+  <h1 class="title">Ultimate Snake Game</h1>
   <h3 class="subtitle">The Definitive Snake Game Experience</h3>
 </div>
 <div class="snake-container">
@@ -12,4 +12,8 @@
 </div>
 
 <span class='start-btn' *ngIf="visible" (click)="updateBoardArray()">START</span>
+<span class='start-btn' style=" float: right;" (click)="showSettings()">SETTINGS</span>
+
+<app-settings *ngIf="settingsVisible" (close)="hideSettings()"></app-settings>
+
 
