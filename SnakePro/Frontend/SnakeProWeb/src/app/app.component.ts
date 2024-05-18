@@ -13,21 +13,27 @@ export class AppComponent implements OnInit {
   public boardArray: CellType[][] = [];
   public visible: boolean = true;
   settingsVisible = false;
-  speed: number = 5;
+  boardWidth: number = 20;
+  boardHeight: number = 20;
+
 
   constructor(public snakeComunicationsService: SnakeComunicationsService) {
   }
 
-  ngOnInit() {
-    this.snakeComunicationsService.startConnection().then(() => {
-      this.snakeComunicationsService.sendMessage("hola");
-      this.snakeComunicationsService.sendBoard(20, 20);
-    });
-
-    const savedSpeed = localStorage.getItem('snakeSpeed');
-    if (savedSpeed !== null) {
-      this.speed = +savedSpeed;}
-  }
+ngOnInit() {
+  this.snakeComunicationsService.startConnection().then(() => {
+    this.snakeComunicationsService.sendMessage("hola");
+    this.snakeComunicationsService.sendBoard(this.boardWidth, this.boardHeight);
+    const savedboardWidth = localStorage.getItem('boardWidth');
+    if (savedboardWidth !== null) {
+      this.boardWidth = +savedboardWidth;
+    }
+    const savedboardHeight = localStorage.getItem('boardHeight');
+    if (savedboardHeight !== null) {
+      this.boardHeight = +savedboardHeight; // Corregido aquí
+    }
+  });
+}
 
   updateBoardArray() {
     this.boardArray = this.snakeComunicationsService.getBoardArray();
@@ -54,6 +60,7 @@ export class AppComponent implements OnInit {
 
   hideSettings() {
     this.settingsVisible = false;
+    this.snakeComunicationsService.sendBoard(this.boardWidth, this.boardHeight);
   }
 
 

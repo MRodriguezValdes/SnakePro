@@ -1,8 +1,19 @@
 <div id="settings-menu">
   <div id="settings-content">
     <h2>Settings</h2>
-    <label for="speed">Speed:</label>
-    <input type="range" id="speed" name="speed" min="1" max="10" [(ngModel)]="speed" (change)="saveSettings()">
-    <button (click)="closeSettings()">Close</button>
+
+    <div class="input-group">
+      <label for="board-width">Board width (X):</label>
+      <input type="number" id="board-width" name="boardWidth" min="10" max="100" [(ngModel)]="boardWidth" (change)="saveSettings()">
+    </div>
+
+    <div class="input-group">
+      <label for="board-height">Board height (Y):</label>
+      <input type="number" id="board-height" name="boardHeight" min="10" max="100" [(ngModel)]="boardHeight" (change)="saveSettings()">
+    </div>
+
+    <div class="button-group">
+      <button (click)="closeSettings()">Close</button>
+    </div>
   </div>
 </div>

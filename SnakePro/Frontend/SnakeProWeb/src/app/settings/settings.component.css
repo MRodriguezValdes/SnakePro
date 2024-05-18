@@ -36,23 +36,48 @@
 
 #settings-content h2 {
   margin-top: 0;
-  color: #333; /* Color del texto */
+  color: #333;
+}
+
+.input-group {
+  margin-bottom: 20px;
 }
 
 #settings-content label {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   font-weight: bold;
   color: #555;
 }
 
-#settings-content input[type="range"] {
-  width: 100%;
-  margin-bottom: 20px;
+#settings-content input[type="number"] {
+  width: calc(100% - 20px);
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+#settings-content input[type="number"]::-webkit-inner-spin-button,
+#settings-content input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#settings-content input[type="number"]:hover,
+#settings-content input[type="number"]:focus {
+  border-color: #3eff65;
+}
+
+.button-group {
+  margin-top: 20px;
 }
 
 #settings-content button {
-  background-color: #3eff65; /* Botón azul */
+  background-color: #3eff65;
   color: black;
   border: none;
   border-radius: 5px;
@@ -65,45 +90,3 @@
 #settings-content button:hover {
   background-color: #3ea62d;
 }
-
-
-
-input[type="range"] {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 8px;
-  background: #ddd;
-  border-radius: 5px;
-  outline: none;
-  opacity: 0.7;
-  -webkit-transition: .2s;
-  transition: opacity .2s;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  background: #129a1c;
-  cursor: pointer;
-  border-radius: 50%;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-input[type="range"]::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  background: #7cff53;
-  cursor: pointer;
-  border-radius: 50%;
-  transition: background-color 0.2s ease, transform 0.2s ease;
-}
-
-input[type="range"]:hover::-webkit-slider-thumb {
-  background: #067101;
-  transform: scale(1.2);
-}
-
-
-
