@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import {SnakeComunicationsService} from "../services/snake-comunications.service";
 import { NavbarComponent } from './navbar/navbar.component';
 import { SettingsComponent } from './settings/settings.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -17,8 +17,8 @@ import {FormsModule} from "@angular/forms";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
-
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideClientHydration(),
