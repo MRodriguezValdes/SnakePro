@@ -9,30 +9,32 @@ import {SnakeComunicationsService} from "../../services/snake-comunications.serv
 })
 export class SettingsComponent implements OnInit {
   @Output() close = new EventEmitter<void>();
-  boardWidth: number = 20;
-  boardHeight: number = 20;
+  boardCols: number = 20;
+  boardRows: number = 20;
 
   constructor(public snakeComunicationsService: SnakeComunicationsService) {
   }
 
   ngOnInit() {
-    const savedboardWidth = localStorage.getItem('boardWidth');
-    if (savedboardWidth !== null) {
-      this.boardWidth = +savedboardWidth;
+    const savedboardCols = localStorage.getItem('boardCols');
+    if (savedboardCols !== null) {
+      this.boardCols = +savedboardCols;
     }
-    const savedboardHeight = localStorage.getItem('boardHeight');
-    if (savedboardHeight !== null) {
-      this.boardHeight = +savedboardHeight;
+    const savedboardRows = localStorage.getItem('boardRows');
+    if (savedboardRows !== null) {
+      this.boardRows = +savedboardRows;
     }
   }
   saveSettings() {
-    localStorage.setItem('boardWidth', this.boardWidth.toString());
-    localStorage.setItem('boardHeight', this.boardHeight.toString());
-    console.log(this.boardWidth,this.boardHeight);
+
+
+    localStorage.setItem('boardCols', this.boardCols.toString());
+    localStorage.setItem('boardRows', this.boardRows.toString());
+    console.log(this.boardCols,this.boardRows);
   }
 
   closeSettings() {
     this.close.emit();
-    this.snakeComunicationsService.sendBoard(this.boardWidth, this.boardHeight);
+    this.snakeComunicationsService.sendBoard(this.boardCols, this.boardRows);
   }
 }

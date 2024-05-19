@@ -3,13 +3,13 @@
     <h2>Settings</h2>
 
     <div class="input-group">
-      <label for="board-width">Board width (X):</label>
-      <input type="number" id="board-width" name="boardWidth" min="10" max="100" [(ngModel)]="boardWidth" (change)="saveSettings()">
+      <label for="board-cols">Board Cols:</label>
+      <input type="number" id="board-cols" name="boardCols" min="10" max="30" [(ngModel)]="boardCols" (change)="saveSettings()">
     </div>
 
     <div class="input-group">
-      <label for="board-height">Board height (Y):</label>
-      <input type="number" id="board-height" name="boardHeight" min="10" max="100" [(ngModel)]="boardHeight" (change)="saveSettings()">
+      <label for="board-rows">Board Rows:</label>
+      <input type="number" id="board-rows" name="boardRows" min="10" max="30" [(ngModel)]="boardRows" (change)="saveSettings()">
     </div>
 
     <div class="button-group">

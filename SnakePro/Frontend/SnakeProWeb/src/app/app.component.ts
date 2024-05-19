@@ -13,8 +13,8 @@ export class AppComponent implements OnInit {
   public boardArray: CellType[][] = [];
   public visible: boolean = true;
   settingsVisible = false;
-  boardWidth: number = 20;
-  boardHeight: number = 20;
+  boardCols: number = 20;
+  boardRows: number = 20;
 
 
   constructor(public snakeComunicationsService: SnakeComunicationsService) {
@@ -23,14 +23,14 @@ export class AppComponent implements OnInit {
 ngOnInit() {
   this.snakeComunicationsService.startConnection().then(() => {
     this.snakeComunicationsService.sendMessage("hola");
-    this.snakeComunicationsService.sendBoard(this.boardWidth, this.boardHeight);
-    const savedboardWidth = localStorage.getItem('boardWidth');
-    if (savedboardWidth !== null) {
-      this.boardWidth = +savedboardWidth;
+    this.snakeComunicationsService.sendBoard(this.boardCols, this.boardRows);
+    const savedboardCols = localStorage.getItem('boardCols');
+    if (savedboardCols !== null) {
+      this.boardCols = +savedboardCols;
     }
-    const savedboardHeight = localStorage.getItem('boardHeight');
-    if (savedboardHeight !== null) {
-      this.boardHeight = +savedboardHeight; // Corregido aquí
+    const savedboardRows = localStorage.getItem('boardRows');
+    if (savedboardRows !== null) {
+      this.boardRows = +savedboardRows;
     }
   });
 }
@@ -60,10 +60,6 @@ ngOnInit() {
 
   hideSettings() {
     this.settingsVisible = false;
-    this.snakeComunicationsService.sendBoard(this.boardWidth, this.boardHeight);
+    this.snakeComunicationsService.sendBoard(this.boardCols, this.boardRows);
   }
-
-
-
-
 }
