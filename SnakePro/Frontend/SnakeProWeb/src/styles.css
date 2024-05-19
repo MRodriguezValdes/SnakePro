@@ -3,3 +3,10 @@
   font-family: 'VideoGameFont';
   src: url('/assets/PressStart2P-Regular.ttf');
 }
+
+@font-face {
+  font-family: 'Arcade Interlaced';
+  font-style: normal;
+  font-weight: normal;
+  src: local('Arcade Interlaced'), url('assets/ARCADE_I.woff') format('woff');
+}

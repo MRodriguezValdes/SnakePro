@@ -4,7 +4,7 @@ body{
   height: 100vh;
   margin: 0;
   background-color: #32822b;
-  font-family: VideoGameFont;
+  font-family: VideoGameFont, serif;
 }
 
 .snake-container {
@@ -79,6 +79,7 @@ body{
   margin-left: auto;
 }
 
+
 .title {
   font-size: 2em;
   font-weight: bold;
@@ -87,8 +88,38 @@ body{
   margin: 10px 10px;
 }
 
-h3{
-  margin-left:5px
+
+h3 {
+  margin-left: 5px;
 }
+
+/* TITLE */
+.right-align {
+  text-align: right;
+  margin-right: 1em;
+}
+
+.score-section {
+  font-family: "Arcade Interlaced", sans-serif;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.flex-container {
+  display: flex;
+  align-items: center;
+}
+
+.title-container {
+  flex-grow: 1;
+  margin-right: auto;
+
+}
+
+
+
 
 

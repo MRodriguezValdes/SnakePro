@@ -15,6 +15,8 @@ export class AppComponent implements OnInit {
   settingsVisible = false;
   boardCols: number = 20;
   boardRows: number = 20;
+  score: number = 0;
+  bestScore: number = 0;
 
 
   constructor(public snakeComunicationsService: SnakeComunicationsService) {

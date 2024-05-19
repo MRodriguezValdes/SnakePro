@@ -1,8 +1,17 @@
 <app-navbar></app-navbar>
-<div class="container">
-  <h1 class="title">Ultimate Snake Game</h1>
-  <h3 class="subtitle">The Definitive Snake Game Experience</h3>
+<div class="score-container">
+  <div class="flex-container">
+    <div class="title-container">
+      <h1 class="title">Ultimate Snake Game</h1>
+      <h3>The Definitive Snake Game Experience</h3>
+    </div>
+    <div class="score-section">
+      <p class="right-align">SCORE: {{score}}</p>
+      <p class="right-align">BEST SCORE: {{bestScore}}</p>
+    </div>
+  </div>
 </div>
+
 <div class="snake-container">
   <div class="snake-row" *ngFor="let row of boardArray; let i = index">
     <div class="snake-cell" *ngFor="let cell of row; let j = index" [ngStyle]="{'background-color': colorCell(i, j)}">
