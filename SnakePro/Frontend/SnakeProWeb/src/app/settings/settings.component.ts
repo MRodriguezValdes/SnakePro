@@ -24,6 +24,16 @@ export class SettingsComponent implements OnInit {
     if (savedboardRows !== null) {
       this.boardRows.setValue(+savedboardRows);
     }
+
+    // Subscribe to changes in boardCols and update boardRows accordingly
+    this.boardCols.valueChanges.subscribe(value => {
+      this.boardRows.setValue(value, {emitEvent: false});
+    });
+
+    // Subscribe to changes in boardRows and update boardCols accordingly
+    this.boardRows.valueChanges.subscribe(value => {
+      this.boardCols.setValue(value, {emitEvent: false});
+    });
   }
 
   saveSettings() {
