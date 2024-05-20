@@ -8,21 +8,13 @@ namespace WebApplication2.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class GameController : ControllerBase
+public class GameController(IHubContext<ChatHub> hubContext) : ControllerBase
 {
-    private GameExecution _gameExecution;
-    private readonly IHubContext<ChatHub> _hubContext;
-
-    public GameController(IHubContext<ChatHub> hubContext)
-    {
-        _hubContext = hubContext;
-    }
-
     [HttpPost("start")]
-    public IActionResult StartGame(int columns, int rows)
+    public IActionResult StartGame([FromBody]StartGameRequest startGameRequest)
     {
-        _gameExecution = new GameExecution(columns, rows, _hubContext);
-        _gameExecution.StartGame();
+        Console.WriteLine($"Starting game with {startGameRequest.Columns} columns and {startGameRequest.Rows} rows");
+        GameExecution.Instance.StartGame(startGameRequest.Columns, startGameRequest.Rows, hubContext);
         return Ok();
     }
 
@@ -38,7 +30,15 @@ public class GameController : ControllerBase
             _ => Movements.None
         };
         Console.WriteLine($"Key pressed: {chosenMovement}");
-       // _gameExecution.ChangeCurrentMovement(chosenMovement);
+        if (GameExecution.Instance.GetGameState() != GameStates.None)
+        {
+            GameExecution.Instance.ChangeCurrentMovement(chosenMovement);
+        }
         return Ok();
     }
+}
+public class StartGameRequest
+{
+    public int Columns { get; set; }
+    public int Rows { get; set; }
 }

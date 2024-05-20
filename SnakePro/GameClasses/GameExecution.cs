@@ -6,27 +6,40 @@ namespace WebApplication2.GameClasses;
 
 public class GameExecution
 {
-    private readonly Board _board;
+    
+    private static GameExecution _instance;
+    public static GameExecution Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = new GameExecution();
+            }
+            return _instance;
+        }
+    }
+    private Board? _board;
     private GameStates _gameState = GameStates.None;
     private Movements _currentMovement = Movements.None;
-    private readonly Snake.Snake _snake;
-    private readonly IHubContext<ChatHub> _chatHub;
-
-    public GameExecution(int columns, int rows, IHubContext<ChatHub> chatHub)
+    private Snake.Snake? _snake;
+    private IHubContext<ChatHub>? _chatHub;
+    
+    public void StartGame(int columns, int rows, IHubContext<ChatHub>? chatHub)
     {
         _board = new Board(columns, rows);
         var (startX, startY) = _board.GetRandomValidCell();
         _snake = new Snake.Snake(startX, startY);
         _chatHub = chatHub;
-    }
-
-    public void StartGame()
-    {
         _gameState = GameStates.Running;
-        while (_gameState == GameStates.Running)
+        Task.Run(() =>
         {
-            MoveSnake();
-        }
+            while (_gameState == GameStates.Running)
+            {
+                MoveSnake();
+                Task.Delay(TimeSpan.FromMilliseconds(200)).Wait();
+            }
+        });
     }
 
     public void PauseGame()
@@ -99,5 +112,9 @@ public class GameExecution
         }
 
         return (x, y);
+    }
+    public GameStates GetGameState()
+    {
+        return _gameState;
     }
 }

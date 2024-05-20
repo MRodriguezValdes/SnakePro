@@ -21,9 +21,7 @@ export class AppComponent implements OnInit {
     });
   }
   startGame(): void {
-    this.snakeCommunicationsService.startConnection().then(() => {
-      console.log('Game started');
-    });
+    this.snakeCommunicationsService.startGame(10, 10).subscribe(()=>console.log("Game started"));
   }
   @HostListener('document:keydown', ['$event'])
   handleKeyPress(event: KeyboardEvent) {

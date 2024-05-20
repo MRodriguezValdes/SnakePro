@@ -54,4 +54,9 @@ export class SnakeCommunicationsService {
   public getSnakeBoardUpdate(): Observable<any[][]> {
     return this.snakeBoardUpdate.asObservable();
   }
+  public startGame(columns: number, rows: number): Observable<any> {
+    const headers = { 'content-type': 'application/json' };
+    const body = JSON.stringify({ columns, rows });
+    return this.http.post(`http://localhost:5273/api/Game/start`, body, { 'headers': headers });
+  }
 }
