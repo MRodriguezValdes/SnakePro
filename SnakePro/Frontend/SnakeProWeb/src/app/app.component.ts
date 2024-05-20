@@ -22,20 +22,23 @@ export class AppComponent implements OnInit {
   constructor(public snakeComunicationsService: SnakeComunicationsService) {
   }
 
-ngOnInit() {
-  this.snakeComunicationsService.startConnection().then(() => {
-    this.snakeComunicationsService.sendMessage("hola");
-    this.snakeComunicationsService.sendBoard(this.boardCols, this.boardRows);
-    const savedboardCols = localStorage.getItem('boardCols');
-    if (savedboardCols !== null) {
-      this.boardCols = +savedboardCols;
+  ngOnInit() {
+    if (typeof window !== 'undefined') {
+      const savedboardCols = localStorage.getItem('boardCols');
+      if (savedboardCols !== null) {
+        this.boardCols = +savedboardCols;
+      }
+      const savedboardRows = localStorage.getItem('boardRows');
+      if (savedboardRows !== null) {
+        this.boardRows = +savedboardRows;
+      }
     }
-    const savedboardRows = localStorage.getItem('boardRows');
-    if (savedboardRows !== null) {
-      this.boardRows = +savedboardRows;
-    }
-  });
-}
+
+    this.snakeComunicationsService.startConnection().then(() => {
+      this.snakeComunicationsService.sendMessage("hola");
+      this.snakeComunicationsService.sendBoard(this.boardCols, this.boardRows);
+    });
+  }
 
   updateBoardArray() {
     this.boardArray = this.snakeComunicationsService.getBoardArray();
