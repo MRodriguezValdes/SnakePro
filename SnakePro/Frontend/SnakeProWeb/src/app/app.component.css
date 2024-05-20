@@ -1,0 +1,126 @@
+body{
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #32822b;
+  font-family: VideoGameFont, serif;
+}
+
+.snake-container {
+  display: flex;
+  justify-content: center;
+}
+
+.snake-board {
+  display: grid;
+  gap: 2px;
+  background-color: #ddd;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.snake-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 30px);
+}
+
+.snake-cell {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.snake-cell span {
+  font-size: 16px;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+.my-component {
+  font-family: 'VideoGameFont';
+}
+
+/* BUTTON */
+
+.start-btn{
+  text-align: center;
+  display: inline-block;
+  margin:5px;
+  font-weight: bold;
+  padding: 10px 0 10px 10px ;
+  background-color: lightgray;
+  text-shadow: -1px -1px black, 1px 1px white;
+  color: gray;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -o-border-radius: 7px;
+  border-radius: 7px;
+  box-shadow: 0 .2em gray;
+  cursor: pointer;
+  font-size: 25pt;
+
+}
+.start-btn:active {
+  box-shadow: none;
+  position: relative;
+  top: .2em;
+
+}
+
+/* NAVBAR */
+
+.snake-navbar ul li.login {
+  margin-left: auto;
+}
+
+
+.title {
+  font-size: 2em;
+  font-weight: bold;
+  color: #76ff03;
+  text-shadow: 2px 2px #000;
+  margin: 10px 10px;
+}
+
+
+h3 {
+  margin-left: 5px;
+}
+
+/* TITLE */
+.right-align {
+  text-align: right;
+  margin-right: 1em;
+}
+
+.score-section {
+  font-family: "Arcade Interlaced", sans-serif;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 1em;
+}
+
+.flex-container {
+  display: flex;
+  align-items: center;
+}
+
+.title-container {
+  flex-grow: 1;
+  margin-right: auto;
+
+}
+
+
+
+
+

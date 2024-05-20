@@ -1,12 +1,15 @@
 import { Injectable } from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import {CellType} from "../common/Board";
+import {BehaviorSubject, Subject} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SnakeComunicationsService {
   private hubConnection: signalR.HubConnection;
+
+  boardArray: CellType[][] = [];
 
   constructor() {
     this.hubConnection = new signalR.HubConnectionBuilder()
@@ -16,16 +19,19 @@ export class SnakeComunicationsService {
     this.hubConnection.on("ReceiveMessage", (message) => {
       console.log("Message received: ", message);
     });
-    this.hubConnection.on("ReceiveBoard", (boardArray : CellType [][]) => {
-      console.log("Board received: ", boardArray);
+    this.hubConnection.on("ReceiveBoard", (boardArray: CellType[][]) => {
+      this.boardArray = boardArray;
     });
   }
 
-  public startConnection(): Promise<void> {
-    return this.hubConnection
-      .start()
-      .then(() => console.log('Connection started'))
-      .catch(err => console.log('Error while starting connection: ' + err));
+  public async startConnection(): Promise<void> {
+    try {
+      await this.hubConnection
+        .start();
+      return console.log('Connection started');
+    } catch (err) {
+      return console.log('Error while starting connection: ' + err);
+    }
   }
 
   public sendMessage(message: string): void {
@@ -39,4 +45,9 @@ export class SnakeComunicationsService {
       .invoke("SendBoard", columns, rows)
       .catch(err => console.error(err));
   }
+
+  public getBoardArray(): CellType[][] {
+    return this.boardArray;
+  }
+
 }

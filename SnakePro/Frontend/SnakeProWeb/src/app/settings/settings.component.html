@@ -1,0 +1,25 @@
+<div id="settings-menu">
+  <div id="settings-content">
+    <h2>Settings</h2>
+
+    <div class="input-group">
+      <label for="board-cols">Board Cols:</label>
+      <input type="number" id="board-cols" [formControl]="boardCols" (change)="saveSettings()">
+      <div *ngIf="boardCols.errors?.['max']">
+        The maximum value is 30.
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label for="board-rows">Board Rows:</label>
+      <input type="number" id="board-rows" [formControl]="boardRows" (change)="saveSettings()">
+      <div *ngIf="boardRows.errors?.['max']">
+        The maximum value is 30.
+      </div>
+    </div>
+
+    <div class="button-group">
+      <button (click)="closeSettings()">Close</button>
+    </div>
+  </div>
+</div>
