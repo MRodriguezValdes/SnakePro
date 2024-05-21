@@ -13,10 +13,8 @@ public class Snake
 
     public void Move(int newX, int newY)
     {
-        var newHead = new SnakeNode(newX, newY)
-        {
-            Next = Head
-        };
-        Head = newHead;
+        var newHead = new SnakeNode(newX, newY);
+        Tail = newHead; // Update the tail to the previous head
+        Head = newHead; // Update the head to the new position
     }
 }

@@ -12,7 +12,6 @@ public class Board
         _board = new CellType[columns][];
         GenerateBoard(columns, rows);
         FillBoard();
-        PlaceSnakeAtRandomPosition();
     }
 
     private void GenerateBoard(int columns, int rows)
@@ -50,13 +49,6 @@ public class Board
 
         return (x, y);
     }
-
-    private void PlaceSnakeAtRandomPosition()
-    {
-        var (x, y) = GetRandomValidCell();
-        _board[x][y] = CellType.Snake;
-    }
-
     public CellType[][] GetBoard()
     {
         return _board;

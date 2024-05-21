@@ -27,7 +27,7 @@ public class GameController(IHubContext<ChatHub> hubContext) : ControllerBase
             "ArrowDown" => Movements.Down,
             "ArrowLeft" => Movements.Left,
             "ArrowRight" => Movements.Right,
-            _ => Movements.None
+            _ =>GameExecution.Instance.GetCurrentMovement()
         };
         Console.WriteLine($"Key pressed: {chosenMovement}");
         if (GameExecution.Instance.GetGameState() != GameStates.None)

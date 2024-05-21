@@ -30,6 +30,7 @@ public class GameExecution
         _board = new Board(columns, rows);
         var (startX, startY) = _board.GetRandomValidCell();
         _snake = new Snake.Snake(startX, startY);
+        _board.GetBoard()[startX][startY] = CellType.Snake; // Set the initial snake position
         _chatHub = chatHub;
         _gameState = GameStates.Running;
         Task.Run(() =>
@@ -51,23 +52,26 @@ public class GameExecution
     {
         _currentMovement = movement;
     }
-
+    public Movements GetCurrentMovement()
+    {
+        return _currentMovement;
+    }
     private void MoveSnake()
     {
         int newX = _snake.Head.X, newY = _snake.Head.Y;
         switch (_currentMovement)
         {
             case Movements.Up:
-                newY--;
+                newX--; // Move up
                 break;
             case Movements.Down:
-                newY++;
+                newX++; // Move down
                 break;
             case Movements.Left:
-                newX--;
+                newY--; // Move left
                 break;
             case Movements.Right:
-                newX++;
+                newY++; // Move right
                 break;
             case Movements.None:
                 return;
@@ -75,11 +79,14 @@ public class GameExecution
                 return;
         }
 
+        // Update the board cell where the snake's tail was to CellType.Empty
+        _board.GetBoard()[_snake.Tail.X][_snake.Tail.Y] = CellType.Empty;
+        
+        
         // Wrap the coordinates if they are out of the board bounds
         (newX, newY) = WrapCoordinates(newX, newY);
 
-        // Update the board cell where the snake's tail was to CellType.Empty
-        _board.GetBoard()[_snake.Tail.X][_snake.Tail.Y] = CellType.Empty;
+       
 
         // Move the snake to the new position
         _snake.Move(newX, newY);
@@ -88,7 +95,7 @@ public class GameExecution
         _board.GetBoard()[_snake.Head.X][_snake.Head.Y] = CellType.Snake;
         
         // Send the updated board to all clients
-          _chatHub.Clients.All.SendAsync("SnakeBoardUpdate",_board.GetBoard());
+        _chatHub.Clients.All.SendAsync("SnakeBoardUpdate",_board.GetBoard());
     }
 
     private (int, int) WrapCoordinates(int x, int y)
