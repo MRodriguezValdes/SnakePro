@@ -1,6 +1,7 @@
-import {ChangeDetectorRef, Component, OnInit, ViewEncapsulation} from '@angular/core';
-import {SnakeComunicationsService} from '../services/snake-comunications.service';
+import {ChangeDetectorRef, Component, HostListener, OnInit, ViewEncapsulation} from '@angular/core';
 import {CellType} from "../common/Board";
+import {SnakeCommunicationsService} from "../services/snake-communications.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-root',
@@ -32,18 +33,13 @@ export class AppComponent implements OnInit {
       }
     }
 
-    this.snakeComunicationsService.startConnection().then(() => {
-      this.snakeComunicationsService.sendMessage("hola");
-      this.snakeComunicationsService.sendBoard(this.boardCols, this.boardRows);
+    this.snakeCommunicationsService.startConnection().then(() => {
+      this.snakeCommunicationsService.sendMessage("hola");
+      this.snakeCommunicationsService.sendBoard(this.boardCols, this.boardRows);
       this.snakeCommunicationsService.getSnakeBoardUpdate().subscribe((board) => {
-        console.log("Board received: ", board);
+        this.boardArray = board;
       });
     });
-  }
-
-  updateBoardArray() {
-    this.boardArray = this.snakeComunicationsService.getBoardArray();
-    this.visible = false;
   }
 
   colorCell(row: number, col: number): string {
@@ -66,7 +62,7 @@ export class AppComponent implements OnInit {
 
   hideSettings() {
     this.settingsVisible = false;
-    this.snakeComunicationsService.sendBoard(this.boardCols, this.boardRows);
+    this.snakeCommunicationsService.sendBoard(this.boardCols, this.boardRows);
   }
   startGame(): void {
     this.snakeCommunicationsService.startGame(10, 10).subscribe(()=>console.log("Game started"));
