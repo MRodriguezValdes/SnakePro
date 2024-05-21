@@ -1,0 +1,92 @@
+#settings-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease;
+  opacity: 1;
+}
+
+#settings-menu.ng-hide {
+  opacity: 0;
+}
+
+#settings-content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 90%;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+#settings-content.ng-hide {
+  transform: translateY(-20px);
+  opacity: 0;
+}
+
+#settings-content h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+#settings-content label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+#settings-content input[type="number"] {
+  width: calc(100% - 20px);
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+#settings-content input[type="number"]::-webkit-inner-spin-button,
+#settings-content input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#settings-content input[type="number"]:hover,
+#settings-content input[type="number"]:focus {
+  border-color: #3eff65;
+}
+
+.button-group {
+  margin-top: 20px;
+}
+
+#settings-content button {
+  background-color: #3eff65;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+#settings-content button:hover {
+  background-color: #3ea62d;
+}
