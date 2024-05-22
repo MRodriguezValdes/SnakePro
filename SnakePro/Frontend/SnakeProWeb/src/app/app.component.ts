@@ -17,7 +17,8 @@ export class AppComponent implements OnInit {
   boardRows: number = 20;
   score: number = 0;
   bestScore: number = 0;
-
+  public errorsVisible = false;
+  public errorMessage: string = '';
 
   constructor(public snakeComunicationsService: SnakeComunicationsService) {
   }
@@ -38,6 +39,12 @@ export class AppComponent implements OnInit {
       this.snakeComunicationsService.sendMessage("hola");
       this.snakeComunicationsService.sendBoard(this.boardCols, this.boardRows);
     });
+
+    this.snakeComunicationsService.errorOccurred.subscribe((error) => {
+      this.errorsVisible = true;
+      this.errorMessage = error;
+    });
+
   }
 
   updateBoardArray() {
@@ -66,5 +73,9 @@ export class AppComponent implements OnInit {
   hideSettings() {
     this.settingsVisible = false;
     this.snakeComunicationsService.sendBoard(this.boardCols, this.boardRows);
+  }
+
+  hideErrors() {
+    this.errorsVisible = false;
   }
 }

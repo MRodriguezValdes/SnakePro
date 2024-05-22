@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import {CellType} from "../common/Board";
 import {BehaviorSubject, Subject} from "rxjs";
@@ -8,6 +8,8 @@ import {BehaviorSubject, Subject} from "rxjs";
 })
 export class SnakeComunicationsService {
   private hubConnection: signalR.HubConnection;
+  public errorOccurred = new EventEmitter<string>();
+
 
   boardArray: CellType[][] = [];
 
@@ -26,11 +28,17 @@ export class SnakeComunicationsService {
 
   public async startConnection(): Promise<void> {
     try {
-      await this.hubConnection
-        .start();
-      return console.log('Connection started');
+      await this.hubConnection.start();
+      console.log('Connection started');
     } catch (err) {
-      return console.log('Error while starting connection: ' + err);
+      if (err instanceof Error) {
+        console.log('Error while starting connection: ' + err.message);
+        this.errorOccurred.emit(err.message);
+      } else {
+        // Handle unexpected error type
+        console.log('Unexpected error while starting connection: ' + err);
+        this.errorOccurred.emit(String(err));
+      }
     }
   }
 
