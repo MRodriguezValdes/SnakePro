@@ -22,15 +22,6 @@ export class SnakeCommunicationsService {
       if (error) {
         this.errorOccurred.emit(error.message);
       }
-
-
-      setTimeout(() => {
-        this.startConnection().then(() => {
-          this.errorOccurred.emit('La conexión ha sido restablecida');
-        }).catch((error) => {
-          console.log('Error while restarting connection: ' + error.message);
-        });
-      }, 5000);
     });
 
 
