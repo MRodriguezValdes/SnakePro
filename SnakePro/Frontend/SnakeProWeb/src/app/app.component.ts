@@ -23,10 +23,7 @@ export class AppComponent implements OnInit {
   public errorsVisible = false;
   public errorMessage: string = '';
 
-  constructor(public snakeComunicationsService: SnakeComunicationsService) {
-  }
-
-  ngOnInit() {
+    ngOnInit() {
     if (typeof window !== 'undefined') {
       const savedboardCols = localStorage.getItem('boardCols');
       if (savedboardCols !== null) {
@@ -47,17 +44,13 @@ export class AppComponent implements OnInit {
       });
     });
 
-    this.snakeComunicationsService.errorOccurred.subscribe((error) => {
+    this.snakeCommunicationsService.errorOccurred.subscribe((error) => {
       this.errorsVisible = true;
       this.errorMessage = error;
     });
 
   }
 
-  updateBoardArray() {
-    this.boardArray = this.snakeComunicationsService.getBoardArray();
-    this.visible = false;
-  }
 
   colorCell(row: number, col: number): string {
     switch (this.boardArray[row][col]) {
@@ -82,7 +75,7 @@ export class AppComponent implements OnInit {
     this.snakeCommunicationsService.sendBoard(this.boardCols, this.boardRows);
   }
   startGame(): void {
-    this.snakeCommunicationsService.startGame(10, 10).subscribe(()=>console.log("Game started"));
+    this.snakeCommunicationsService.startGame(this.boardCols, this.boardRows).subscribe(()=>console.log("Game started"));
   }
   @HostListener('document:keydown', ['$event'])
   handleKeyPress(event: KeyboardEvent) {

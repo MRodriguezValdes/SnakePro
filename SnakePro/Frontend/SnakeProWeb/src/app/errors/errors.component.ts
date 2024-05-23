@@ -1,5 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import { SnakeComunicationsService } from "../../services/snake-comunications.service";
+import { SnakeCommunicationsService } from "../../services/snake-communications.service";
 
 @Component({
   selector: 'app-errors',
@@ -9,8 +9,9 @@ import { SnakeComunicationsService } from "../../services/snake-comunications.se
 export class ErrorsComponent implements OnInit {
   @Output() close = new EventEmitter<void>();
   @Input() errorMessage: string = '';
+  public backgroundcolor: string = '#ff4c4c';
 
-  constructor(public snakeComunicationsService: SnakeComunicationsService) { }
+  constructor(public snakeComunicationsService: SnakeCommunicationsService) { }
 
   ngOnInit() {
     /*

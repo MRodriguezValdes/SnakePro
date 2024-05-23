@@ -1,5 +1,5 @@
 <div class="error-container">
-  <div class="error-message">
+  <div class="error-message" [ngStyle]="{'background-color': backgroundcolor}">
     <p>{{errorMessage}}</p>
     <p>Please restart the server</p>
     <button class="error-button" (click)="closeErrors()">Close</button>
