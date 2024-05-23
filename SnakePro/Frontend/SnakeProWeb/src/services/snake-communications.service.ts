@@ -62,6 +62,10 @@ export class SnakeCommunicationsService {
     return this.http.post('http://localhost:5273/api/Game/SetMovement', body, {'headers': headers});
   }
 
+  public pauseGame(): Observable<any> {
+    return this.http.post('http://localhost:5273/api/Game/Pause', null);
+  }
+
   public startGame(columns: number, rows: number): Observable<any> {
     const headers = {'content-type': 'application/json'};
     const body = JSON.stringify({columns, rows});

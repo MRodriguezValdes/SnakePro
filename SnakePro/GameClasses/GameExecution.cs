@@ -52,6 +52,10 @@ public class GameExecution
     {
         _gameState = GameStates.Paused;
     }
+    public void ResumeGame()
+    {
+        _gameState = GameStates.Running;
+    }
 
     public void ChangeCurrentMovement(Movements movement)
     {

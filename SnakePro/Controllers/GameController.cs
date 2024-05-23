@@ -36,6 +36,25 @@ public class GameController(IHubContext<ChatHub> hubContext) : ControllerBase
         }
         return Ok();
     }
+    
+    [HttpPost("PauseGame")]
+    public IActionResult PauseGame()
+    {
+        var currentGameState = GameExecution.Instance.GetGameState();
+        switch (currentGameState)
+        {
+            case GameStates.Running:
+                GameExecution.Instance.PauseGame();
+                break;
+            case GameStates.Paused:
+                // Assuming you have a method to resume the game
+                GameExecution.Instance.ResumeGame();
+                break;
+            default:
+                return BadRequest("Game is not running");
+        }
+        return Ok();
+    }
 }
 public class StartGameRequest
 {
