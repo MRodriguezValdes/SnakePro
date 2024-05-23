@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, HostListener, OnInit, ViewEncapsulation} from '@angular/core';
-import {CellType} from "../common/Board";
+import {CellType, GameStates} from "../common/Enums";
 import {SnakeCommunicationsService} from "../services/snake-communications.service";
 import {HttpClient} from "@angular/common/http";
 
@@ -41,6 +41,9 @@ export class AppComponent implements OnInit {
       this.snakeCommunicationsService.getSnakeBoardUpdate().subscribe((board) => {
         console.log("Board received: ", board)
         this.boardArray = board;
+      });
+      this.snakeCommunicationsService.getGameStates().subscribe((gameState:GameStates) => {
+        console.log("Game state received: ", gameState)
       });
     });
 

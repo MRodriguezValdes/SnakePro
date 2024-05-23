@@ -24,6 +24,13 @@ public class Snake
         {
             // If the snake didn't eat, remove the tail
             _nodes.RemoveLast();
+        }else
+        {
+            board.GenerateFood(1);
         }
+    }
+    public bool CheckCollision(int x, int y)
+    {
+        return _nodes.Any(node => node != null && node.X == x && node.Y == y);
     }
 }
