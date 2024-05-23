@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import {CellType} from "../common/Board";
 import {Observable, Subject} from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +19,10 @@ export class SnakeCommunicationsService {
     this.hubConnection.on("ReceiveMessage", (message) => {
       console.log("Message received: ", message);
     });
-    this.hubConnection.on("ReceiveTestBoard", (boardArray : CellType [][]) => {
+    this.hubConnection.on("ReceiveTestBoard", (boardArray: CellType [][]) => {
       console.log(" Test Board received: ", boardArray);
     });
-    this.hubConnection.on("SnakeBoardUpdate", (boardArray : CellType [][]) => {
+    this.hubConnection.on("SnakeBoardUpdate", (boardArray: CellType [][]) => {
       this.snakeBoardUpdate.next(boardArray);
     });
   }
@@ -40,23 +40,25 @@ export class SnakeCommunicationsService {
       .catch(err => console.error(err));
   }
 
-  public sendBoard(columns : number , rows : number): void {
+  public sendBoard(columns: number, rows: number): void {
     this.hubConnection
       .invoke("SendTestBoard", columns, rows)
       .catch(err => console.error(err));
   }
 
-  public setMovement(key: string): Observable<any> {
-    const headers = { 'content-type': 'application/json' };
-    const body = JSON.stringify(key);
-    return this.http.post('http://localhost:5273/api/Game/SetMovement', body, { 'headers': headers });
-  }
   public getSnakeBoardUpdate(): Observable<any[][]> {
     return this.snakeBoardUpdate.asObservable();
   }
+
+  public setMovement(key: string): Observable<any> {
+    const headers = {'content-type': 'application/json'};
+    const body = JSON.stringify(key);
+    return this.http.post('http://localhost:5273/api/Game/SetMovement', body, {'headers': headers});
+  }
+
   public startGame(columns: number, rows: number): Observable<any> {
-    const headers = { 'content-type': 'application/json' };
-    const body = JSON.stringify({ columns, rows });
-    return this.http.post(`http://localhost:5273/api/Game/start`, body, { 'headers': headers });
+    const headers = {'content-type': 'application/json'};
+    const body = JSON.stringify({columns, rows});
+    return this.http.post(`http://localhost:5273/api/Game/start`, body, {'headers': headers});
   }
 }

@@ -37,6 +37,7 @@ export class AppComponent implements OnInit {
       this.snakeCommunicationsService.sendMessage("hola");
       this.snakeCommunicationsService.sendBoard(this.boardCols, this.boardRows);
       this.snakeCommunicationsService.getSnakeBoardUpdate().subscribe((board) => {
+        console.log("Board received: ", board)
         this.boardArray = board;
       });
     });
