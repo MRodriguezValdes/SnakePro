@@ -9,13 +9,15 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { SettingsComponent } from './settings/settings.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ErrorsComponent } from './errors/errors.component';
+import { GameOverComponent } from './game-over/game-over.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     SettingsComponent,
-    ErrorsComponent
+    ErrorsComponent,
+    GameOverComponent
   ],
   imports: [
     BrowserModule,

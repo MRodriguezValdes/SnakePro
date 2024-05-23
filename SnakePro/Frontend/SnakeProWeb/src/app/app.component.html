@@ -25,5 +25,5 @@
 
 <app-settings *ngIf="settingsVisible" (close)="hideSettings()"></app-settings>
 <app-errors *ngIf="errorsVisible" [errorMessage]="errorMessage" (close)="hideErrors()"></app-errors>
-
+<app-game-over *ngIf="gameOverVisible" [score]="score" (close)="hideGameOver()"></app-game-over>
 

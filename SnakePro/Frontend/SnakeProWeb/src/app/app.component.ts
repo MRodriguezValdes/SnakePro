@@ -14,6 +14,7 @@ export class AppComponent implements OnInit {
   public boardArray: CellType[][] = [];
   public visible: boolean = true;
   settingsVisible = false;
+  gameOverVisible = false;
   boardCols: number = 20;
   boardRows: number = 20;
   score: number = 0;
@@ -44,6 +45,10 @@ export class AppComponent implements OnInit {
       });
       this.snakeCommunicationsService.getGameStates().subscribe((gameState:GameStates) => {
         console.log("Game state received: ", gameState)
+        if (gameState === GameStates.GameOver) {
+          this.score = 0;
+          this.gameOverVisible = true;
+        }
       });
     });
 
@@ -88,5 +93,9 @@ export class AppComponent implements OnInit {
 
   hideErrors() {
     this.errorsVisible = false;
+  }
+
+  hideGameOver() {
+    this.gameOverVisible = false;
   }
 }
