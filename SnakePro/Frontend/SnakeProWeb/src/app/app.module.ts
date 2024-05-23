@@ -8,12 +8,14 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import { NavbarComponent } from './navbar/navbar.component';
 import { SettingsComponent } from './settings/settings.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { ErrorsComponent } from './errors/errors.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    SettingsComponent
+    SettingsComponent,
+    ErrorsComponent
   ],
   imports: [
     BrowserModule,
