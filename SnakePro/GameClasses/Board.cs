@@ -53,4 +53,12 @@ public class Board
     {
         return _board;
     }
+    public void GenerateFood(int howMany)
+    {
+        for (var i = 0; i < howMany; i++)
+        {
+            var (x, y) =GetRandomValidCell();
+            _board[x][y] = CellType.Food;
+        }
+    }
 }

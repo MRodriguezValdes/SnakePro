@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import * as signalR from '@microsoft/signalr';
-import {CellType} from "../common/Board";
+import {CellType, GameStates} from "../common/Enums";
 import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 
@@ -10,7 +10,7 @@ import {HttpClient} from '@angular/common/http';
 export class SnakeCommunicationsService {
   private hubConnection: signalR.HubConnection;
   private snakeBoardUpdate = new Subject<CellType[][]>()
-
+  private gameStares = new Subject<GameStates>()
   constructor(private http: HttpClient) {
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl("http://localhost:5273/chathub")
@@ -24,6 +24,9 @@ export class SnakeCommunicationsService {
     });
     this.hubConnection.on("SnakeBoardUpdate", (boardArray: CellType [][]) => {
       this.snakeBoardUpdate.next(boardArray);
+    });
+    this.hubConnection.on("GameStates", (gameState: GameStates) => {
+      this.gameStares.next(gameState);
     });
   }
 
@@ -50,6 +53,9 @@ export class SnakeCommunicationsService {
     return this.snakeBoardUpdate.asObservable();
   }
 
+  public getGameStates(): Observable<GameStates> {
+    return this.gameStares.asObservable();
+  }
   public setMovement(key: string): Observable<any> {
     const headers = {'content-type': 'application/json'};
     const body = JSON.stringify(key);

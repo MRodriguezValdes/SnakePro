@@ -33,7 +33,7 @@ public class GameExecution
         var (startX, startY) = _board.GetRandomValidCell();
         _snake = new Snake.Snake(startX, startY);
         _board.GetBoard()[startX][startY] = CellType.Snake; // Set the initial snake position
-        GenerateFood(4);
+        _board.GenerateFood(4);
         _chatHub = chatHub;
         _gameState = GameStates.Running;
         // Send the initial board to all clients
@@ -91,6 +91,12 @@ public class GameExecution
 
         // Wrap the coordinates if they are out of the board bounds
         (newX, newY) = WrapCoordinates(newX, newY);
+        if (_snake.CheckCollision(newX, newY))
+        {
+            _gameState = GameStates.GameOver;
+            _chatHub?.Clients.All.SendAsync("GameStates",_gameState);
+            return;
+        }
 
         // Get the current tail position before moving the snake
         var oldTailX = _snake.Tail.X;
@@ -133,14 +139,5 @@ public class GameExecution
     public GameStates GetGameState()
     {
         return _gameState;
-    }
-
-    public void GenerateFood(int howMany)
-    {
-        for (var i = 0; i < howMany; i++)
-        {
-            var (x, y) = _board.GetRandomValidCell();
-            _board.GetBoard()[x][y] = CellType.Food;
-        }
     }
 }
