@@ -20,8 +20,10 @@ export class AppComponent implements OnInit {
   bestScore: number = 0;
 
   constructor(private snakeCommunicationsService: SnakeCommunicationsService, private http:HttpClient) { }
+  public errorsVisible = false;
+  public errorMessage: string = '';
 
-  ngOnInit() {
+    ngOnInit() {
     if (typeof window !== 'undefined') {
       const savedboardCols = localStorage.getItem('boardCols');
       if (savedboardCols !== null) {
@@ -44,7 +46,14 @@ export class AppComponent implements OnInit {
         console.log("Game state received: ", gameState)
       });
     });
+
+    this.snakeCommunicationsService.errorOccurred.subscribe((error) => {
+      this.errorsVisible = true;
+      this.errorMessage = error;
+    });
+
   }
+
 
   colorCell(row: number, col: number): string {
     switch (this.boardArray[row][col]) {
@@ -69,11 +78,15 @@ export class AppComponent implements OnInit {
     this.snakeCommunicationsService.sendBoard(this.boardCols, this.boardRows);
   }
   startGame(): void {
-    this.snakeCommunicationsService.startGame(10, 10).subscribe(()=>console.log("Game started"));
+    this.snakeCommunicationsService.startGame(this.boardCols, this.boardRows).subscribe(()=>console.log("Game started"));
   }
   @HostListener('document:keydown', ['$event'])
   handleKeyPress(event: KeyboardEvent) {
     this.snakeCommunicationsService.setMovement(event.key).subscribe();
   }
 
+
+  hideErrors() {
+    this.errorsVisible = false;
+  }
 }

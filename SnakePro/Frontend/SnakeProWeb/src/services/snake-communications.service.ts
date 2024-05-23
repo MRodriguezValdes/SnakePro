@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import * as signalR from '@microsoft/signalr';
 import {CellType, GameStates} from "../common/Enums";
 import {Observable, Subject} from 'rxjs';
@@ -11,10 +11,27 @@ export class SnakeCommunicationsService {
   private hubConnection: signalR.HubConnection;
   private snakeBoardUpdate = new Subject<CellType[][]>()
   private gameStares = new Subject<GameStates>()
+  public errorOccurred = new EventEmitter<string>();
+
   constructor(private http: HttpClient) {
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl("http://localhost:5273/chathub")
       .build();
+
+    this.hubConnection.onclose((error) => {
+      console.log('Connection closed');
+      if (error) {
+        this.errorOccurred.emit(error.message);
+      }
+    });
+
+
+    this.hubConnection.onreconnected((connectionId) => {
+      console.log('Connection reestablished');
+      this.errorOccurred.emit('La conexión ha sido restablecida');
+    });
+
+
 
     this.hubConnection.on("ReceiveMessage", (message) => {
       console.log("Message received: ", message);
@@ -31,10 +48,19 @@ export class SnakeCommunicationsService {
   }
 
   public async startConnection(): Promise<void> {
-    return this.hubConnection
-      .start()
-      .then(() => console.log('Connection started'))
-      .catch(err => console.log('Error while starting connection: ' + err));
+    try {
+      await this.hubConnection.start();
+      console.log('Connection started');
+    } catch (err) {
+      if (err instanceof Error) {
+        console.log('Error while starting connection: ' + err.message);
+        this.errorOccurred.emit(err.message);
+      } else {
+        // Handle unexpected error type
+        console.log('Unexpected error while starting connection: ' + err);
+        this.errorOccurred.emit(String(err));
+      }
+    }
   }
 
   public sendMessage(message: string): void {
