@@ -16,7 +16,6 @@
     <ItemGroup>
       <Folder Include="Frontend\" />
       <Folder Include="Frontend\SnakeProWeb\src\services\" />
-      <Folder Include="GameClasses\" />
     </ItemGroup>
 
 </Project>

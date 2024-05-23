@@ -14,13 +14,13 @@
 
 <div class="snake-container">
   <div class="snake-row" *ngFor="let row of boardArray; let i = index">
-    <div class="snake-cell" *ngFor="let cell of row; let j = index" [ngStyle]="{'background-color': colorCell(i, j)}">
-      <span>{{ cell }}</span>
+    <div class="snake-cell" *ngFor="let cell of row; let j = index" [ngStyle]="{'background-color': colorCell(j, i)}">
+      <span></span>
     </div>
   </div>
 </div>
 
-<span class='start-btn' *ngIf="visible" (click)="updateBoardArray()">START</span>
+<span class='start-btn' *ngIf="visible" (click)="startGame()">START</span>
 <span class='start-btn' style=" float: right;" (click)="showSettings()">SETTINGS</span>
 
 <app-settings *ngIf="settingsVisible" (close)="hideSettings()"></app-settings>

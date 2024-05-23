@@ -11,10 +11,10 @@ public class ChatHub : Hub
         await Clients.All.SendAsync("ReceiveMessage", message);
     }
 
-    public async Task SendBoard( int columns, int rows)
+    public async Task SendTestBoard( int columns, int rows)
     {
         // Create a new board
          Board board = new Board(columns,rows);
-        await Clients.All.SendAsync("ReceiveBoard", board.GetBoard());
+        await Clients.All.SendAsync("ReceiveTestBoard", board.GetBoard());
     }
 }
