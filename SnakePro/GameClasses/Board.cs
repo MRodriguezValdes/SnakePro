@@ -10,41 +10,45 @@ public class Board
     public Board(int columns, int rows)
     {
         _board = new CellType[columns][];
-        for (int i = 0; i < columns; i++)
+        GenerateBoard(columns, rows);
+        FillBoard();
+    }
+
+    private void GenerateBoard(int columns, int rows)
+    {
+        for (var i = 0; i < columns; i++)
         {
             _board[i] = new CellType[rows];
         }
-        FillBoard();
     }
 
     private void FillBoard()
     {
-        for (int i = 0; i < _board.Length; i++)
+        foreach (var row in _board)
         {
-            for (int j = 0; j < _board[i].Length; j++)
+            for (var columns = 0; columns < row.Length; columns++)
             {
-                _board[i][j] = CellType.Empty;
-            }
-        }
-
-        // Generate random objects
-        for (int i = 0; i < _board.Length; i++)
-        {
-            for (int j = 0; j < _board[i].Length; j++)
-            {
-                // Check if the cell is empty
-                if (_board[i][j] == CellType.Empty)
-                {
-                    // Generate a random number between 1 and 3
-                    int randomNumber = _random.Next(0, 4);
-
-                    // Place a random object in the cell
-                    _board[i][j] = (CellType)randomNumber;
-                }
+                row[columns] = CellType.Empty;
             }
         }
     }
 
+    private bool IsValidCell(int x, int y)
+    {
+        return x >= 0 && x < _board.Length && y >= 0 && y < _board[0].Length && _board[x][y] == CellType.Empty;
+    }
+
+    public (int, int) GetRandomValidCell()
+    {
+        int x, y;
+        do
+        {
+            x = _random.Next(0, _board.Length);
+            y = _random.Next(0, _board[0].Length);
+        } while (!IsValidCell(x, y));
+
+        return (x, y);
+    }
     public CellType[][] GetBoard()
     {
         return _board;

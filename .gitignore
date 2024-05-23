@@ -2,4 +2,4 @@
 obj/
 Debug/
 .idea/
-bin/Debug/
+*.exe

@@ -1,6 +1,6 @@
 import {Component, Output, EventEmitter, OnInit} from '@angular/core';
-import {SnakeComunicationsService} from "../../services/snake-comunications.service";
 import {FormControl, Validators} from "@angular/forms";
+import {SnakeCommunicationsService} from "../../services/snake-communications.service";
 
 @Component({
   selector: 'app-settings',
@@ -12,7 +12,7 @@ export class SettingsComponent implements OnInit {
   boardCols = new FormControl(20, [Validators.min(10), Validators.max(30)]);
   boardRows = new FormControl(20, [Validators.min(10), Validators.max(30)]);
 
-  constructor(public snakeComunicationsService: SnakeComunicationsService) {
+  constructor(public snakeCommunicationsService: SnakeCommunicationsService) {
   }
 
   ngOnInit() {
@@ -59,6 +59,6 @@ export class SettingsComponent implements OnInit {
 
   closeSettings() {
     this.close.emit();
-    this.snakeComunicationsService.sendBoard(this.boardCols.value ?? 20, this.boardRows.value ?? 20);
+    this.snakeCommunicationsService.sendBoard(this.boardCols.value ?? 20, this.boardRows.value ?? 20);
   }
 }
