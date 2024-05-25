@@ -3,3 +3,12 @@ obj/
 Debug/
 .idea/
 *.exe
+/build/
+*.iml
+.gradle
+/local.properties/
+.DS_Store
+/captures/
+.externalNativeBuild/
+.cxx
+local.properties

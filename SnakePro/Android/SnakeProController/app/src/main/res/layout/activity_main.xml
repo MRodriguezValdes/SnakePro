@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="white">
+
+    <LinearLayout
+        android:id="@+id/directional_pad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/button_up"
+            style="@style/NESButton"
+            android:layout_gravity="center"
+            android:text="↑"
+            android:textColorLink="#CC2E2E" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#DA2A2A"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_left"
+                style="@style/NESButton"
+                android:text="←" />
+
+            <View
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="red"/>
+
+            <Button
+                android:id="@+id/button_right"
+                style="@style/NESButton"
+                android:text="→" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_down"
+            style="@style/NESButton"
+            android:text="↓"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
+</RelativeLayout>
