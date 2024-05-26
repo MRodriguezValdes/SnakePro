@@ -10,49 +10,73 @@ namespace WebApplication2.Controllers;
 [ApiController]
 public class GameController(IHubContext<ChatHub> hubContext) : ControllerBase
 {
-    [HttpPost("start")]
-    public IActionResult StartGame([FromBody]StartGameRequest startGameRequest)
+    [HttpPost("Start")]
+    public IActionResult StartGame([FromBody] StartGameRequest startGameRequest)
     {
         Console.WriteLine($"Starting game with {startGameRequest.Columns} columns and {startGameRequest.Rows} rows");
-        GameExecution.Instance.StartGame(startGameRequest.Columns, startGameRequest.Rows, hubContext);
+        GameExecution.Instance?.StartGame(startGameRequest.Columns, startGameRequest.Rows, hubContext);
         return Ok();
     }
 
     [HttpPost("SetMovement")]
     public IActionResult SetMovement([FromBody] string key)
     {
+        var currentMovement = GameExecution.Instance?.GetCurrentMovement();
         var chosenMovement = key switch
         {
             "ArrowUp" => Movements.Up,
             "ArrowDown" => Movements.Down,
             "ArrowLeft" => Movements.Left,
             "ArrowRight" => Movements.Right,
-            _ =>GameExecution.Instance.GetCurrentMovement()
+            _ => GameExecution.Instance?.GetCurrentMovement()
         };
-        Console.WriteLine($"Key pressed: {chosenMovement}");
-        if (GameExecution.Instance.GetGameState() != GameStates.None)
+        // Check if the chosen movement is the opposite of the current movement
+        if ((currentMovement == Movements.Up && chosenMovement == Movements.Down) ||
+            (currentMovement == Movements.Down && chosenMovement == Movements.Up) ||
+            (currentMovement == Movements.Left && chosenMovement == Movements.Right) ||
+            (currentMovement == Movements.Right && chosenMovement == Movements.Left))
         {
-            GameExecution.Instance.ChangeCurrentMovement(chosenMovement);
+            return BadRequest("Invalid movement");
         }
+
+        Console.WriteLine($"Key pressed: {chosenMovement}");
+        if (GameExecution.Instance?.GameState != GameStates.None)
+        {
+            GameExecution.Instance?.ChangeCurrentMovement(chosenMovement);
+        }
+
         return Ok();
     }
-    
+
     [HttpPost("PauseGame")]
     public IActionResult PauseGame()
     {
-        var currentGameState = GameExecution.Instance.GetGameState();
-        switch (currentGameState)
+        var currentGameState = GameExecution.Instance?.GameState;
+        if (currentGameState == GameStates.Running)
         {
-            case GameStates.Running:
-                GameExecution.Instance.PauseGame();
-                break;
-            case GameStates.Paused:
-                // Assuming you have a method to resume the game
-                GameExecution.Instance.ResumeGame();
-                break;
-            default:
-                return BadRequest("Game is not running");
+            if (GameExecution.Instance != null) GameExecution.Instance.PauseGame();
         }
+        else
+        {
+            return BadRequest("Game is not running");
+        }
+
+        return Ok();
+    }
+
+    [HttpPost("ResumeGame")]
+    public IActionResult ResumeGame()
+    {
+        var currentGameState = GameExecution.Instance?.GameState;
+        if (currentGameState == GameStates.Paused)
+        {
+            if (GameExecution.Instance != null) GameExecution.Instance.ResumeGame();
+        }
+        else
+        {
+            return BadRequest("Game is not paused");
+        }
+
         return Ok();
     }
 }

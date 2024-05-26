@@ -19,11 +19,13 @@ export class AppComponent implements OnInit {
   score: number = 0;
   bestScore: number = 0;
 
-  constructor(private snakeCommunicationsService: SnakeCommunicationsService, private http:HttpClient) { }
+  constructor(private snakeCommunicationsService: SnakeCommunicationsService, private http: HttpClient) {
+  }
+
   public errorsVisible = false;
   public errorMessage: string = '';
 
-    ngOnInit() {
+  ngOnInit() {
     if (typeof window !== 'undefined') {
       const savedboardCols = localStorage.getItem('boardCols');
       if (savedboardCols !== null) {
@@ -42,7 +44,7 @@ export class AppComponent implements OnInit {
         console.log("Board received: ", board)
         this.boardArray = board;
       });
-      this.snakeCommunicationsService.getGameStates().subscribe((gameState:GameStates) => {
+      this.snakeCommunicationsService.getGameStates().subscribe((gameState: GameStates) => {
         console.log("Game state received: ", gameState)
       });
     });
@@ -69,6 +71,7 @@ export class AppComponent implements OnInit {
         return 'white';
     }
   }
+
   showSettings() {
     this.settingsVisible = true;
   }
@@ -77,12 +80,20 @@ export class AppComponent implements OnInit {
     this.settingsVisible = false;
     this.snakeCommunicationsService.sendBoard(this.boardCols, this.boardRows);
   }
+
   startGame(): void {
-    this.snakeCommunicationsService.startGame(this.boardCols, this.boardRows).subscribe(()=>console.log("Game started"));
+    this.snakeCommunicationsService.startGame(this.boardCols, this.boardRows).subscribe(() => console.log("Game started"));
   }
+
   @HostListener('document:keydown', ['$event'])
   handleKeyPress(event: KeyboardEvent) {
-    this.snakeCommunicationsService.setMovement(event.key).subscribe();
+    if (event.key === 'p') {
+      this.snakeCommunicationsService.pauseGame().subscribe();
+    } else if (event.key === ' ') {
+      this.snakeCommunicationsService.resumeGame().subscribe();
+    } else {
+      this.snakeCommunicationsService.setMovement(event.key).subscribe();
+    }
   }
 
 

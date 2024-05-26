@@ -32,7 +32,6 @@ export class SnakeCommunicationsService {
     });
 
 
-
     this.hubConnection.on("ReceiveMessage", (message) => {
       console.log("Message received: ", message);
     });
@@ -82,6 +81,7 @@ export class SnakeCommunicationsService {
   public getGameStates(): Observable<GameStates> {
     return this.gameStares.asObservable();
   }
+
   public setMovement(key: string): Observable<any> {
     const headers = {'content-type': 'application/json'};
     const body = JSON.stringify(key);
@@ -89,12 +89,16 @@ export class SnakeCommunicationsService {
   }
 
   public pauseGame(): Observable<any> {
-    return this.http.post('http://localhost:5273/api/Game/Pause', null);
+    return this.http.post('http://localhost:5273/api/Game/PauseGame', null);
+  }
+
+  public resumeGame(): Observable<any> {
+    return this.http.post('http://localhost:5273/api/Game/ResumeGame', null);
   }
 
   public startGame(columns: number, rows: number): Observable<any> {
     const headers = {'content-type': 'application/json'};
     const body = JSON.stringify({columns, rows});
-    return this.http.post(`http://localhost:5273/api/Game/start`, body, {'headers': headers});
+    return this.http.post(`http://localhost:5273/api/Game/Start`, body, {'headers': headers});
   }
 }

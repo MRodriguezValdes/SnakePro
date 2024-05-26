@@ -6,42 +6,46 @@ namespace WebApplication2.GameClasses;
 
 public class GameExecution
 {
-    private static GameExecution _instance;
-
-    public static GameExecution Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = new GameExecution();
-            }
-
-            return _instance;
-        }
-    }
-
+    private static GameExecution? _instance;
+    private GameStates? _gameState;
     private Board? _board;
-    private GameStates _gameState = GameStates.None;
-    private Movements _currentMovement = Movements.None;
+    private Movements? _currentMovement = Movements.None;
     private Snake.Snake? _snake;
     private IHubContext<ChatHub>? _chatHub;
 
+    public static GameExecution? Instance => _instance ??= new GameExecution();
+
+    public GameStates? GameState
+    {
+        get => _gameState;
+        private set
+        {
+            _gameState = value;
+            _chatHub?.Clients.All.SendAsync("GameStates", _gameState);
+        }
+    }
     public void StartGame(int columns, int rows, IHubContext<ChatHub>? chatHub)
     {
+        _chatHub = chatHub;
+        GameState = GameStates.Running;
         _board = new Board(columns, rows);
+
         var (startX, startY) = _board.GetRandomValidCell();
         _snake = new Snake.Snake(startX, startY);
         _board.GetBoard()[startX][startY] = CellType.Snake; // Set the initial snake position
         _board.GenerateFood(4);
-        _chatHub = chatHub;
-        _gameState = GameStates.Running;
+
         // Send the initial board to all clients
         _chatHub?.Clients.All.SendAsync("SnakeBoardUpdate", _board.GetBoard());
         Task.Run(() =>
         {
-            while (_gameState == GameStates.Running)
+            while (GameState is GameStates.Running or GameStates.Paused)
             {
+                while (GameState is GameStates.Paused)
+                {
+                    Thread.Sleep(100);
+                }
+
                 MoveSnake();
                 Task.Delay(TimeSpan.FromMilliseconds(200)).Wait();
             }
@@ -50,19 +54,20 @@ public class GameExecution
 
     public void PauseGame()
     {
-        _gameState = GameStates.Paused;
-    }
-    public void ResumeGame()
-    {
-        _gameState = GameStates.Running;
+        GameState = GameStates.Paused;
     }
 
-    public void ChangeCurrentMovement(Movements movement)
+    public void ResumeGame()
+    {
+        GameState = GameStates.Running;
+    }
+
+    public void ChangeCurrentMovement(Movements? movement)
     {
         _currentMovement = movement;
     }
 
-    public Movements GetCurrentMovement()
+    public Movements? GetCurrentMovement()
     {
         return _currentMovement;
     }
@@ -71,7 +76,7 @@ public class GameExecution
     {
         // Returns if the snake's head, tail, or the game board is null.
         if (_snake is not { Head: not null } || _snake.Tail == null || _board == null) return;
-        
+
         int newX = _snake.Head.X, newY = _snake.Head.Y;
         switch (_currentMovement)
         {
@@ -97,8 +102,7 @@ public class GameExecution
         (newX, newY) = WrapCoordinates(newX, newY);
         if (_snake.CheckCollision(newX, newY))
         {
-            _gameState = GameStates.GameOver;
-            _chatHub?.Clients.All.SendAsync("GameStates",_gameState);
+            GameState = GameStates.GameOver;
             return;
         }
 
@@ -138,10 +142,5 @@ public class GameExecution
         }
 
         return (x, y);
-    }
-
-    public GameStates GetGameState()
-    {
-        return _gameState;
     }
 }
