@@ -6,15 +6,41 @@ namespace WebApplication2.GameClasses;
 
 public class GameExecution
 {
+    /// <summary>
+    /// Singleton instance of the GameExecution class.
+    /// </summary>
     private static GameExecution? _instance;
+
+    /// <summary>
+    /// Current state of the game.
+    /// </summary>
     private GameStates? _gameState;
+
+    /// <summary>
+    /// The game board.
+    /// </summary>
     private Board? _board;
+
+    /// <summary>
+    /// Current movement direction of the snake.
+    /// </summary>
     private Movements? _currentMovement = Movements.None;
+
+    /// <summary>
+    /// The snake in the game.
+    /// </summary>
     private Snake.Snake? _snake;
+
+    /// <summary>
+    /// Context for the SignalR hub.
+    /// </summary>
     private IHubContext<ChatHub>? _chatHub;
 
     public static GameExecution? Instance => _instance ??= new GameExecution();
 
+    /// <summary>
+    /// Gets the current state of the game and sends changes via SignalR.
+    /// </summary>
     public GameStates? GameState
     {
         get => _gameState;
@@ -24,6 +50,13 @@ public class GameExecution
             _chatHub?.Clients.All.SendAsync("GameStates", _gameState);
         }
     }
+
+    /// <summary>
+    /// Starts the game with the specified number of columns and rows.
+    /// </summary>
+    /// <param name="columns">The number of columns in the game board.</param>
+    /// <param name="rows">The number of rows in the game board.</param>
+    /// <param name="chatHub">The SignalR hub context.</param>
     public void StartGame(int columns, int rows, IHubContext<ChatHub>? chatHub)
     {
         _chatHub = chatHub;
@@ -52,26 +85,41 @@ public class GameExecution
         });
     }
 
+    /// <summary>
+    /// Pauses the game.
+    /// </summary>
     public void PauseGame()
     {
         GameState = GameStates.Paused;
     }
 
+    /// <summary>
+    /// Resumes the game.
+    /// </summary>
     public void ResumeGame()
     {
         GameState = GameStates.Running;
     }
 
+    /// <summary>
+    /// Changes the current movement direction of the snake.
+    /// </summary>
     public void ChangeCurrentMovement(Movements? movement)
     {
         _currentMovement = movement;
     }
 
+    /// <summary>
+    /// Gets the current movement direction of the snake.
+    /// </summary>
     public Movements? GetCurrentMovement()
     {
         return _currentMovement;
     }
 
+    /// <summary>
+    /// Moves the snake based on the current movement direction.
+    /// </summary>
     private void MoveSnake()
     {
         // Returns if the snake's head, tail, or the game board is null.
@@ -121,25 +169,19 @@ public class GameExecution
         _chatHub?.Clients.All.SendAsync("SnakeBoardUpdate", _board.GetBoard());
     }
 
+    /// <summary>
+    /// Wraps the coordinates if they are out of the board bounds.
+    /// </summary>
+    /// <param name="x">The x-coordinate.</param>
+    /// <param name="y">The y-coordinate.</param>
+    /// <returns>The wrapped coordinates.</returns>
     private (int, int) WrapCoordinates(int x, int y)
     {
-        if (x < 0)
-        {
-            x = _board.GetBoard().Length - 1; // Set to the last column
-        }
-        else if (x >= _board.GetBoard().Length)
-        {
-            x = 0; // Set to the first column
-        }
+        var boardLength = _board?.GetBoard().Length ?? 0;
+        var boardWidth = _board?.GetBoard()[0].Length ?? 0;
 
-        if (y < 0)
-        {
-            y = _board.GetBoard()[0].Length - 1; // Set to the last row
-        }
-        else if (y >= _board.GetBoard()[0].Length)
-        {
-            y = 0; // Set to the first row
-        }
+        x = x < 0 ? boardLength - 1 : (x >= boardLength ? 0 : x);
+        y = y < 0 ? boardWidth - 1 : (y >= boardWidth ? 0 : y);
 
         return (x, y);
     }

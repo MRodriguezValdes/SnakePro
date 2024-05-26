@@ -6,10 +6,18 @@ using WebApplication2.hubs;
 
 namespace WebApplication2.Controllers;
 
+/// <summary>
+/// Controller for managing game operations.
+/// </summary>
 [Route("api/[controller]")]
 [ApiController]
 public class GameController(IHubContext<ChatHub> hubContext) : ControllerBase
 {
+    /// <summary>
+    /// Starts a new game with the specified number of columns and rows.
+    /// </summary>
+    /// <param name="startGameRequest">The request containing the number of columns and rows for the game board.</param>
+    /// <returns>An IActionResult indicating the result of the operation.</returns>
     [HttpPost("Start")]
     public IActionResult StartGame([FromBody] StartGameRequest startGameRequest)
     {
@@ -18,6 +26,11 @@ public class GameController(IHubContext<ChatHub> hubContext) : ControllerBase
         return Ok();
     }
 
+    /// <summary>
+    /// Sets the movement direction of the snake.
+    /// </summary>
+    /// <param name="key">The key representing the movement direction.</param>
+    /// <returns>An IActionResult indicating the result of the operation.</returns>
     [HttpPost("SetMovement")]
     public IActionResult SetMovement([FromBody] string key)
     {
@@ -48,6 +61,10 @@ public class GameController(IHubContext<ChatHub> hubContext) : ControllerBase
         return Ok();
     }
 
+    /// <summary>
+    /// Pauses the game.
+    /// </summary>
+    /// <returns>An IActionResult indicating the result of the operation.</returns>
     [HttpPost("PauseGame")]
     public IActionResult PauseGame()
     {
@@ -64,6 +81,10 @@ public class GameController(IHubContext<ChatHub> hubContext) : ControllerBase
         return Ok();
     }
 
+    /// <summary>
+    /// Resumes the game.
+    /// </summary>
+    /// <returns>An IActionResult indicating the result of the operation.</returns>
     [HttpPost("ResumeGame")]
     public IActionResult ResumeGame()
     {
@@ -80,8 +101,19 @@ public class GameController(IHubContext<ChatHub> hubContext) : ControllerBase
         return Ok();
     }
 }
+
+/// <summary>
+/// Represents a request to start a new game.
+/// </summary>
 public class StartGameRequest
 {
+    /// <summary>
+    /// Gets or sets the number of columns for the game board.
+    /// </summary>
     public int Columns { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of rows for the game board.
+    /// </summary>
     public int Rows { get; set; }
 }
