@@ -36,7 +36,7 @@ app.UseHttpsRedirection();
 // Use the "AllowAngularApp" CORS policy.
 app.UseCors("AllowAngularApp");
 // Map the SignalR hub to the specified path.
-app.MapHub<ChatHub>("/chathub");
+app.MapHub<SnakeGameHub>("/snakegamehub");
 // Map attribute-routed controllers.
 app.MapControllers();
 // Run the application.

@@ -38,8 +38,6 @@ export class AppComponent implements OnInit {
     }
 
     this.snakeCommunicationsService.startConnection().then(() => {
-      this.snakeCommunicationsService.sendMessage("hola");
-      this.snakeCommunicationsService.sendBoard(this.boardCols, this.boardRows);
       this.snakeCommunicationsService.getSnakeBoardUpdate().subscribe((board) => {
         console.log("Board received: ", board)
         this.boardArray = board;
@@ -78,7 +76,6 @@ export class AppComponent implements OnInit {
 
   hideSettings() {
     this.settingsVisible = false;
-    this.snakeCommunicationsService.sendBoard(this.boardCols, this.boardRows);
   }
 
   startGame(): void {

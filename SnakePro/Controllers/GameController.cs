@@ -11,7 +11,7 @@ namespace WebApplication2.Controllers;
 /// </summary>
 [Route("api/[controller]")]
 [ApiController]
-public class GameController(IHubContext<ChatHub> hubContext) : ControllerBase
+public class GameController(IHubContext<SnakeGameHub> hubContext) : ControllerBase
 {
     /// <summary>
     /// Starts a new game with the specified number of columns and rows.

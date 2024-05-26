@@ -59,6 +59,5 @@ export class SettingsComponent implements OnInit {
 
   closeSettings() {
     this.close.emit();
-    this.snakeCommunicationsService.sendBoard(this.boardCols.value ?? 20, this.boardRows.value ?? 20);
   }
 }

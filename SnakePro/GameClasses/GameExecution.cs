@@ -34,7 +34,7 @@ public class GameExecution
     /// <summary>
     /// Context for the SignalR hub.
     /// </summary>
-    private IHubContext<ChatHub>? _chatHub;
+    private IHubContext<SnakeGameHub>? _chatHub;
 
     public static GameExecution? Instance => _instance ??= new GameExecution();
 
@@ -57,7 +57,7 @@ public class GameExecution
     /// <param name="columns">The number of columns in the game board.</param>
     /// <param name="rows">The number of rows in the game board.</param>
     /// <param name="chatHub">The SignalR hub context.</param>
-    public void StartGame(int columns, int rows, IHubContext<ChatHub>? chatHub)
+    public void StartGame(int columns, int rows, IHubContext<SnakeGameHub>? chatHub)
     {
         _chatHub = chatHub;
         GameState = GameStates.Running;
