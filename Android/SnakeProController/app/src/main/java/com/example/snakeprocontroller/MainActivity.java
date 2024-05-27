@@ -1,4 +1,4 @@
-package com.example.snakeprocontroller;// MainActivity.java
+package com.example.snakeprocontroller;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:5273/") // Reemplaza con la URL de tu backend
+                .baseUrl("http://192.168.1.130:5273/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
