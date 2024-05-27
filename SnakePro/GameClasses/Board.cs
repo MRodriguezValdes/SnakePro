@@ -4,9 +4,21 @@ namespace WebApplication2.GameClasses;
 
 public class Board
 {
+    /// <summary>
+    /// The game board represented as a 2D array of CellType.
+    /// </summary>
     private readonly CellType[][] _board;
-    private readonly Random _random = new Random();
 
+    /// <summary>
+    /// Random number generator used for generating food positions.
+    /// </summary>
+    private readonly Random _random = new();
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Board"/> class.
+    /// </summary>
+    /// <param name="columns">The number of columns in the game board.</param>
+    /// <param name="rows">The number of rows in the game board.</param>
     public Board(int columns, int rows)
     {
         _board = new CellType[columns][];
@@ -14,6 +26,11 @@ public class Board
         FillBoard();
     }
 
+    /// <summary>
+    /// Generates the game board with the specified number of columns and rows.
+    /// </summary>
+    /// <param name="columns">The number of columns in the game board.</param>
+    /// <param name="rows">The number of rows in the game board.</param>
     private void GenerateBoard(int columns, int rows)
     {
         for (var i = 0; i < columns; i++)
@@ -22,6 +39,9 @@ public class Board
         }
     }
 
+    /// <summary>
+    /// Fills the game board with empty cells.
+    /// </summary>
     private void FillBoard()
     {
         foreach (var row in _board)
@@ -33,11 +53,21 @@ public class Board
         }
     }
 
+    /// <summary>
+    /// Checks if the cell at the specified coordinates is valid.
+    /// </summary>
+    /// <param name="x">The x-coordinate of the cell.</param>
+    /// <param name="y">The y-coordinate of the cell.</param>
+    /// <returns>True if the cell is valid, false otherwise.</returns>
     private bool IsValidCell(int x, int y)
     {
         return x >= 0 && x < _board.Length && y >= 0 && y < _board[0].Length && _board[x][y] == CellType.Empty;
     }
 
+    /// <summary>
+    /// Gets a random valid cell from the game board.
+    /// </summary>
+    /// <returns>The coordinates of the random valid cell.</returns>
     public (int, int) GetRandomValidCell()
     {
         int x, y;
@@ -49,15 +79,25 @@ public class Board
 
         return (x, y);
     }
+
+    /// <summary>
+    /// Gets the game board.
+    /// </summary>
+    /// <returns>The game board.</returns>
     public CellType[][] GetBoard()
     {
         return _board;
     }
+
+    /// <summary>
+    /// Generates the specified number of food items on the game board.
+    /// </summary>
+    /// <param name="howMany">The number of food items to generate.</param>
     public void GenerateFood(int howMany)
     {
         for (var i = 0; i < howMany; i++)
         {
-            var (x, y) =GetRandomValidCell();
+            var (x, y) = GetRandomValidCell();
             _board[x][y] = CellType.Food;
         }
     }
