@@ -10,6 +10,7 @@ import { SettingsComponent } from './settings/settings.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ErrorsComponent } from './errors/errors.component';
 import { GameOverComponent } from './game-over/game-over.component';
+import { PauseComponent } from './pause/pause.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { GameOverComponent } from './game-over/game-over.component';
     NavbarComponent,
     SettingsComponent,
     ErrorsComponent,
-    GameOverComponent
+    GameOverComponent,
+    PauseComponent
   ],
   imports: [
     BrowserModule,

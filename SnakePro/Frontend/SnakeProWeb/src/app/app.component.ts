@@ -15,6 +15,7 @@ export class AppComponent implements OnInit {
   public visible: boolean = true;
   settingsVisible = false;
   gameOverVisible = false;
+  pauseVisible: boolean = false;
   boardCols: number = 20;
   boardRows: number = 20;
   score: number = 0;
@@ -37,7 +38,6 @@ export class AppComponent implements OnInit {
         this.boardRows = +savedboardRows;
       }
     }
-
     this.snakeCommunicationsService.startConnection().then(() => {
       this.snakeCommunicationsService.getSnakeBoardUpdate().subscribe((board) => {
         console.log("Board received: ", board)
@@ -45,10 +45,7 @@ export class AppComponent implements OnInit {
       });
       this.snakeCommunicationsService.getGameStates().subscribe((gameState: GameStates) => {
         console.log("Game state received: ", gameState)
-        if (gameState === GameStates.GameOver) {
-          this.score = 0;
-          this.gameOverVisible = true;
-        }
+        this.changeStateMessage(gameState)
       });
     });
 
@@ -57,6 +54,22 @@ export class AppComponent implements OnInit {
       this.errorMessage = error;
     });
 
+  }
+
+  changeStateMessage(gameState: GameStates) {
+    switch (gameState) {
+      case GameStates.GameOver:
+        this.score = 0;
+        this.gameOverVisible = true;
+        break;
+      case GameStates.Paused:
+        this.pauseVisible = true;
+        break;
+      case GameStates.Running:
+      case GameStates.Win:
+      case GameStates.None:
+        break;
+    }
   }
 
 
@@ -105,5 +118,9 @@ export class AppComponent implements OnInit {
 
   hideGameOver() {
     this.gameOverVisible = false;
+  }
+
+  hidePause() {
+    this.pauseVisible = false;
   }
 }
