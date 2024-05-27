@@ -10,12 +10,12 @@ import {HttpClient} from '@angular/common/http';
 export class SnakeCommunicationsService {
   private hubConnection: signalR.HubConnection;
   private snakeBoardUpdate = new Subject<CellType[][]>()
-  private gameStares = new Subject<GameStates>()
+  private gameStates = new Subject<GameStates>()
   public errorOccurred = new EventEmitter<string>();
 
   constructor(private http: HttpClient) {
     this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl("http://localhost:5273/chathub")
+      .withUrl("http://localhost:5273/snakegamehub")
       .build();
 
     this.hubConnection.onclose((error) => {
@@ -31,19 +31,11 @@ export class SnakeCommunicationsService {
       this.errorOccurred.emit('La conexión ha sido restablecida');
     });
 
-
-
-    this.hubConnection.on("ReceiveMessage", (message) => {
-      console.log("Message received: ", message);
-    });
-    this.hubConnection.on("ReceiveTestBoard", (boardArray: CellType [][]) => {
-      console.log(" Test Board received: ", boardArray);
-    });
     this.hubConnection.on("SnakeBoardUpdate", (boardArray: CellType [][]) => {
       this.snakeBoardUpdate.next(boardArray);
     });
     this.hubConnection.on("GameStates", (gameState: GameStates) => {
-      this.gameStares.next(gameState);
+      this.gameStates.next(gameState);
     });
   }
 
@@ -62,35 +54,31 @@ export class SnakeCommunicationsService {
       }
     }
   }
-
-  public sendMessage(message: string): void {
-    this.hubConnection
-      .invoke("SendMessage", message)
-      .catch(err => console.error(err));
-  }
-
-  public sendBoard(columns: number, rows: number): void {
-    this.hubConnection
-      .invoke("SendTestBoard", columns, rows)
-      .catch(err => console.error(err));
-  }
-
   public getSnakeBoardUpdate(): Observable<any[][]> {
     return this.snakeBoardUpdate.asObservable();
   }
 
   public getGameStates(): Observable<GameStates> {
-    return this.gameStares.asObservable();
+    return this.gameStates.asObservable();
   }
+
   public setMovement(key: string): Observable<any> {
     const headers = {'content-type': 'application/json'};
     const body = JSON.stringify(key);
     return this.http.post('http://localhost:5273/api/Game/SetMovement', body, {'headers': headers});
   }
 
+  public pauseGame(): Observable<any> {
+    return this.http.post('http://localhost:5273/api/Game/PauseGame', null);
+  }
+
+  public resumeGame(): Observable<any> {
+    return this.http.post('http://localhost:5273/api/Game/ResumeGame', null);
+  }
+
   public startGame(columns: number, rows: number): Observable<any> {
     const headers = {'content-type': 'application/json'};
     const body = JSON.stringify({columns, rows});
-    return this.http.post(`http://localhost:5273/api/Game/start`, body, {'headers': headers});
+    return this.http.post(`http://localhost:5273/api/Game/Start`, body, {'headers': headers});
   }
 }
