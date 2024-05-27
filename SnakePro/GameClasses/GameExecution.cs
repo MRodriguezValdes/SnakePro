@@ -36,7 +36,7 @@ public class GameExecution
     /// </summary>
     private IHubContext<SnakeGameHub>? _chatHub;
 
-    public static GameExecution? Instance => _instance ??= new GameExecution();
+    public static GameExecution Instance => _instance ??= new GameExecution();
 
     /// <summary>
     /// Gets the current state of the game and sends changes via SignalR.
