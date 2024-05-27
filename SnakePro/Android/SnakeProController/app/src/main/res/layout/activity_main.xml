@@ -1,53 +1,53 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- res/layout/activity_main.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="white">
+    android:orientation="vertical"
+    tools:context="MainActivity">
 
     <LinearLayout
-        android:id="@+id/directional_pad"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_centerInParent="true"
+        android:orientation="horizontal"
         android:gravity="center">
 
         <Button
             android:id="@+id/button_up"
-            style="@style/NESButton"
-            android:layout_gravity="center"
-            android:text="↑"
-            android:textColorLink="#CC2E2E" />
-
-        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="#DA2A2A"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:text="Up" />
+    </LinearLayout>
 
-            <Button
-                android:id="@+id/button_left"
-                style="@style/NESButton"
-                android:text="←" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
 
-            <View
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="red"/>
+        <Button
+            android:id="@+id/button_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Left" />
 
-            <Button
-                android:id="@+id/button_right"
-                style="@style/NESButton"
-                android:text="→" />
-        </LinearLayout>
+        <Button
+            android:id="@+id/button_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Right" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
 
         <Button
             android:id="@+id/button_down"
-            style="@style/NESButton"
-            android:text="↓"
-            android:layout_gravity="center" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Down" />
     </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>
