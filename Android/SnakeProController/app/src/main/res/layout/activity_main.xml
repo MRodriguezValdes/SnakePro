@@ -11,16 +11,20 @@
     <!-- Contenedor del D-pad -->
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="17dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="0dp"
+        android:fontFamily="@font/press_start_2p"
         android:text="SnakeProController"
-        android:textColor="@color/colorPrimary"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"/>
 
     <LinearLayout
         android:id="@+id/dpad_container"
@@ -44,10 +48,11 @@
                 android:id="@+id/button_up"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:text="^"
+                android:text=">"
                 android:textSize="24sp"
-                app:cornerRadius="40dp"
-                android:backgroundTint="#000000"/>
+                android:backgroundTint="#000000"
+                android:textColor="#FFFFFF"
+                android:rotation="270"/>
         </LinearLayout>
 
         <LinearLayout
@@ -60,10 +65,10 @@
                 android:id="@+id/button_left"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:text="<"
+                android:text="&lt;"
                 android:textSize="24sp"
-                app:cornerRadius="40dp"
-                android:backgroundTint="#000000"/>
+                android:backgroundTint="#000000"
+                android:textColor="#FFFFFF"/>
 
             <!-- Espacio -->
             <Space
@@ -77,8 +82,8 @@
                 android:layout_height="80dp"
                 android:text=">"
                 android:textSize="24sp"
-                app:cornerRadius="40dp"
-                android:backgroundTint="#000000"/>
+                android:backgroundTint="#000000"
+                android:textColor="#FFFFFF"/>
         </LinearLayout>
 
         <LinearLayout
@@ -96,22 +101,59 @@
                 android:id="@+id/button_down"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
-                android:text="v"
+                android:text=">"
                 android:textSize="24sp"
-                app:cornerRadius="40dp"
-                android:backgroundTint="#000000"/>
+                android:backgroundTint="#000000"
+                android:textColor="#FFFFFF"
+                android:rotation="90"
+                android:gravity="center"/>
         </LinearLayout>
-
     </LinearLayout>
+
+
+    <Button
+        android:id="@+id/button_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dpad_container"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="65dp"
+        android:backgroundTint="#d3d3d3"
+        android:elevation="4dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="START"
+        android:textColor="#808080"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cornerRadius="0dp" />
+
+    <Button
+        android:id="@+id/button_pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dpad_container"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="63dp"
+        android:layout_marginEnd="12dp"
+        android:backgroundTint="#d3d3d3"
+        android:elevation="4dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="PAUSE"
+        android:textColor="#808080"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cornerRadius="0dp" />
 
     <ImageView
         android:id="@+id/image_view"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:src="@drawable/snake"
-        android:layout_alignParentBottom="true"
+        android:layout_width="64dp"
+        android:layout_height="71dp"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"/>
-
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="0dp"
+        android:src="@drawable/snake" />
 </RelativeLayout>

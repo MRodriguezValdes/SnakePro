@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
-
+import android.graphics.Color;
 import androidx.appcompat.app.AppCompatActivity;
 
 import okhttp3.OkHttpClient;
@@ -43,6 +43,15 @@ public class MainActivity extends AppCompatActivity {
         Button buttonDown = findViewById(R.id.button_down);
         Button buttonLeft = findViewById(R.id.button_left);
         Button buttonRight = findViewById(R.id.button_right);
+        Button buttonPlay = findViewById(R.id.button_play);
+        Button buttonPause = findViewById(R.id.button_pause);
+
+        buttonPlay.setShadowLayer(1, -1, -1, Color.BLACK);
+        buttonPlay.setTextColor(Color.WHITE);
+
+
+        buttonPause.setShadowLayer(1, -1, -1, Color.BLACK);
+        buttonPause.setTextColor(Color.WHITE);
 
         buttonUp.setOnClickListener(view -> sendMovement("ArrowUp"));
         buttonDown.setOnClickListener(view -> sendMovement("ArrowDown"));
