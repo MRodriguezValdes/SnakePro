@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SnakeProController</string>
+    <string name="app_icon">ic_launcher.png</string>
 </resources>
