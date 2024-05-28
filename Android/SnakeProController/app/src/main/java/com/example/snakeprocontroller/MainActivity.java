@@ -47,11 +47,9 @@ public class MainActivity extends AppCompatActivity {
         Button buttonPause = findViewById(R.id.button_pause);
 
         buttonPlay.setShadowLayer(1, -1, -1, Color.BLACK);
-        buttonPlay.setTextColor(Color.WHITE);
 
 
         buttonPause.setShadowLayer(1, -1, -1, Color.BLACK);
-        buttonPause.setTextColor(Color.WHITE);
 
         buttonUp.setOnClickListener(view -> sendMovement("ArrowUp"));
         buttonDown.setOnClickListener(view -> sendMovement("ArrowDown"));
