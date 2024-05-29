@@ -147,6 +147,24 @@
         android:textStyle="bold"
         app:cornerRadius="0dp" />
 
+    <Button
+        android:id="@+id/button_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="11dp"
+        android:backgroundTint="#d3d3d3"
+        android:elevation="4dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="SETTINGS"
+        android:textColor="#808080"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cornerRadius="0dp" />
+
     <ImageView
         android:id="@+id/image_view"
         android:layout_width="64dp"
