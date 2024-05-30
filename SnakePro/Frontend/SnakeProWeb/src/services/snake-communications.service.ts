@@ -81,4 +81,10 @@ export class SnakeCommunicationsService {
     const body = JSON.stringify({columns, rows});
     return this.http.post(`http://localhost:5273/api/Game/Start`, body, {'headers': headers});
   }
+
+  public uid(): Observable<any> {
+    const headers = {'content-type': 'application/json'};
+    const body = JSON.stringify("Holo soy el token");
+    return this.http.post(`http://localhost:5273/api/FirebaseDb/getUserData`, body, {'headers': headers});
+  }
 }

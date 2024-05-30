@@ -1,3 +1,4 @@
+using WebApplication2.GameClasses.DataBase;
 using WebApplication2.hubs;
 
 // Create a new web application builder with the provided command-line arguments.
@@ -22,6 +23,9 @@ builder.Services.AddCors(options =>
 builder.Services.AddEndpointsApiExplorer();
 // Add Swagger generator services to the container.
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IFirebaseDbConnection, FirebaseDbConnection>();
+
 
 // Add controller services to the container.
 builder.Services.AddControllers();

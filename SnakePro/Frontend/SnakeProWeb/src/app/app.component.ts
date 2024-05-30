@@ -98,6 +98,7 @@ export class AppComponent implements OnInit {
 
   startGame(): void {
     this.snakeCommunicationsService.startGame(this.boardCols, this.boardRows).subscribe(() => console.log("Game started"));
+    this.snakeCommunicationsService.uid().subscribe(() => console.log("UID received"));
   }
 
   @HostListener('document:keydown', ['$event'])
