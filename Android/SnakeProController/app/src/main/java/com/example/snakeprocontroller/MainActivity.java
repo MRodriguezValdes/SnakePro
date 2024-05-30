@@ -70,26 +70,20 @@ public class MainActivity extends AppCompatActivity {
 
         buttonPause.setShadowLayer(1, -1, -1, Color.BLACK);
 
+        buttonSetting.setShadowLayer(1, -1, -1, Color.BLACK);
+
         buttonUp.setOnClickListener(view -> sendMovement("ArrowUp"));
         buttonDown.setOnClickListener(view -> sendMovement("ArrowDown"));
         buttonLeft.setOnClickListener(view -> sendMovement("ArrowLeft"));
         buttonRight.setOnClickListener(view -> sendMovement("ArrowRight"));
         buttonPlay.setOnClickListener(view -> startGame(columns, rows));
 
-        buttonSetting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                showSettingsDialog();
-            }
-        });
-        buttonPause.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (gamePaused) {
-                    resumeGame();
-                } else {
-                    pauseGame();
-                }
+        buttonSetting.setOnClickListener(view -> showSettingsDialog());
+        buttonPause.setOnClickListener(view -> {
+            if (gamePaused) {
+                resumeGame();
+            } else {
+                pauseGame();
             }
         });
     }
@@ -140,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void showSettingsDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Configuración del Juego");
+        builder.setTitle("Settings");
 
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_settings, null);
         builder.setView(dialogView);
@@ -148,29 +142,20 @@ public class MainActivity extends AppCompatActivity {
         EditText editTextColumns = dialogView.findViewById(R.id.editText_columns);
         EditText editTextRows = dialogView.findViewById(R.id.editText_rows);
 
-        // Mostrar los valores actuales en los EditText
+
         editTextColumns.setText(String.valueOf(columns));
         editTextRows.setText(String.valueOf(rows));
 
-        builder.setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // Guardar los valores ingresados por el usuario
-                columns = Integer.parseInt(editTextColumns.getText().toString());
-                rows = Integer.parseInt(editTextRows.getText().toString());
-            }
+        builder.setPositiveButton("Save", (dialog, which) -> {
+
+            columns = Integer.parseInt(editTextColumns.getText().toString());
+            rows = Integer.parseInt(editTextRows.getText().toString());
         });
-        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
 
         builder.show();
     }
 
-    // Método para pausar el juego
     private void pauseGame() {
         Call<Void> call = apiService.pauseGame();
         call.enqueue(new Callback<Void>() {
@@ -178,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(MainActivity.this, "Juego pausado con éxito", Toast.LENGTH_SHORT).show();
-                    gamePaused = true; // Actualizar el estado del juego
+                    gamePaused = true;
                 } else {
                     Toast.makeText(MainActivity.this, "Error al pausar el juego", Toast.LENGTH_SHORT).show();
                     Log.e("API_ERROR", "Error: " + response.code() + " " + response.message());
@@ -200,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(MainActivity.this, "Juego reanudado con éxito", Toast.LENGTH_SHORT).show();
-                    gamePaused = false; // Actualizar el estado del juego
+                    gamePaused = false;
                 } else {
                     Toast.makeText(MainActivity.this, "Error al reanudar el juego", Toast.LENGTH_SHORT).show();
                     Log.e("API_ERROR", "Error: " + response.code() + " " + response.message());

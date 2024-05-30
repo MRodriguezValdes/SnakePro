@@ -8,30 +8,40 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Número de Columnas"
-        android:textSize="16sp"
-        android:textStyle="bold" />
+        android:text="Number of Columns"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/primary_text_color"
+        android:paddingBottom="8dp" />
 
     <EditText
         android:id="@+id/editText_columns"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:hint="Introduce el número de columnas" />
+        android:hint="Enter the number of columns"
+        android:background="@drawable/edit_text_background"
+        android:padding="12dp"
+        android:textColor="@color/edit_text_color" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Número de Filas"
-        android:textSize="16sp"
+        android:text="Number of Rows"
+        android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginTop="16dp"/>
+        android:textColor="@color/primary_text_color"
+        android:paddingTop="16dp"
+        android:paddingBottom="8dp"/>
 
     <EditText
         android:id="@+id/editText_rows"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:hint="Introduce el número de filas" />
+        android:hint="Enter the number of rows"
+        android:background="@drawable/edit_text_background"
+        android:padding="12dp"
+        android:textColor="@color/edit_text_color" />
 
 </LinearLayout>
