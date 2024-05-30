@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     int columns = 20;
     int rows = 20;
 
+    private boolean gamePaused = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,7 +82,16 @@ public class MainActivity extends AppCompatActivity {
                 showSettingsDialog();
             }
         });
-
+        buttonPause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (gamePaused) {
+                    resumeGame();
+                } else {
+                    pauseGame();
+                }
+            }
+        });
     }
 
     private void sendMovement(String key) {
@@ -157,5 +168,50 @@ public class MainActivity extends AppCompatActivity {
         });
 
         builder.show();
+    }
+
+    // Método para pausar el juego
+    private void pauseGame() {
+        Call<Void> call = apiService.pauseGame();
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(MainActivity.this, "Juego pausado con éxito", Toast.LENGTH_SHORT).show();
+                    gamePaused = true; // Actualizar el estado del juego
+                } else {
+                    Toast.makeText(MainActivity.this, "Error al pausar el juego", Toast.LENGTH_SHORT).show();
+                    Log.e("API_ERROR", "Error: " + response.code() + " " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Error en la solicitud: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("API_ERROR", "Error: " + t.getMessage(), t);
+            }
+        });
+    }
+
+    private void resumeGame() {
+        Call<Void> call = apiService.resumeGame();
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(MainActivity.this, "Juego reanudado con éxito", Toast.LENGTH_SHORT).show();
+                    gamePaused = false; // Actualizar el estado del juego
+                } else {
+                    Toast.makeText(MainActivity.this, "Error al reanudar el juego", Toast.LENGTH_SHORT).show();
+                    Log.e("API_ERROR", "Error: " + response.code() + " " + response.message());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(MainActivity.this, "Error en la solicitud: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Log.e("API_ERROR", "Error: " + t.getMessage(), t);
+            }
+        });
     }
 }

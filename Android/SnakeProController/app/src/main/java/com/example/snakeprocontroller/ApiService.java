@@ -16,4 +16,10 @@ public interface ApiService {
     @POST("/api/Game/Start")
     Call<Void> startGame(@Body StartGameRequest body);
 
+    @POST("/api/Game/PauseGame")
+    Call<Void> pauseGame();
+
+    @POST("/api/Game/ResumeGame")
+    Call<Void> resumeGame();
+
 }
