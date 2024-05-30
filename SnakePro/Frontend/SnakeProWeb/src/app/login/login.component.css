@@ -1,0 +1,62 @@
+body {
+  background-color: #000;
+  font-family: 'Press Start 2P', cursive;
+  color: #00ff00;
+  text-align: center;
+}
+
+.login-container {
+  background-color: #222;
+  border: 3px solid #00ff00;
+  border-radius: 10px;
+  max-width: 300px;
+  margin: 50px auto;
+  padding: 20px;
+  box-shadow: 0 0 10px #00ff00;
+}
+
+h2 {
+  margin-bottom: 20px;
+  font-size: 1.5em;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 2px solid #00ff00;
+  background-color: #000;
+  color: #00ff00;
+  font-family: 'Press Start 2P', cursive;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: #000;
+  border: 2px solid #00ff00;
+  color: #00ff00;
+  cursor: pointer;
+  font-family: 'Press Start 2P', cursive;
+  text-transform: uppercase;
+}
+
+button:disabled {
+  background-color: #333;
+  border-color: #555;
+  color: #555;
+}
+
+.error {
+  color: #ff0000;
+  font-size: 0.8em;
+}

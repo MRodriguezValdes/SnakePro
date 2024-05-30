@@ -11,6 +11,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ErrorsComponent } from './errors/errors.component';
 import { GameOverComponent } from './game-over/game-over.component';
 import { PauseComponent } from './pause/pause.component';
+import { LoginComponent } from './login/login.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { PauseComponent } from './pause/pause.component';
     SettingsComponent,
     ErrorsComponent,
     GameOverComponent,
-    PauseComponent
+    PauseComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
