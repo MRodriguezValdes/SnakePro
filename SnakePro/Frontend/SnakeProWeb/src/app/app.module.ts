@@ -14,6 +14,9 @@ import { PauseComponent } from './pause/pause.component';
 import {initializeApp, provideFirebaseApp} from "@angular/fire/app";
 import {getAuth, provideAuth} from "@angular/fire/auth";
 import {environment} from "../environments/environment";
+import { RegisterComponent } from './register/register.component';
+import {HomeComponent} from "./home/home.component";
+import {LoginComponent} from "./login/login.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,7 +24,11 @@ import {environment} from "../environments/environment";
     SettingsComponent,
     ErrorsComponent,
     GameOverComponent,
-    PauseComponent
+    PauseComponent,
+    PauseComponent,
+    LoginComponent,
+    HomeComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

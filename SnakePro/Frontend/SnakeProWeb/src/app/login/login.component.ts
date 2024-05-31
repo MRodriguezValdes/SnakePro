@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup } from "@angular/forms";
+import { UserService } from "../../services/user.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -6,16 +9,24 @@ import { Component } from '@angular/core';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  email: string | undefined;
-  password: string | undefined;
+  formLogin: FormGroup;
 
-  constructor() { }
+  constructor(private userService: UserService, private router: Router) {
+    this.formLogin = new FormGroup({
+      email: new FormControl(),
+      password: new FormControl()
+    });
+  }
 
   onSubmit() {
-    if (this.email && this.password) {
-      // Lógica de autenticación aquí
-      console.log('Email:', this.email);
-      console.log('Password:', this.password);
-    }
+    this.userService.login(this.formLogin.value)
+      .then(response => {
+        this.router.navigate(['/home']);
+      })
+      .catch(error => console.error(error));
+  }
+
+  navigateToRegister() {
+    this.router.navigate(['/register']);
   }
 }
