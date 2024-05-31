@@ -29,4 +29,12 @@ export class LoginComponent {
   navigateToRegister() {
     this.router.navigate(['/register']);
   }
+
+  onclick(){
+    this.userService.loginWithGoogle()
+      .then(response => {
+        this.router.navigate(['/home']);
+      })
+      .catch(error => console.error(error));
+  }
 }
