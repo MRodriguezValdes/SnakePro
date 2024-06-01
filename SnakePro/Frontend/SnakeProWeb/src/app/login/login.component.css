@@ -89,7 +89,7 @@ body {
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 10px;
+  padding: 5px;
   margin-top: 20px;
   background-color: #070b10;
   border: 1px solid #ccc;
@@ -99,8 +99,8 @@ body {
 }
 
 .google-btn img, .github-btn img {
-  width: 20px;
-  height: 20px;
+  width: 40px;
+  height: 40px;
   margin-right: 10px;
 }
 

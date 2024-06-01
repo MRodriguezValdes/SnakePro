@@ -73,6 +73,33 @@ export class LoginComponent {
       });
 
   }
+
+  onGithubLogin() {
+    this.userService.loginWithGithub()
+      .then(response => {
+        const user = response.user;
+        if (user) {
+          return user.getIdToken();
+        } else {
+          throw new Error('No user returned from Github sign-in.');
+        }
+      })
+      .then(idToken => {
+        console.log('idToken:', idToken);
+        this.snakeCommunicationsService.sendToken(idToken).subscribe(() => console.log("Token send"));
+      })
+      .then(() => {
+        this.router.navigate(['/home']);
+      })
+      .catch(error => {
+        console.error(error)
+        this.errorMessage = "Failed to login with Github. Please try again.";
+      });
+
+  }
+
+
+
   togglePasswordVisibility() {
     this.hidePassword = !this.hidePassword;
   }
