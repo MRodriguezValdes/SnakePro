@@ -30,7 +30,7 @@ export class LoginComponent {
     this.router.navigate(['/register']);
   }
 
-  onclick(){
+  onGoogleLogin(){
     this.userService.loginWithGoogle()
       .then(response => {
         this.router.navigate(['/home']);

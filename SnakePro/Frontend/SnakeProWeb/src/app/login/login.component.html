@@ -11,9 +11,14 @@
     </div>
     <button type="submit">Login</button>
   </form>
+  <div class="google-login">
+    <button (click)="onGoogleLogin()" class="google-btn">
+      <img src="assets/logo_google_g_icon.svg" alt="Google logo">
+      <span>Login with Google</span>
+    </button>
+  </div>
   <div class="register-link">
     <span>Don't have an account?</span>
     <a (click)="navigateToRegister()">Register</a>
-    <button (click)="onclick()"> Login With Google</button>
   </div>
 </div>
