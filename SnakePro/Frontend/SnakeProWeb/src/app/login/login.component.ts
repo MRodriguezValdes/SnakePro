@@ -14,6 +14,7 @@ import {SnakeCommunicationsService} from "../../services/snake-communications.se
 export class LoginComponent {
   formLogin: FormGroup;
   errorMessage: string | null = null;
+  hidePassword: boolean = true;
 
   constructor(private userService: UserService, private router: Router, private snakeCommunicationsService: SnakeCommunicationsService) {
     this.formLogin = new FormGroup({
@@ -72,5 +73,7 @@ export class LoginComponent {
       });
 
   }
-
+  togglePasswordVisibility() {
+    this.hidePassword = !this.hidePassword;
+  }
 }
