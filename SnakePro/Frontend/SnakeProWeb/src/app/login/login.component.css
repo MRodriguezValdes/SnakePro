@@ -1,3 +1,4 @@
+/* login.component.css */
 .login-container {
   max-width: 400px;
   margin: 0 auto;
@@ -60,8 +61,8 @@ button:hover {
 }
 
 .google-btn img {
-  width: 40px;
-  height: 40px;
+  width: 24px; /* Increased size */
+  height: 24px; /* Increased size */
   margin-right: 10px;
 }
 
@@ -91,4 +92,10 @@ button:hover {
 
 .register-link a:hover {
   text-decoration: underline;
+}
+
+.error-message {
+  color: red;
+  margin-top: 15px;
+  text-align: center;
 }

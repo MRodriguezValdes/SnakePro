@@ -11,6 +11,9 @@
     </div>
     <button type="submit">Login</button>
   </form>
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
   <div class="google-login">
     <button (click)="onGoogleLogin()" class="google-btn">
       <img src="assets/logo_google_g_icon.svg" alt="Google logo">
