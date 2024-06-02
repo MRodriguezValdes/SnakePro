@@ -3,3 +3,5 @@ obj/
 Debug/
 .idea/
 *.exe
+Key/
+*.DS_Store

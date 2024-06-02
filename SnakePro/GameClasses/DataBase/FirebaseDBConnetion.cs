@@ -12,6 +12,16 @@ namespace WebApplication2.GameClasses.DataBase
 
     public class FirebaseDbConnection : IFirebaseDbConnection
     {
+        public FirebaseDbConnection(IConfiguration configuration)
+        {
+            // Ensure Firebase is initialized only once
+            if (FirebaseApp.DefaultInstance != null) return;
+            var firebaseFilePath = configuration["Firebase:FilePath"];
+            FirebaseApp.Create(new AppOptions()
+            {
+                Credential = GoogleCredential.FromFile(firebaseFilePath),
+            });
+        }
 
         public async Task<User> GetUserData(string userToken)
         {
@@ -35,8 +45,8 @@ namespace WebApplication2.GameClasses.DataBase
                     return new User
                     {
                         Uid = userRecord.Uid,
-                        DisplayName = userRecord.DisplayName,
-                        Email = userRecord.Email
+                        DisplayName = userRecord.DisplayName ?? "No display name",
+                        Email = userRecord.Email ?? "No email"
                     };
                 }
                 else
@@ -52,4 +62,5 @@ namespace WebApplication2.GameClasses.DataBase
             }
         }
     }
+    
 }

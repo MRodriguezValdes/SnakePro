@@ -17,6 +17,7 @@
     <ItemGroup>
       <Folder Include="Frontend\" />
       <Folder Include="Frontend\SnakeProWeb\src\services\" />
+      <Folder Include="Key\" />
     </ItemGroup>
 
 </Project>

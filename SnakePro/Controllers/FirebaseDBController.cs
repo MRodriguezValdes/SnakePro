@@ -7,15 +7,15 @@ namespace WebApplication2.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FirebaseDbController(IFirebaseDbConnection firebaseDbConnection) : ControllerBase
+    public class FirebaseDbController(IFirebaseDbConnection firebaseDbConnection , IFirebaseDbConnectionTest firebaseDbConnectionTest,IConfiguration configuration) : ControllerBase
     {
         [HttpPost("getUserData")]
-        public async Task<IActionResult> GetUserData([FromBody] string userToken)
+        public async Task<IActionResult> GetUserData([FromBody] string userToken=null)
         {
             Console.WriteLine($"User token: {userToken}");
             if (string.IsNullOrEmpty(userToken))
             {
-                return BadRequest("User token is required.");
+                userToken = await firebaseDbConnectionTest.GenerateTestToken(configuration);
             }
 
             try
