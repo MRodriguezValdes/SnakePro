@@ -73,7 +73,7 @@ body {
 .goback-icon {
   display: inline-block;
   margin-top: 15px;
-  color: #1dbf73;
+  color: #68f0b0;
   cursor: pointer;
   font-size: 0.9rem;
   text-decoration: none;
@@ -82,4 +82,10 @@ body {
 .goback-icon:hover {
   color: #95f1c1;
   text-decoration: underline;
+}
+
+.error-message {
+  color: red;
+  margin-top: 15px;
+  text-align: center;
 }

@@ -23,7 +23,11 @@
         </div>
       </div>
       <button type="submit" class="register-btn">Register</button>
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
       <span class="goback-icon" (click)="goBack()">&#8592; Go Back</span>
+
     </form>
   </div>
 </div>

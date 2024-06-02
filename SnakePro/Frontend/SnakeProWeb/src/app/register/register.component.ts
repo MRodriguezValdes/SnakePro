@@ -11,6 +11,7 @@ import {Router} from "@angular/router";
 })
 export class RegisterComponent {
   formReg: FormGroup;
+  errorMessage: string | null = null;
 
   constructor(private userService: UserService, private router: Router) {
     this.formReg = new FormGroup({
@@ -31,7 +32,12 @@ export class RegisterComponent {
       this.userService.register(this.formReg.value)
         .then(response =>
           this.router.navigate(['/login']))
-        .catch(error => console.error(error));
+        .catch(error => {
+          console.error(error)
+          if (error.code === 'auth/email-already-in-use') {
+            this.errorMessage = 'Email already in use';
+          }
+        });
     } else {
       console.error("Form is invalid or passwords do not match.");
     }
