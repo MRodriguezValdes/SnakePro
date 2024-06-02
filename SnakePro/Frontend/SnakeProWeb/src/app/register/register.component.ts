@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, ViewEncapsulation} from '@angular/core';
 import { FormControl, FormGroup, Validators, ValidatorFn, AbstractControl } from "@angular/forms";
 import { UserService } from "../../services/user.service";
 import {Router} from "@angular/router";
@@ -6,7 +6,8 @@ import {Router} from "@angular/router";
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css',],
+  encapsulation: ViewEncapsulation.None,
 })
 export class RegisterComponent {
   formReg: FormGroup;
@@ -35,4 +36,10 @@ export class RegisterComponent {
       console.error("Form is invalid or passwords do not match.");
     }
   }
+
+
+  goBack() {
+    this.router.navigate(['/login']);
+  }
+
 }

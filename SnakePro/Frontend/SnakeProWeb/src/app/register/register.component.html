@@ -1,29 +1,29 @@
-<div class="register-container">
-  <h2>Register</h2>
-  <form [formGroup]="formReg" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="email">Email:</label>
-      <input id="email" type="email" formControlName="email">
-      <div *ngIf="formReg.get('email')?.invalid && (formReg.get('email')?.touched || formReg.get('email')?.dirty)">
-        <small class="error" *ngIf="formReg.get('email')?.errors?.['required']">Email is required.</small>
-        <small class="error" *ngIf="formReg.get('email')?.errors?.['email']">Enter a valid email.</small>
+<div class="register-wrapper">
+  <div class="register-container">
+    <h2>Register</h2>
+    <form [formGroup]="formReg" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <input id="email" type="email" formControlName="email" placeholder="Email*" required>
+        <div *ngIf="formReg.get('email')?.invalid && (formReg.get('email')?.touched || formReg.get('email')?.dirty)">
+          <small class="error" *ngIf="formReg.get('email')?.errors?.['required']">Email is required.</small>
+          <small class="error" *ngIf="formReg.get('email')?.errors?.['email']">Enter a valid email.</small>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="password">Password:</label>
-      <input id="password" type="password" formControlName="password">
-      <div *ngIf="formReg.get('password')?.invalid && (formReg.get('password')?.touched || formReg.get('password')?.dirty)">
-        <small class="error" *ngIf="formReg.get('password')?.errors?.['required']">Password is required.</small>
-        <small class="error" *ngIf="formReg.get('password')?.errors?.['minlength']">Password must be at least 6 characters long.</small>
+      <div class="form-group">
+        <input id="password" type="password" formControlName="password" placeholder="Enter your password*" required>
+        <div *ngIf="formReg.get('password')?.invalid && (formReg.get('password')?.touched || formReg.get('password')?.dirty)">
+          <small class="error" *ngIf="formReg.get('password')?.errors?.['required']">Password is required.</small>
+          <small class="error" *ngIf="formReg.get('password')?.errors?.['minlength']">Password must be at least 6 characters long.</small>
+        </div>
       </div>
-    </div>
-    <div class="form-group">
-      <label for="passwordConfirm">Confirm Password:</label>
-      <input id="passwordConfirm" type="password" formControlName="passwordConfirm">
-      <div *ngIf="formReg.errors?.['mismatch'] && (formReg.get('passwordConfirm')?.touched || formReg.get('passwordConfirm')?.dirty)">
-        <small class="error">Passwords do not match.</small>
+      <div class="form-group">
+        <input id="passwordConfirm" type="password" formControlName="passwordConfirm" placeholder="Confirm your password*" required>
+        <div *ngIf="formReg.errors?.['mismatch'] && (formReg.get('passwordConfirm')?.touched || formReg.get('passwordConfirm')?.dirty)">
+          <small class="error">Passwords do not match.</small>
+        </div>
       </div>
-    </div>
-    <button type="submit">Register</button>
-  </form>
+      <button type="submit" class="register-btn">Register</button>
+      <span class="goback-icon" (click)="goBack()">&#8592; Go Back</span>
+    </form>
+  </div>
 </div>

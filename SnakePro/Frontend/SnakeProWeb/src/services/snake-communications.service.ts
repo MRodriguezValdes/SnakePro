@@ -84,7 +84,7 @@ export class SnakeCommunicationsService {
 
   sendToken(idToken: string): Observable<any> {
     const headers = { 'Content-Type': 'application/json' };
-    const body = JSON.stringify({ idToken });
+    const body = JSON.stringify( idToken );
     return this.http.post('http://localhost:5273/api/FirebaseDb/getUserData', body, { headers });
   }
 }
