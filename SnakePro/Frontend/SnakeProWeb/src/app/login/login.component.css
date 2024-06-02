@@ -1,0 +1,9 @@
+body {
+  background-color: #070b10;
+  color: #ffffff;
+  font-family: 'Arial', sans-serif;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}

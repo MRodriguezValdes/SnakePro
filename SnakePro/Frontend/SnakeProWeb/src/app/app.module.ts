@@ -11,7 +11,12 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { ErrorsComponent } from './errors/errors.component';
 import { GameOverComponent } from './game-over/game-over.component';
 import { PauseComponent } from './pause/pause.component';
-
+import {initializeApp, provideFirebaseApp} from "@angular/fire/app";
+import {getAuth, provideAuth} from "@angular/fire/auth";
+import {environment} from "../environments/environment";
+import { RegisterComponent } from './register/register.component';
+import {HomeComponent} from "./home/home.component";
+import {LoginComponent} from "./login/login.component";
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +24,11 @@ import { PauseComponent } from './pause/pause.component';
     SettingsComponent,
     ErrorsComponent,
     GameOverComponent,
-    PauseComponent
+    PauseComponent,
+    PauseComponent,
+    LoginComponent,
+    HomeComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +40,9 @@ import { PauseComponent } from './pause/pause.component';
   ],
   providers: [
     provideClientHydration(),
-    SnakeCommunicationsService
+    SnakeCommunicationsService,
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideAuth(() => getAuth())
   ],
   bootstrap: [AppComponent]
 })

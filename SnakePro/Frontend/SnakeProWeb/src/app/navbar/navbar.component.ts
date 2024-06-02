@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {Router} from "@angular/router";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-navbar',
@@ -6,5 +8,18 @@ import { Component } from '@angular/core';
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+
+  constructor(private router: Router,  private userService: UserService) {
+
+  }
+
+
+  logout(): void {
+    this.userService.logout()
+      .then(() => {
+        this.router.navigate(['/login']);
+      })
+      .catch(error => console.error(error));
+  }
 
 }
