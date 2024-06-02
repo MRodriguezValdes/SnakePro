@@ -1,3 +1,4 @@
+using WebApplication2.GameClasses.DataBase;
 using WebApplication2.hubs;
 
 // Create a new web application builder with the provided command-line arguments.
@@ -23,6 +24,8 @@ builder.Services.AddEndpointsApiExplorer();
 // Add Swagger generator services to the container.
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<IFirebaseDbConnection, FirebaseDbConnection>();
+
 // Add controller services to the container.
 builder.Services.AddControllers();
 // Build the application.
@@ -40,4 +43,5 @@ app.MapHub<SnakeGameHub>("/snakegamehub");
 // Map attribute-routed controllers.
 app.MapControllers();
 // Run the application.
-app.Run();
+// This method starts the web application and configures it to listen for HTTP requests at the specified URL.
+app.Run("http://localhost:5273");
