@@ -3,6 +3,7 @@ import * as signalR from '@microsoft/signalr';
 import {CellType, GameStates} from "../common/Enums";
 import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
+import {User} from "../common/User";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class SnakeCommunicationsService {
   private hubConnection: signalR.HubConnection;
   private snakeBoardUpdate = new Subject<CellType[][]>()
   private gameStates = new Subject<GameStates>()
+  private score = new Subject<number>()
   public errorOccurred = new EventEmitter<string>();
 
   constructor(private http: HttpClient) {
@@ -36,6 +38,9 @@ export class SnakeCommunicationsService {
     });
     this.hubConnection.on("GameStates", (gameState: GameStates) => {
       this.gameStates.next(gameState);
+    });
+    this.hubConnection.on("Score", (score: number) => {
+      this.score.next(score);
     });
   }
 
@@ -81,8 +86,11 @@ export class SnakeCommunicationsService {
     const body = JSON.stringify({columns, rows});
     return this.http.post(`http://localhost:5273/api/Game/Start`, body, {'headers': headers});
   }
+  public getScore(): Observable<number> {
+    return this.score.asObservable();
+  }
 
-  sendToken(idToken: string): Observable<any> {
+  public sendToken(idToken: string): Observable<User> {
     const headers = { 'Content-Type': 'application/json' };
     const body = JSON.stringify(idToken);
     return this.http.post('http://localhost:5273/api/FirebaseDb/getUserData', body, { headers });

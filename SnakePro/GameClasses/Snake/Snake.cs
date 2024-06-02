@@ -48,6 +48,8 @@ public class Snake
         }
         else
         {
+            // Increase the score by 10 and notify via SignalR
+            GameExecution.Instance.Score+=10;
             board.GenerateFood(1);
         }
     }

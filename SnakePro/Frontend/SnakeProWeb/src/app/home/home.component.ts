@@ -41,12 +41,16 @@ export class HomeComponent {
     }
     this.snakeCommunicationsService.startConnection().then(() => {
       this.snakeCommunicationsService.getSnakeBoardUpdate().subscribe((board) => {
-        console.log("Board received: ", board)
         this.boardArray = board;
       });
       this.snakeCommunicationsService.getGameStates().subscribe((gameState: GameStates) => {
-        console.log("Game state received: ", gameState)
         this.changeStateMessage(gameState)
+      });
+      this.snakeCommunicationsService.getScore().subscribe((score) => {
+        this.score = score;
+        if (score > this.bestScore) {
+          this.bestScore = score;
+        }
       });
     });
 
@@ -60,7 +64,6 @@ export class HomeComponent {
   changeStateMessage(gameState: GameStates) {
     switch (gameState) {
       case GameStates.GameOver:
-        this.score = 0;
         this.gameOverVisible = true;
         break;
       case GameStates.Paused:
@@ -121,6 +124,7 @@ export class HomeComponent {
 
   hideGameOver() {
     this.gameOverVisible = false;
+    this.score=0;
   }
 
   hidePause() {

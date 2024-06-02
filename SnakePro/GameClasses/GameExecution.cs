@@ -31,6 +31,9 @@ public class GameExecution
     /// </summary>
     private Snake.Snake? _snake;
 
+
+    private int _score;
+
     /// <summary>
     /// Context for the SignalR hub.
     /// </summary>
@@ -48,6 +51,17 @@ public class GameExecution
         {
             _gameState = value;
             _chatHub?.Clients.All.SendAsync("GameStates", _gameState);
+        }
+    }
+    
+    
+    public int Score
+    {
+        get => _score;
+        set
+        {
+            _score = value;
+            _chatHub?.Clients.All.SendAsync("Score", _score);
         }
     }
 
