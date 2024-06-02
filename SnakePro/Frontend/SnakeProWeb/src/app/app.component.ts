@@ -66,6 +66,8 @@ export class AppComponent implements OnInit {
         this.pauseVisible = true;
         break;
       case GameStates.Running:
+        this.pauseVisible = false;
+        break;
       case GameStates.Win:
       case GameStates.None:
         break;

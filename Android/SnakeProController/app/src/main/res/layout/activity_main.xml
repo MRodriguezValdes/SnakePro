@@ -1,0 +1,177 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#99b604"
+    tools:context=".MainActivity">
+
+    <!-- Título -->
+
+    <!-- Contenedor del D-pad -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="0dp"
+        android:fontFamily="@font/press_start_2p"
+        android:text="SnakeProController"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:id="@+id/dpad_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerInParent="true">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Espacio -->
+            <Space
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+
+            <!-- Botón Arriba -->
+            <Button
+                android:id="@+id/button_up"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:text=">"
+                android:textSize="24sp"
+                android:backgroundTint="#000000"
+                android:textColor="#FFFFFF"
+                android:rotation="270"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Botón Izquierda -->
+            <Button
+                android:id="@+id/button_left"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:text="&lt;"
+                android:textSize="24sp"
+                android:backgroundTint="#000000"
+                android:textColor="#FFFFFF"/>
+
+            <!-- Espacio -->
+            <Space
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+
+            <!-- Botón Derecha -->
+            <Button
+                android:id="@+id/button_right"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:text=">"
+                android:textSize="24sp"
+                android:backgroundTint="#000000"
+                android:textColor="#FFFFFF"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Espacio -->
+            <Space
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+
+            <!-- Botón Abajo -->
+            <Button
+                android:id="@+id/button_down"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:text=">"
+                android:textSize="24sp"
+                android:backgroundTint="#000000"
+                android:textColor="#FFFFFF"
+                android:rotation="90"
+                android:gravity="center"/>
+        </LinearLayout>
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/button_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dpad_container"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="65dp"
+        android:backgroundTint="#d3d3d3"
+        android:elevation="4dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="START"
+        android:textColor="#808080"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cornerRadius="0dp" />
+
+    <Button
+        android:id="@+id/button_pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/dpad_container"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="63dp"
+        android:layout_marginEnd="12dp"
+        android:backgroundTint="#d3d3d3"
+        android:elevation="4dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="PAUSE"
+        android:textColor="#808080"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cornerRadius="0dp" />
+
+    <Button
+        android:id="@+id/button_settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="19dp"
+        android:layout_marginEnd="11dp"
+        android:backgroundTint="#d3d3d3"
+        android:elevation="4dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="SETTINGS"
+        android:textColor="#808080"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:cornerRadius="0dp" />
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="64dp"
+        android:layout_height="71dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="0dp"
+        android:src="@drawable/snake" />
+</RelativeLayout>
