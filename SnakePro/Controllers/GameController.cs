@@ -21,7 +21,6 @@ public class GameController(IHubContext<SnakeGameHub> hubContext) : ControllerBa
     [HttpPost("Start")]
     public IActionResult StartGame([FromBody] StartGameRequest startGameRequest)
     {
-        Console.WriteLine($"Starting game with {startGameRequest.Columns} columns and {startGameRequest.Rows} rows");
         GameExecution.Instance?.StartGame(startGameRequest.Columns, startGameRequest.Rows, hubContext);
         return Ok();
     }
@@ -52,7 +51,6 @@ public class GameController(IHubContext<SnakeGameHub> hubContext) : ControllerBa
             return BadRequest("Invalid movement");
         }
 
-        Console.WriteLine($"Key pressed: {chosenMovement}");
         if (GameExecution.Instance?.GameState != GameStates.None)
         {
             GameExecution.Instance?.ChangeCurrentMovement(chosenMovement);

@@ -35,7 +35,7 @@ export class LoginComponent {
       })
       .then(idToken => {
         console.log('idToken:', idToken);
-        this.snakeCommunicationsService.sendToken(idToken).subscribe(() => console.log("Token send"));
+        this.snakeCommunicationsService.sendToken(idToken).subscribe((user) => console.log("user: ", user));
       })
       .then(() => {
         this.router.navigate(['/home']);
@@ -62,7 +62,7 @@ export class LoginComponent {
       })
       .then(idToken => {
         console.log('idToken:', idToken);
-        this.snakeCommunicationsService.sendToken(idToken).subscribe(() => console.log("Token send"));
+        this.snakeCommunicationsService.sendToken(idToken).subscribe((user) => console.log("user: ", user));
       })
       .then(() => {
         this.router.navigate(['/home']);
@@ -86,7 +86,7 @@ export class LoginComponent {
       })
       .then(idToken => {
         console.log('idToken:', idToken);
-        this.snakeCommunicationsService.sendToken(idToken).subscribe(() => console.log("Token send"));
+        this.snakeCommunicationsService.sendToken(idToken).subscribe((user) => console.log("user: ", user));
       })
       .then(() => {
         this.router.navigate(['/home']);
