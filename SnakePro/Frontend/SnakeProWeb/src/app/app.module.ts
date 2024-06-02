@@ -17,6 +17,7 @@ import {environment} from "../environments/environment";
 import { RegisterComponent } from './register/register.component';
 import {HomeComponent} from "./home/home.component";
 import {LoginComponent} from "./login/login.component";
+import {BodyClassDirective} from "./body-class.directive";
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +29,8 @@ import {LoginComponent} from "./login/login.component";
     PauseComponent,
     LoginComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    BodyClassDirective
   ],
   imports: [
     BrowserModule,
