@@ -31,7 +31,9 @@ public class GameExecution
     /// </summary>
     private Snake.Snake? _snake;
 
-
+    /// <summary>
+    /// Private field to hold the score of the current game.
+    /// </summary>
     private int _score;
 
     /// <summary>
@@ -54,7 +56,15 @@ public class GameExecution
         }
     }
     
-    
+    /// <summary>
+    /// Gets or sets the score of the current game.
+    /// </summary>
+    /// <value>
+    /// The score of the game.
+    /// </value>
+    /// <remarks>
+    /// When the score is set, it also sends a SignalR message with the new score to all connected clients.
+    /// </remarks>
     public int Score
     {
         get => _score;
