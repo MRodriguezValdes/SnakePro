@@ -25,7 +25,6 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IFirebaseDbConnection, FirebaseDbConnection>();
-builder.Services.AddScoped< IFirebaseDbConnectionTest,FirebaseTest>();
 
 // Add controller services to the container.
 builder.Services.AddControllers();
@@ -44,4 +43,5 @@ app.MapHub<SnakeGameHub>("/snakegamehub");
 // Map attribute-routed controllers.
 app.MapControllers();
 // Run the application.
-app.Run();
+// This method starts the web application and configures it to listen for HTTP requests at the specified URL.
+app.Run("http://localhost:5273");
