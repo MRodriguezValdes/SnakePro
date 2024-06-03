@@ -1,6 +1,7 @@
-import { Directive, Renderer2, OnInit, OnDestroy } from '@angular/core';
+import { Directive, Renderer2, OnInit, OnDestroy, Inject } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { DOCUMENT } from '@angular/common';
 
 @Directive({
   selector: '[appBodyClass]'
@@ -8,7 +9,7 @@ import { Subscription } from 'rxjs';
 export class BodyClassDirective implements OnInit, OnDestroy {
   private routerSubscription: Subscription | undefined;
 
-  constructor(private renderer: Renderer2, private router: Router) {}
+  constructor(private renderer: Renderer2, private router: Router, @Inject(DOCUMENT) private document: Document) {}
 
   ngOnInit() {
     this.routerSubscription = this.router.events.subscribe(event => {
@@ -19,13 +20,12 @@ export class BodyClassDirective implements OnInit, OnDestroy {
   }
 
   updateBodyClass(url: string) {
-      this.renderer.removeClass(document.body, 'login-page');
-      this.renderer.removeClass(document.body, 'home-page');
-    // Luego, aplicamos la clase correspondiente según la URL
+    this.renderer.removeClass(this.document.body, 'login-page');
+    this.renderer.removeClass(this.document.body, 'home-page');
     if (url.includes('login')) {
-      this.renderer.addClass(document.body, 'login-page');
+      this.renderer.addClass(this.document.body, 'login-page');
     } else if (url.includes('home')) {
-      this.renderer.addClass(document.body, 'home-page');
+      this.renderer.addClass(this.document.body, 'home-page');
     }
   }
 
