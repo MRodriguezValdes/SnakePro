@@ -1,0 +1,8 @@
+<app-navbar></app-navbar>
+<div class="scoreboard">
+  <h2>Scoreboard</h2>
+  <div class="score-items">
+    <app-score-item *ngFor="let score of scores" [score]="score"></app-score-item>
+  </div>
+</div>
+

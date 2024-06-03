@@ -1,0 +1,17 @@
+.score-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.05);
+}
+
+.score-item .player {
+  font-weight: bold;
+}
+
+.score-item .points {
+  color: #888;
+}
