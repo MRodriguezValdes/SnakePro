@@ -20,6 +20,7 @@ import {LoginComponent} from "./login/login.component";
 import { ScoreboardsComponent } from './scoreboards/scoreboards.component';
 import { ScoreItemComponent } from './scoreboards/score-item/score-item.component';
 import {BodyClassDirective} from "./body-class.directive";
+import { ContactComponent } from './contact/contact.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +36,8 @@ import {BodyClassDirective} from "./body-class.directive";
     ScoreboardsComponent,
     ScoreItemComponent,
     RegisterComponent,
-    BodyClassDirective
+    BodyClassDirective,
+    ContactComponent
   ],
   imports: [
     BrowserModule,

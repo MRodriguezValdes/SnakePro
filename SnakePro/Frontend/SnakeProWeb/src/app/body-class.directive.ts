@@ -27,7 +27,9 @@ export class BodyClassDirective implements OnInit, OnDestroy {
     } else if (url.includes('home')) {
       this.renderer.addClass(this.document.body, 'home-page');
     }else if (url.includes('scoreboards')) {
-      this.renderer.addClass(this.document.body, 'scoreboard-page');}
+      this.renderer.addClass(this.document.body, 'scoreboard-page');
+    }else if (url.includes('contact')) {
+      this.renderer.addClass(this.document.body, 'home-page');}
   }
 
   ngOnDestroy() {

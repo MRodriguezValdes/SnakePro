@@ -1,0 +1,61 @@
+body {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #d8e8d8;
+  color: #000;
+}
+
+.retro-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  border: 5px solid #000;
+  background-color: #c8e6c9;
+  box-shadow: 10px 10px 0 #000;
+}
+
+.retro-title {
+  text-align: center;
+  font-size: 2.5em;
+  margin-bottom: 20px;
+  text-shadow: 2px 2px 0 #388e3c;
+}
+
+.retro-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.retro-label {
+  font-size: 1.2em;
+  margin-bottom: 5px;
+  color: #1b5e20;
+}
+
+.retro-input, .retro-textarea {
+  font-size: 1em;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 2px solid #000;
+  background-color: #e8f5e9;
+  box-shadow: 4px 4px 0 #000;
+}
+
+.retro-button {
+  font-family: VideoGameFont, serif;
+  font-size: 1.2em;
+  padding: 10px;
+  border: 2px solid #000;
+  background-color: #66bb6a;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 #000;
+  transition: all 0.2s;
+}
+
+.retro-button:hover {
+  background-color: #4caf50;
+  box-shadow: 2px 2px 0 #000;
+}
+
+.retro-button:active {
+  box-shadow: 1px 1px 0 #000;
+}
