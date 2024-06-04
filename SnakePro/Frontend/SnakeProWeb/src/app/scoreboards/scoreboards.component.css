@@ -1,0 +1,29 @@
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+}
+.scoreboard {
+  border: 1px solid #e0e0e0;
+  padding: 20px;
+  width: 400px;
+  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.scoreboard h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8em;
+  color: #333;
+}
+
+.score-items {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}

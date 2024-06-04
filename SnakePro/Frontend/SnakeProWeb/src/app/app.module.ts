@@ -17,6 +17,8 @@ import {environment} from "../environments/environment";
 import { RegisterComponent } from './register/register.component';
 import {HomeComponent} from "./home/home.component";
 import {LoginComponent} from "./login/login.component";
+import { ScoreboardsComponent } from './scoreboards/scoreboards.component';
+import { ScoreItemComponent } from './scoreboards/score-item/score-item.component';
 import {BodyClassDirective} from "./body-class.directive";
 @NgModule({
   declarations: [
@@ -29,6 +31,9 @@ import {BodyClassDirective} from "./body-class.directive";
     PauseComponent,
     LoginComponent,
     HomeComponent,
+    RegisterComponent,
+    ScoreboardsComponent,
+    ScoreItemComponent,
     RegisterComponent,
     BodyClassDirective
   ],
