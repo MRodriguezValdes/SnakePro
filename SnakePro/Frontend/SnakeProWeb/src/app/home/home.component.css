@@ -1,4 +1,4 @@
-body{
+body {
   justify-content: center;
   align-items: center;
   height: 100vh;
@@ -75,7 +75,7 @@ body{
 
 /* NAVBAR */
 
-.snake-navbar ul li.login {
+.snake-navbar ul li.logout {
   margin-left: auto;
 }
 

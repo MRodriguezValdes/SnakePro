@@ -9,7 +9,6 @@ import {SnakeCommunicationsService} from "../../services/snake-communications.se
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
-  encapsulation: ViewEncapsulation.None
 })
 export class LoginComponent {
   formLogin: FormGroup;
