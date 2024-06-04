@@ -45,6 +45,9 @@ export class HomeComponent {
       });
       this.snakeCommunicationsService.getGameStates().subscribe((gameState: GameStates) => {
         this.changeStateMessage(gameState)
+        if (gameState === GameStates.GameOver) {
+          this.snakeCommunicationsService.saveScore(this.score).subscribe(() => console.log("Score saved"));
+        }
       });
       this.snakeCommunicationsService.getScore().subscribe((score) => {
         this.score = score;
