@@ -101,4 +101,9 @@ export class SnakeCommunicationsService {
     const body = JSON.stringify(score);
     return this.http.post('http://localhost:5273/api/FirebaseDb/SaveScore', body, { headers });
   }
+
+
+  public getBestScore(howMany:number): Observable<any> {
+    return this.http.get<number>(`http://localhost:5273/api/FirebaseDb/GetTopScores?count=${howMany}`);
+  }
 }

@@ -66,5 +66,33 @@ namespace WebApplication2.Controllers
                 return StatusCode(500, $"Internal server error: {ex.Message}");
             }
         }
+
+        /// <summary>
+        /// Retrieves the top scores from the Firebase Realtime Database.
+        /// </summary>
+        /// <param name="count">The number of top scores to retrieve.</param>
+        /// <returns>
+        /// An IActionResult that represents the result of the operation.
+        /// If the operation is successful, it returns an OkObjectResult that contains the top scores.
+        /// If there is an exception, it returns a StatusCodeResult with a status code of 500 and the exception message.
+        /// </returns>
+        /// <remarks>
+        /// This method is an HTTP GET endpoint that is accessible at the route "GetTopScores".
+        /// The "count" parameter is received from the query string of the HTTP request.
+        /// </remarks>
+        [HttpGet("GetTopScores")]
+        public async Task<IActionResult> GetTopScores([FromQuery] int count)
+        {
+            try
+            {
+                Console.WriteLine($"Count: {count}");
+                var topScores = await firebaseDbConnection.GetTopScores(count);
+                return Ok(topScores);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
     }
 }

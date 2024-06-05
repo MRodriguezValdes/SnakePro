@@ -55,6 +55,9 @@ export class HomeComponent {
           this.bestScore = score;
         }
       });
+      this.snakeCommunicationsService.getBestScore(1).subscribe((bestScore) => {
+        this.bestScore = bestScore;
+      });
     });
 
     this.snakeCommunicationsService.errorOccurred.subscribe((error) => {

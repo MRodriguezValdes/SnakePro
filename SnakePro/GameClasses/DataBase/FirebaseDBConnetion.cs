@@ -13,7 +13,8 @@ namespace WebApplication2.GameClasses.DataBase
     {
         Task<User> GetUserData(UserRecord userRecord);
         Task<UserRecord> AuthenticateUser(string userToken);
-        Task SaveScore( int score);
+        Task SaveScore(int score);
+        Task<List<int>> GetTopScores(int count);
     }
 
     /// <summary>
@@ -23,6 +24,8 @@ namespace WebApplication2.GameClasses.DataBase
     {
         // The URL of the Firebase Realtime Database. This is retrieved from the application configuration.
         private static string _firebaseDatabaseUrl = "";
+
+        // Represents the Firebase token of the authenticated user.
         private static FirebaseToken? _userToken;
 
         /// <summary>
@@ -58,6 +61,7 @@ namespace WebApplication2.GameClasses.DataBase
             {
                 throw new Exception("User does not exist!");
             }
+
             _userToken = decodedToken;
 
             return userRecord;
@@ -88,7 +92,7 @@ namespace WebApplication2.GameClasses.DataBase
         /// <exception cref="System.Net.Http.HttpRequestException">Thrown when the request to save the score fails.</exception>
         public async Task SaveScore(int score)
         {
-            var userRecord=await FirebaseAuth.DefaultInstance.GetUserAsync(_userToken?.Uid);
+            var userRecord = await FirebaseAuth.DefaultInstance.GetUserAsync(_userToken?.Uid);
             // Get a reference to the user's scores in the Firebase Realtime Database
             var scoresUrl = $"{_firebaseDatabaseUrl}/score/{userRecord.Uid}.json";
 
@@ -103,6 +107,52 @@ namespace WebApplication2.GameClasses.DataBase
 
             // Throw an exception if the request failed
             response.EnsureSuccessStatusCode();
+        }
+
+        /// <summary>
+        /// Retrieves the top scores from the Firebase Realtime Database.
+        /// </summary>
+        /// <param name="count">The number of top scores to retrieve.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a list of the top scores.</returns>
+        /// <exception cref="System.Exception">Thrown when there is an error retrieving the scores.</exception>
+        public async Task<List<int>> GetTopScores(int count)
+        {
+            try
+            {
+                // Get a reference to the scores in the Firebase Realtime Database
+                var scoresUrl = $"{_firebaseDatabaseUrl}/score.json";
+
+                // Create a new HttpClient
+                using var client = new HttpClient();
+                // Send a GET request to the Firebase Realtime Database
+                var response = await client.GetAsync(scoresUrl);
+
+                // Throw an exception if the request failed
+                response.EnsureSuccessStatusCode();
+
+                // Read the response content as a string
+                var scoresJson = await response.Content.ReadAsStringAsync();
+                // Deserialize the JSON string to a nested dictionary
+                var scores = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, int>>>(scoresJson);
+
+                // If the scores dictionary is null, return an empty list
+                if (scores == null) return [];
+                // Extract the scores, sort them in descending order and take the top 'count'
+                var topScores = scores
+                    .SelectMany(userScores => userScores.Value.Values)
+                    .OrderByDescending(score => score)
+                    .Take(count)
+                    .ToList();
+
+                // Return the top scores
+                return topScores;
+            }
+            catch (Exception ex)
+            {
+                // Log the error message and rethrow the exception
+                Console.WriteLine($"Error getting top scores: {ex.Message}");
+                throw;
+            }
         }
     }
 }
