@@ -14,6 +14,7 @@ export class LoginComponent {
   formLogin: FormGroup;
   errorMessage: string | null = null;
   hidePassword: boolean = true;
+  private token: string | null = null;
 
   constructor(private userService: UserService, private router: Router, private snakeCommunicationsService: SnakeCommunicationsService) {
     this.formLogin = new FormGroup({

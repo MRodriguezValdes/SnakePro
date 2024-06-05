@@ -22,11 +22,4 @@ export class NavbarComponent {
       .catch(error => console.error(error));
   }
 
-  scoreboards() {
-    this.userService.logout()
-      .then(() => {
-        this.router.navigate(['/scoreboards']);
-      })
-      .catch(error => console.error(error));
-  }
 }

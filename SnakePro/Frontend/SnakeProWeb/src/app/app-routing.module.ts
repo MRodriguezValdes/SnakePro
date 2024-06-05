@@ -6,14 +6,15 @@ import {RegisterComponent} from "./register/register.component";
 import {canActivate, redirectUnauthorizedTo} from "@angular/fire/auth-guard";
 import {ScoreboardsComponent} from "./scoreboards/scoreboards.component";
 import {ContactComponent} from "./contact/contact.component";
+import {LoginGuardian} from "./login/login-guardian";
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: 'home', component: HomeComponent, ...canActivate(() => redirectUnauthorizedTo('/login'))},
+  {path: 'home', component: HomeComponent, canActivate:[LoginGuardian]},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'scoreboards', component: ScoreboardsComponent},
-  {path: 'contact', component: ContactComponent}
+  {path: 'scoreboards', component: ScoreboardsComponent,canActivate:[LoginGuardian]},
+  {path: 'contact', component: ContactComponent, canActivate:[LoginGuardian]},
 ];
 
 @NgModule({
