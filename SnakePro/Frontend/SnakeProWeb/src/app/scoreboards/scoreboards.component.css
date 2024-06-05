@@ -1,29 +1,35 @@
-
-.container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 90vh;
+body {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #d8e8d8;
+  color: #000;
 }
-.scoreboard {
-  border: 1px solid #e0e0e0;
+
+.retro-container {
+  max-width: 600px;
+  margin: 50px auto;
   padding: 20px;
-  width: 400px;
-  margin: 0 auto;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 5px solid #000;
+  background-color: #c8e6c9;
+  box-shadow: 10px 10px 0 #000;
 }
 
-.scoreboard h2 {
+.retro-title {
   text-align: center;
+  font-size: 2.5em;
   margin-bottom: 20px;
-  font-size: 1.8em;
-  color: #333;
+  text-shadow: 2px 2px 0 #388e3c;
 }
 
 .score-items {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
+}
+
+.retro-item {
+  font-size: 1.2em;
+  padding: 10px;
+  border: 2px solid #000;
+  background-color: #e8f5e9;
+  box-shadow: 4px 4px 0 #000;
 }
