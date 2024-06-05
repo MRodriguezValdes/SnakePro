@@ -25,13 +25,26 @@ export class UserService {
     });
   }
   loginWithGoogle() {
-    return signInWithPopup(this.auth, new GoogleAuthProvider());
+    return signInWithPopup(this.auth, new GoogleAuthProvider()).then((userCredential) => {
+      // Set the token when the user logs in
+      userCredential.user.getIdToken().then((idToken) => {
+        this.token = idToken;
+        this.cookies.set("token",this.token);
+      });
+      return userCredential;
+    });
   }
 
   loginWithGithub(){
-    return signInWithPopup(this.auth, new GithubAuthProvider());
+    return signInWithPopup(this.auth, new GithubAuthProvider()).then((userCredential) => {
+      // Set the token when the user logs in
+      userCredential.user.getIdToken().then((idToken) => {
+        this.token = idToken;
+        this.cookies.set("token",this.token);
+      });
+      return userCredential;
+    });
   }
-
   logout() {
     this.token="";
     this.cookies.set("token",this.token)
