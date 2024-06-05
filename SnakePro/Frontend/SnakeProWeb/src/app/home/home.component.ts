@@ -1,4 +1,4 @@
-import {Component, HostListener, ViewEncapsulation} from '@angular/core';
+import {Component, HostListener, OnInit, ViewEncapsulation} from '@angular/core';
 import {CellType, GameStates} from "../../common/Enums";
 import {SnakeCommunicationsService} from "../../services/snake-communications.service";
 import {HttpClient} from "@angular/common/http";
@@ -7,10 +7,9 @@ import {HttpClient} from "@angular/common/http";
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
-  encapsulation: ViewEncapsulation.None
 })
 
-export class HomeComponent {
+export class HomeComponent implements OnInit{
   title = 'SnakeProWeb';
   public boardArray: CellType[][] = [];
   public visible: boolean = true;

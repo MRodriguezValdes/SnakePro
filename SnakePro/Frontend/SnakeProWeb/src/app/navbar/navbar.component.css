@@ -2,7 +2,6 @@
 
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
   background-color: #f4f4f4;
 }
 
@@ -10,6 +9,7 @@ body {
   background-color: #4b5320; /* Verde oliva oscuro, similar a una serpiente */
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: VideoGameFont, serif;
 }
 
 .snake-navbar ul {
@@ -68,4 +68,8 @@ body {
 .snake-navbar ul li a:hover::after {
   width: 100%;
   left: 0;
+}
+
+.logout {
+  margin-left: auto;
 }

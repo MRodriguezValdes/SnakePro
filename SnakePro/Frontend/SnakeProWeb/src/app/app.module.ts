@@ -17,6 +17,10 @@ import {environment} from "../environments/environment";
 import { RegisterComponent } from './register/register.component';
 import {HomeComponent} from "./home/home.component";
 import {LoginComponent} from "./login/login.component";
+import { ScoreboardsComponent } from './scoreboards/scoreboards.component';
+import { ScoreItemComponent } from './scoreboards/score-item/score-item.component';
+import {BodyClassDirective} from "./body-class.directive";
+import { ContactComponent } from './contact/contact.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +32,12 @@ import {LoginComponent} from "./login/login.component";
     PauseComponent,
     LoginComponent,
     HomeComponent,
-    RegisterComponent
+    RegisterComponent,
+    ScoreboardsComponent,
+    ScoreItemComponent,
+    RegisterComponent,
+    BodyClassDirective,
+    ContactComponent
   ],
   imports: [
     BrowserModule,

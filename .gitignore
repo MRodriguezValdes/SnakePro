@@ -12,3 +12,4 @@ Debug/
 .externalNativeBuild/
 .cxx
 local.properties
+.vs/
