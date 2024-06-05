@@ -93,6 +93,17 @@ export class SnakeCommunicationsService {
   public sendToken(idToken: string): Observable<User> {
     const headers = { 'Content-Type': 'application/json' };
     const body = JSON.stringify(idToken);
-    return this.http.post('http://localhost:5273/api/FirebaseDb/getUserData', body, { headers });
+    return this.http.post('http://localhost:5273/api/FirebaseDb/GetUserData', body, { headers });
+  }
+
+  public saveScore(score: number): Observable<any> {
+    const headers = { 'Content-Type': 'application/json' };
+    const body = JSON.stringify(score);
+    return this.http.post('http://localhost:5273/api/FirebaseDb/SaveScore', body, { headers });
+  }
+
+
+  public getBestScore(howMany:number): Observable<any> {
+    return this.http.get<number>(`http://localhost:5273/api/FirebaseDb/GetTopScores?count=${howMany}`);
   }
 }

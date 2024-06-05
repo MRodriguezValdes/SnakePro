@@ -9,7 +9,7 @@ namespace WebApplication2.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    public class FirebaseDbController(IFirebaseDbConnection firebaseDbConnection ) : ControllerBase
+    public class FirebaseDbController(IFirebaseDbConnection firebaseDbConnection) : ControllerBase
     {
         /// <summary>
         /// This is a test method that retrieves user information.
@@ -21,11 +21,11 @@ namespace WebApplication2.Controllers
         /// If the user data is successfully retrieved, it returns the data in an OK response.
         /// If there is an exception while fetching the user data, it returns an internal server error response with the exception message.
         /// </returns>
-        [HttpPost("getUserData")]
+        [HttpPost("GetUserData")]
         public async Task<IActionResult> GetUserData([FromBody] string userToken)
         {
             Console.WriteLine($"User token: {userToken}");
-            
+
             if (string.IsNullOrEmpty(userToken))
             {
                 return BadRequest("User token is required.");
@@ -33,8 +33,61 @@ namespace WebApplication2.Controllers
 
             try
             {
-                var data = await firebaseDbConnection.GetUserData(userToken); 
+                var userRecord = await firebaseDbConnection.AuthenticateUser(userToken);
+                var data = await firebaseDbConnection.GetUserData(userRecord);
                 return Ok(data);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Saves the user's score to the Firebase database.
+        /// </summary>
+        /// <param name="score">The score to be saved.</param>
+        /// <returns>
+        /// If the user token is null or empty, it returns a bad request response.
+        /// If the score is successfully saved, it returns an OK response.
+        /// If there is an exception while saving the score, it returns an internal server error response with the exception message.
+        /// </returns>
+        [HttpPost("SaveScore")]
+        public async Task<IActionResult> SaveScore([FromBody] int score)
+        {
+            try
+            {
+                Console.WriteLine($"Score: {score}");
+                await firebaseDbConnection.SaveScore(score);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Retrieves the top scores from the Firebase Realtime Database.
+        /// </summary>
+        /// <param name="count">The number of top scores to retrieve.</param>
+        /// <returns>
+        /// An IActionResult that represents the result of the operation.
+        /// If the operation is successful, it returns an OkObjectResult that contains the top scores.
+        /// If there is an exception, it returns a StatusCodeResult with a status code of 500 and the exception message.
+        /// </returns>
+        /// <remarks>
+        /// This method is an HTTP GET endpoint that is accessible at the route "GetTopScores".
+        /// The "count" parameter is received from the query string of the HTTP request.
+        /// </remarks>
+        [HttpGet("GetTopScores")]
+        public async Task<IActionResult> GetTopScores([FromQuery] int count)
+        {
+            try
+            {
+                Console.WriteLine($"Count: {count}");
+                var topScores = await firebaseDbConnection.GetTopScores(count);
+                return Ok(topScores);
             }
             catch (Exception ex)
             {
