@@ -55,7 +55,7 @@ public class GameExecution
             _chatHub?.Clients.All.SendAsync("GameStates", _gameState);
         }
     }
-    
+
     /// <summary>
     /// Gets or sets the score of the current game.
     /// </summary>
@@ -86,6 +86,7 @@ public class GameExecution
         _chatHub = chatHub;
         GameState = GameStates.Running;
         _board = new Board(columns, rows);
+        _score = 0;
 
         var (startX, startY) = _board.GetRandomValidCell();
         _snake = new Snake.Snake(startX, startY);

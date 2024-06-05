@@ -46,12 +46,18 @@ export class HomeComponent implements OnInit{
       });
       this.snakeCommunicationsService.getGameStates().subscribe((gameState: GameStates) => {
         this.changeStateMessage(gameState)
+        if (gameState === GameStates.GameOver) {
+          this.snakeCommunicationsService.saveScore(this.score).subscribe(() => console.log("Score saved"));
+        }
       });
       this.snakeCommunicationsService.getScore().subscribe((score) => {
         this.score = score;
         if (score > this.bestScore) {
           this.bestScore = score;
         }
+      });
+      this.snakeCommunicationsService.getBestScore(1).subscribe((bestScore) => {
+        this.bestScore = bestScore;
       });
     });
 
