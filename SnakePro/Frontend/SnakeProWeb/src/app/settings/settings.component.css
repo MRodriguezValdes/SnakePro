@@ -85,6 +85,7 @@
   cursor: pointer;
   font-size: 16px;
   transition: background-color 0.3s ease;
+  font-family: VideoGameFont, serif;
 }
 
 #settings-content button:hover {
