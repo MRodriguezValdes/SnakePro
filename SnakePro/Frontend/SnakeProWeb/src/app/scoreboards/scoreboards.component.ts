@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-scoreboards',
@@ -12,8 +13,11 @@ export class ScoreboardsComponent implements OnInit {
     { player: 'Player 3', points: 80 }
   ];
 
+  constructor(private userService: UserService) { }
+
   ngOnInit(): void {
     this.sortScores();
+    console.log(this.userService.getToken());
   }
 
   sortScores(): void {

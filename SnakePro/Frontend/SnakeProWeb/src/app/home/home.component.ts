@@ -2,6 +2,8 @@ import {Component, HostListener, OnInit, ViewEncapsulation} from '@angular/core'
 import {CellType, GameStates} from "../../common/Enums";
 import {SnakeCommunicationsService} from "../../services/snake-communications.service";
 import {HttpClient} from "@angular/common/http";
+import {User} from "../../common/User";
+import {UserService} from "../../services/user.service";
 
 @Component({
   selector: 'app-home',
@@ -21,7 +23,7 @@ export class HomeComponent implements OnInit{
   score: number = 0;
   bestScore: number = 0;
 
-  constructor(private snakeCommunicationsService: SnakeCommunicationsService, private http: HttpClient) {
+  constructor(private snakeCommunicationsService: SnakeCommunicationsService, private http: HttpClient, private userService: UserService) {
   }
 
   public errorsVisible = false;
@@ -63,7 +65,7 @@ export class HomeComponent implements OnInit{
       this.errorsVisible = true;
       this.errorMessage = error;
     });
-
+    console.log(this.userService.getToken());
   }
 
   changeStateMessage(gameState: GameStates) {
