@@ -4,6 +4,7 @@ import {SnakeCommunicationsService} from "../../services/snake-communications.se
 import {HttpClient} from "@angular/common/http";
 import {User} from "../../common/User";
 import {UserService} from "../../services/user.service";
+import {concatWith} from "rxjs";
 
 @Component({
   selector: 'app-home',
@@ -57,7 +58,8 @@ export class HomeComponent implements OnInit{
         }
       });
       this.snakeCommunicationsService.getBestScore(1).subscribe((bestScore) => {
-        this.bestScore = bestScore;
+        console.log(bestScore)
+        this.bestScore = Number(Object.values(bestScore)[0]);
       });
     });
 
