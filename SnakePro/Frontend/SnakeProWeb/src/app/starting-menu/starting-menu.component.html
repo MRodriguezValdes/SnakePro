@@ -1,0 +1,15 @@
+<div class="menu" [ngClass]="{ 'hidden': isMenuHidden }">
+  <div class="game-title">
+    <h1>Serpent Adventures</h1>
+  </div>
+  <div class="buttons">
+    <button (click)="closeMenu()">Start</button>
+    <button id="settingsButton">Settings</button>
+  </div>
+  <div class="instructions">
+    <h2>Instructions:</h2>
+    <p>Use arrow keys to move</p>
+    <p>Press 'P' to pause</p>
+    <p>Objective: Eat as many apples as possible</p>
+  </div>
+</div>
