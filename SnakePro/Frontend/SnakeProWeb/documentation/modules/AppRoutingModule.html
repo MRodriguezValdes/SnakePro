@@ -139,6 +139,7 @@ import {canActivate, redirectUnauthorizedTo} from &quot;@angular/fire/auth-guard
 import {ScoreboardsComponent} from &quot;./scoreboards/scoreboards.component&quot;;
 import {ContactComponent} from &quot;./contact/contact.component&quot;;
 import {LoginGuardian} from &quot;./login/login-guardian&quot;;
+import {DocumentationComponent} from &quot;./documentation/documentation.component&quot;;
 
 const routes: Routes &#x3D; [
   {path: &#x27;&#x27;, redirectTo: &#x27;/home&#x27;, pathMatch: &#x27;full&#x27;},
@@ -147,6 +148,7 @@ const routes: Routes &#x3D; [
   {path: &#x27;register&#x27;, component: RegisterComponent},
   {path: &#x27;scoreboards&#x27;, component: ScoreboardsComponent,canActivate:[LoginGuardian]},
   {path: &#x27;contact&#x27;, component: ContactComponent, canActivate:[LoginGuardian]},
+  { path: &#x27;documentation&#x27;, component: DocumentationComponent },
 ];
 
 @NgModule({
