@@ -117,6 +117,9 @@ export class HomeComponent implements OnInit{
     this.startGame();
   }
 
+  handleSettingsClicked(): void {
+    this.settingsVisible = true;
+  }
   @HostListener('document:keydown', ['$event'])
   handleKeyPress(event: KeyboardEvent) {
     if (event.key === 'p') {
