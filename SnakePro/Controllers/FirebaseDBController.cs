@@ -73,16 +73,11 @@ namespace WebApplication2.Controllers
         /// If the operation is successful, it returns an OkObjectResult that contains the top scores.
         /// If there is an exception, it returns a StatusCodeResult with a status code of 500 and the exception message.
         /// </returns>
-        /// <remarks>
-        /// This method is an HTTP GET endpoint that is accessible at the route "GetTopScores".
-        /// The "count" parameter is received from the query string of the HTTP request.
-        /// </remarks>
         [HttpGet("GetTopScores")]
         public async Task<IActionResult> GetTopScores([FromQuery] int count)
         {
             try
             {
-                Console.WriteLine($"Count: {count}");
                 var topScores = await firebaseDbConnection.GetTopScores(count);
                 return Ok(topScores);
             }

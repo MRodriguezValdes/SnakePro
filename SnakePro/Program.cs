@@ -5,6 +5,8 @@ using WebApplication2.hubs;
 var builder = WebApplication.CreateBuilder(args);
 // Add SignalR services to the container.
 builder.Services.AddSignalR();
+// Add services for in-memory caching to the service container.
+builder.Services.AddMemoryCache();
 // Add CORS services to the container.
 builder.Services.AddCors(options =>
 {
