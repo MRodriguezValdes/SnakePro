@@ -15,7 +15,7 @@ export class StartingMenuComponent {
     this.isMenuHidden = true;
     setTimeout(() => {
       this.startClicked.emit();
-    }, 5000);
+    }, 1000);
   }
 
   openSettings() {

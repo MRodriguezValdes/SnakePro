@@ -64,13 +64,11 @@ body {
   box-shadow: 0 .2em gray;
   cursor: pointer;
   font-size: 25pt;
-
 }
 .start-btn:active {
   box-shadow: none;
   position: relative;
   top: .2em;
-
 }
 
 /* NAVBAR */
