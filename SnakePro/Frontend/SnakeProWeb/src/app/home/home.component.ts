@@ -49,6 +49,7 @@ export class HomeComponent implements OnInit{
         this.changeStateMessage(gameState)
         if (gameState === GameStates.GameOver) {
           this.snakeCommunicationsService.saveScore(this.score).subscribe(() => console.log("Score saved"));
+          localStorage.removeItem('gameStarted');
         }
       });
       this.snakeCommunicationsService.getScore().subscribe((score) => {

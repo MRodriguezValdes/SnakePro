@@ -45,10 +45,10 @@ export class SettingsComponent implements OnInit {
     let newBoardColsValue = this.boardCols.value ?? oldBoardColsValue;
     let newBoardRowsValue = this.boardRows.value ?? oldBoardRowsValue;
 
-    if (newBoardColsValue > 30) {
+    if (newBoardColsValue > 30 || newBoardColsValue < 10) {
       newBoardColsValue = oldBoardColsValue;
     }
-    if (newBoardRowsValue > 30) {
+    if (newBoardRowsValue > 30 || newBoardRowsValue < 10) {
       newBoardRowsValue = oldBoardRowsValue;
     }
 

@@ -45,6 +45,11 @@ ngOnInit() {
   this.snakeCommunicationsService.errorOccurred.subscribe((error) => {
     this.hasErrorOccurred = true;
   });
+
+  const gameStarted = localStorage.getItem('gameStarted');
+  if (gameStarted === 'true') {
+    this.isMenuHidden = true;
+  }
 }
 
 /**
@@ -53,6 +58,7 @@ ngOnInit() {
 closeMenu() {
   if (!this.hasErrorOccurred) {
     this.isMenuHidden = true;
+    localStorage.setItem('gameStarted', 'true');
     setTimeout(() => {
       this.startClicked.emit();
     }, 1000);
