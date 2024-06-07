@@ -115,6 +115,13 @@ export class HomeComponent implements OnInit{
     this.snakeCommunicationsService.startGame(this.boardCols, this.boardRows).subscribe(() => console.log("Game started"));
   }
 
+  handleStartClicked(): void {
+    this.startGame();
+  }
+
+  handleSettingsClicked(): void {
+    this.settingsVisible = true;
+  }
   @HostListener('document:keydown', ['$event'])
   handleKeyPress(event: KeyboardEvent) {
     if (event.key === 'p') {
