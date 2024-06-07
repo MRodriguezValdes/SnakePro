@@ -28,7 +28,7 @@ body {
 .snake-cell {
   width: 30px;
   height: 30px;
-  border: 1px solid #ccc;
+  border: 1px solid #000000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,31 +44,6 @@ body {
 
 .my-component {
   font-family: 'VideoGameFont';
-}
-
-/* BUTTON */
-
-.start-btn{
-  text-align: center;
-  display: inline-block;
-  margin:5px;
-  font-weight: bold;
-  padding: 10px 0 10px 10px ;
-  background-color: lightgray;
-  text-shadow: -1px -1px black, 1px 1px white;
-  color: gray;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  -o-border-radius: 7px;
-  border-radius: 7px;
-  box-shadow: 0 .2em gray;
-  cursor: pointer;
-  font-size: 25pt;
-}
-.start-btn:active {
-  box-shadow: none;
-  position: relative;
-  top: .2em;
 }
 
 /* NAVBAR */
@@ -117,7 +92,30 @@ h3 {
   margin-right: auto;
 
 }
+.class-empty {
+  background-color: #a3ffa9;
+}
 
+.class-block {
+  background-color: black;
+}
+
+.class-food {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAAD1BMVEVHcEyjHBAAAADoPCn///8cxLM9AAAAAXRSTlMAQObYZgAAAFVJREFUeNqNz1EOQBEQQ1E19r/m19JUXubHjSAnJAwHjNajTkX1xgY29yhQbYprsaOyYprXkp6Dlag6GrsaTB3VO4LYFHlnR/W7HTXZ7u832cKhMAt95CQCgwwgxuAAAAAASUVORK5CYII=);
+  image-rendering: pixelated;
+  background-size: contain;
+  filter: drop-shadow(0 0 6px gold);
+  content: "";
+  background-color: #a3ffa9;
+}
+
+.class-snake {
+  background: linear-gradient(45deg, yellow, green);
+}
+
+.class-default {
+  background-color: #a3ffa9;
+}
 
 
 

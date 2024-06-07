@@ -4,7 +4,7 @@
   <h1 class="retro-title">Scoreboard</h1>
   <div class="score-items">
     <div class="retro-item">
-      aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      <app-score-item *ngFor="let score of scores" [score]="score"></app-score-item>
     </div>
   </div>
 </div>
