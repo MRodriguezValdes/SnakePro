@@ -14,7 +14,7 @@ namespace WebApplication2.GameClasses.DataBase
         Task<User> GetUserData(UserRecord userRecord);
         Task<UserRecord> AuthenticateUser(string userToken);
         Task SaveScore(int score);
-        Task<List<int>> GetTopScores(int count);
+        Task<Dictionary<string, List<int>>> GetTopScores(int count);
     }
 
     /// <summary>
@@ -115,7 +115,7 @@ namespace WebApplication2.GameClasses.DataBase
         /// <param name="count">The number of top scores to retrieve.</param>
         /// <returns>A task that represents the asynchronous operation. The task result contains a list of the top scores.</returns>
         /// <exception cref="System.Exception">Thrown when there is an error retrieving the scores.</exception>
-        public async Task<List<int>> GetTopScores(int count)
+        public async Task<Dictionary<string, List<int>>> GetTopScores(int count)
         {
             try
             {
@@ -135,17 +135,37 @@ namespace WebApplication2.GameClasses.DataBase
                 // Deserialize the JSON string to a nested dictionary
                 var scores = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, int>>>(scoresJson);
 
-                // If the scores dictionary is null, return an empty list
-                if (scores == null) return [];
-                // Extract the scores, sort them in descending order and take the top 'count'
-                var topScores = scores
-                    .SelectMany(userScores => userScores.Value.Values)
-                    .OrderByDescending(score => score)
-                    .Take(count)
+                // If the scores dictionary is null, return an empty dictionary
+                if (scores == null) return new Dictionary<string, List<int>>();
+
+                // Extract the scores, sort them in descending order
+                var sortedScores = scores
+                    .SelectMany(userScores =>
+                        userScores.Value.Select(score => new KeyValuePair<string, int>(userScores.Key, score.Value)))
+                    .OrderByDescending(score => score.Value)
                     .ToList();
 
+                // Take the top 'count' scores
+                var topScores = sortedScores.Take(count).ToList();
+
+                // Convert the list of scores to a dictionary
+                var topScoresDict = new Dictionary<string, List<int>>();
+                foreach (var score in topScores)
+                {
+                    var userRecord = await FirebaseAuth.DefaultInstance.GetUserAsync(score.Key);
+                    var user = await GetUserData(userRecord);
+                    if (topScoresDict.ContainsKey(user.Email))
+                    {
+                        topScoresDict[user.Email].Add(score.Value);
+                    }
+                    else
+                    {
+                        topScoresDict[user.Email] = new List<int> { score.Value };
+                    }
+                }
+
                 // Return the top scores
-                return topScores;
+                return topScoresDict;
             }
             catch (Exception ex)
             {

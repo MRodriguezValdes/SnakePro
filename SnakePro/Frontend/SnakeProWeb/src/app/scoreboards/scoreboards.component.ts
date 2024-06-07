@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../services/user.service";
+import {SnakeCommunicationsService} from "../../services/snake-communications.service";
 
 @Component({
   selector: 'app-scoreboards',
@@ -7,17 +8,20 @@ import {UserService} from "../../services/user.service";
   styleUrl: './scoreboards.component.css'
 })
 export class ScoreboardsComponent implements OnInit {
-  scores = [
-    { player: 'Player 1', points: 60 },
-    { player: 'Player 2', points: 100 },
-    { player: 'Player 3', points: 80 }
-  ];
+  scores: { player: string, points: number }[] = [];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private snakeCommunicationsService: SnakeCommunicationsService) {
+  }
 
   ngOnInit(): void {
-    this.sortScores();
-    console.log(this.userService.getToken());
+    this.snakeCommunicationsService.getBestScore(6).subscribe((bestScore: { [key: string]: number[] }) => {
+      for (let user in bestScore) {
+        bestScore[user].forEach((score: number) => {
+          this.scores.push({player: user, points: score});
+        });
+      }
+      this.sortScores();
+    });
   }
 
   sortScores(): void {

@@ -24,7 +24,7 @@ builder.Services.AddEndpointsApiExplorer();
 // Add Swagger generator services to the container.
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IFirebaseDbConnection, FirebaseDbConnection>();
+builder.Services.AddSingleton<IFirebaseDbConnection, FirebaseDbConnection>();
 
 // Add controller services to the container.
 builder.Services.AddControllers();

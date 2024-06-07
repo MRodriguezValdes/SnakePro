@@ -24,8 +24,6 @@ namespace WebApplication2.Controllers
         [HttpPost("GetUserData")]
         public async Task<IActionResult> GetUserData([FromBody] string userToken)
         {
-            Console.WriteLine($"User token: {userToken}");
-
             if (string.IsNullOrEmpty(userToken))
             {
                 return BadRequest("User token is required.");
@@ -57,7 +55,6 @@ namespace WebApplication2.Controllers
         {
             try
             {
-                Console.WriteLine($"Score: {score}");
                 await firebaseDbConnection.SaveScore(score);
                 return Ok();
             }
