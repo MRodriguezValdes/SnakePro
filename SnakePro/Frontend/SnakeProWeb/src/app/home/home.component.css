@@ -105,13 +105,27 @@ h3 {
   image-rendering: pixelated;
   background-size: contain;
   filter: drop-shadow(0 0 6px gold);
-  content: "";
   background-color: #a3ffa9;
 }
 
 .class-snake {
-  background: linear-gradient(45deg, yellow, green);
+  background-color: #6dbb31;
+  position: relative;
 }
+
+.class-snake:before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(ellipse at center, #7ed957 20%, transparent 20%), radial-gradient(ellipse at center, #7ed957 20%, transparent 20%);
+  background-position: 0 0, 15px 15px;
+  background-size: 30px 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
 
 .class-default {
   background-color: #a3ffa9;
