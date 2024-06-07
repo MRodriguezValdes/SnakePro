@@ -31,16 +31,18 @@ body {
   font-size: 48px;
   margin-bottom: 30px;
   color: #1b5e20;
+  text-align: center;
 }
 
 .buttons {
-  display: flex;
-  margin-bottom: 30px;
+  display: block;
+  justify-content: space-between;
 }
 
 
 .instructions {
   text-align: center;
+  transform: translateY(+100px);
 }
 
 .instructions h2 {
@@ -55,8 +57,9 @@ body {
 
 .start-btn{
   text-align: center;
-  display: inline-block;
-  margin:5px;
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 10px;
   font-weight: bold;
   padding: 10px 0 10px 10px ;
   background-color: lightgray;
@@ -69,6 +72,7 @@ body {
   box-shadow: 0 .2em gray;
   cursor: pointer;
   font-size: 25pt;
+
 }
 .start-btn:active {
   box-shadow: none;
