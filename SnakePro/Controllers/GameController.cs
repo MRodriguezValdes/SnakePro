@@ -14,14 +14,24 @@ namespace WebApplication2.Controllers;
 public class GameController(IHubContext<SnakeGameHub> hubContext) : ControllerBase
 {
     /// <summary>
-    /// Starts a new game with the specified number of columns and rows.
+    /// This method is responsible for starting a new game.
     /// </summary>
-    /// <param name="startGameRequest">The request containing the number of columns and rows for the game board.</param>
-    /// <returns>An IActionResult indicating the result of the operation.</returns>
+    /// <param name="startGameRequest">An instance of StartGameRequest which contains the number of columns and rows for the game board.</param>
+    /// <returns>Returns an IActionResult indicating the result of the operation.</returns>
     [HttpPost("Start")]
     public IActionResult StartGame([FromBody] StartGameRequest startGameRequest)
     {
-        GameExecution.Instance?.StartGame(startGameRequest.Columns, startGameRequest.Rows, hubContext);
+        // Check if a game instance already exists
+        if (GameExecution.Instance.GameState!=null && GameExecution.Instance.GameState != GameStates.None)
+        {
+            // If a game instance exists, stop the current game
+            GameExecution.Instance.StopGame();
+        }
+      
+        // Start a new instance of the game with the specified number of columns and rows
+        GameExecution.Instance.StartGame(startGameRequest.Columns, startGameRequest.Rows, hubContext);
+
+        // Return a success status
         return Ok();
     }
 

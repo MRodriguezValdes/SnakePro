@@ -5,7 +5,7 @@ using Google.Apis.Auth.OAuth2;
 using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 
-namespace WebApplication2.GameClasses.DataBase
+namespace WebApplication2.DataBase
 {
     /// <summary>
     /// Defines the contract for a service that interacts with Firebase database.
