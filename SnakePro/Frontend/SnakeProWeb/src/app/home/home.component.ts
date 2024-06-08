@@ -49,6 +49,7 @@ export class HomeComponent implements OnInit{
         this.changeStateMessage(gameState)
         if (gameState === GameStates.GameOver) {
           this.snakeCommunicationsService.saveScore(this.score).subscribe(() => console.log("Score saved"));
+          localStorage.removeItem('gameStarted');
         }
       });
       this.snakeCommunicationsService.getScore().subscribe((score) => {
@@ -91,15 +92,15 @@ export class HomeComponent implements OnInit{
   colorCell(row: number, col: number): string {
     switch (this.boardArray[row][col]) {
       case CellType.Empty:
-        return 'green';
+        return 'class-empty';
       case CellType.Block:
-        return 'black';
+        return 'class-block';
       case CellType.Food:
-        return 'red';
+        return 'class-food';
       case CellType.Snake:
-        return 'yellow';
+        return 'class-snake';
       default:
-        return 'white';
+        return 'class-default';
     }
   }
 

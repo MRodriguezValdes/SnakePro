@@ -8,6 +8,9 @@
       <div *ngIf="boardCols.errors?.['max']">
         The maximum value is 30.
       </div>
+      <div *ngIf="boardCols.errors?.['min']">
+        The minimum value is 10.
+      </div>
     </div>
 
     <div class="input-group">
@@ -15,6 +18,9 @@
       <input type="number" id="board-rows" [formControl]="boardRows" (change)="saveSettings()">
       <div *ngIf="boardRows.errors?.['max']">
         The maximum value is 30.
+      </div>
+      <div *ngIf="boardRows.errors?.['min']">
+        The minimum value is 10.
       </div>
     </div>
 

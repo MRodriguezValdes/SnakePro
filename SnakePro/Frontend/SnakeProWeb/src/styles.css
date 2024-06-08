@@ -26,7 +26,7 @@ body.login-page {
 }
 
 body.home-page {
-  background-color: #32822b;
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAARgAAAEYAQMAAAC9QHvPAAAABlBMVEU+YyFThSxH3YrQAAAAzklEQVR4Ae3ZAQbDQBAF0E8OsEeaq++R5gDLbzDQaQz4qup/1NC3IEl2Motvxon8qPTGhrtXpW1UZsg6NjoTCXDj4tOlsZEZrAPuddq6+rGRGVwk8/ktYyMyw64JG6UZF3LbiAzWGW7ySBuR8aOuN84vpVrBddTGpvd+t4mE2NhE6/0WWZXS2FQuokdvbBzn7zJMnZTGpv4pLTA2wwC1ojQ2fYCqNzaRbYAqNTbzMVd9MyJSYGzGbfI23JAbm3XezrZIAmpjM3Z8emOjj/MC7DVwnN4PbsAAAAAASUVORK5CYII=);
   font-family: VideoGameFont, serif;
 }
 
