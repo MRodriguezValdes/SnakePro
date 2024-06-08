@@ -116,6 +116,18 @@ h3 {
   background-color: var(--snake-color);
   position: relative;
 }
+.class-snake-head {
+  background-color: #bb3131;
+  position: relative;
+}
+.class-snake-mouth-open{
+  background-color: #3158bb;
+  position: relative;
+}
+.class-snake-tail {
+  background-color: #b231bb;
+  position: relative;
+}
 
 .class-snake:before {
   content: "";
