@@ -26,13 +26,8 @@ export class HomeComponent implements OnInit{
   snakeColor: string = '#6dbb31';
   snakeHeadDirection = 'up';
   public snakeHeadElement: any = null;
+
   constructor(private snakeCommunicationsService: SnakeCommunicationsService, private http: HttpClient, private userService: UserService) {
-  }
-
-  public errorsVisible = false;
-  public errorMessage: string = '';
-
-  ngOnInit() {
     if (typeof window !== 'undefined') {
       const savedboardCols = localStorage.getItem('boardCols');
       if (savedboardCols !== null) {
@@ -43,6 +38,12 @@ export class HomeComponent implements OnInit{
         this.boardRows = +savedboardRows;
       }
     }
+  }
+
+  public errorsVisible = false;
+  public errorMessage: string = '';
+
+  ngOnInit() {
     this.snakeCommunicationsService.startConnection().then(() => {
       this.snakeCommunicationsService.getSnakeBoardUpdate().subscribe((board) => {
         this.boardArray = board;
@@ -157,8 +158,20 @@ export class HomeComponent implements OnInit{
   }
 
   startGame(): void {
+    this.updateBoardDimensions();
     this.snakeCommunicationsService.startGame(this.boardCols, this.boardRows).subscribe(() => console.log("Game started"));
   }
+  updateBoardDimensions(): void {
+    const savedboardCols = localStorage.getItem('boardCols');
+    if (savedboardCols !== null) {
+      this.boardCols = +savedboardCols;
+    }
+    const savedboardRows = localStorage.getItem('boardRows');
+    if (savedboardRows !== null) {
+      this.boardRows = +savedboardRows;
+    }
+  }
+
 
   handleStartClicked(): void {
     this.startGame();
