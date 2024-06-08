@@ -108,8 +108,12 @@ h3 {
   background-color: #a3ffa9;
 }
 
+:root {
+  --snake-color: #6dbb31;
+}
+
 .class-snake {
-  background-color: #6dbb31;
+  background-color: var(--snake-color);
   position: relative;
 }
 

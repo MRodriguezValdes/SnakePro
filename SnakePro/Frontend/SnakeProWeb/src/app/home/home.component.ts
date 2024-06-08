@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit{
   boardRows: number = 20;
   score: number = 0;
   bestScore: number = 0;
-
+  snakeColor: string = '#6dbb31';
   constructor(private snakeCommunicationsService: SnakeCommunicationsService, private http: HttpClient, private userService: UserService) {
   }
 
@@ -67,8 +67,19 @@ export class HomeComponent implements OnInit{
     this.snakeCommunicationsService.errorOccurred.subscribe((error) => {
       this.errorsVisible = true;
       this.errorMessage = error;
+      localStorage.removeItem('gameStarted');
     });
     console.log(this.userService.getToken());
+
+    const savedColor = localStorage.getItem('snakeColor');
+    if (savedColor) {
+      this.snakeColor = savedColor;
+      document.documentElement.style.setProperty('--snake-color', this.snakeColor);
+    } else {
+      this.snakeColor = '#6dbb31'; // default snake color
+      localStorage.setItem('snakeColor', this.snakeColor);
+      document.documentElement.style.setProperty('--snake-color', this.snakeColor);
+    }
   }
 
   changeStateMessage(gameState: GameStates) {
