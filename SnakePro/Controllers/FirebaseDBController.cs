@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using WebApplication2.GameClasses.DataBase;
+using WebApplication2.DataBase;
 
 namespace WebApplication2.Controllers
 {

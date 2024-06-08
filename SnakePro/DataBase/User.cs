@@ -1,4 +1,4 @@
-namespace WebApplication2.GameClasses.DataBase;
+namespace WebApplication2.DataBase;
 
 /// <summary>
 /// Represents a user in the system.
