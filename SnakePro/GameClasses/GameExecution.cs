@@ -120,7 +120,7 @@ public class GameExecution
         _snake = new Snake.Snake(startX, startY);
 
         // Set the initial snake position on the board
-        _board.GetBoard()[startX][startY] = CellType.Snake;
+        _board.GetBoard()[startX][startY] = CellType.SnakeHead;
 
         // Generate initial food on the board
         _board.GenerateFood(4);
@@ -220,6 +220,10 @@ public class GameExecution
         // Returns if the snake's head, tail, or the game board is null.
         if (_snake is not { Head: not null } || _snake.Tail == null || _board == null) return;
 
+        // Save the current head position before moving the snake
+        var oldHeadX = _snake.Head.X;
+        var oldHeadY = _snake.Head.Y;
+
         int newX = _snake.Head.X, newY = _snake.Head.Y;
         switch (_currentMovement)
         {
@@ -258,8 +262,16 @@ public class GameExecution
 
         // Update the board cell where the snake's tail was to CellType.Empty
         _board.GetBoard()[oldTailX][oldTailY] = CellType.Empty;
+        
+        // Update the board cell where the snake's head was to CellType.Snake
+        // Only if the old head's coordinates do not match the tail's coordinates
+        if (oldHeadX != oldTailX || oldHeadY != oldTailY)
+        {
+            _board.GetBoard()[oldHeadX][oldHeadY] = CellType.Snake;
+        }
+
         // Update the board cell where the snake's head is now to CellType.Snake
-        _board.GetBoard()[_snake.Head.X][_snake.Head.Y] = CellType.Snake;
+        _board.GetBoard()[_snake.Head.X][_snake.Head.Y] = CellType.SnakeHead;
         // Send the updated board to all clients
         _chatHub?.Clients.All.SendAsync("SnakeBoardUpdate", _board.GetBoard());
     }
