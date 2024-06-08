@@ -262,16 +262,27 @@ public class GameExecution
 
         // Update the board cell where the snake's tail was to CellType.Empty
         _board.GetBoard()[oldTailX][oldTailY] = CellType.Empty;
-        
-        // Update the board cell where the snake's head was to CellType.Snake
-        // Only if the old head's coordinates do not match the tail's coordinates
+
+        // Checks if the old head's coordinates do not match the tail's coordinates.
+        // If they do not match, it means the snake has moved from its previous position.
+        // In this case, the board cell where the snake's head was is updated to CellType.SnakeBody.
         if (oldHeadX != oldTailX || oldHeadY != oldTailY)
         {
-            _board.GetBoard()[oldHeadX][oldHeadY] = CellType.Snake;
+            _board.GetBoard()[oldHeadX][oldHeadY] = CellType.SnakeBody;
         }
 
-        // Update the board cell where the snake's head is now to CellType.Snake
-        _board.GetBoard()[_snake.Head.X][_snake.Head.Y] = CellType.SnakeHead;
+        // Updates the board cell where the snake's head is now to CellType.SnakeHead or CellType.SnakeMouthOpen.
+        // The cell type is determined by whether there is food near the snake's head.
+        _board.GetBoard()[_snake.Head.X][_snake.Head.Y] =
+            _snake.IsFoodNear(_board) ? CellType.SnakeMouthOpen : CellType.SnakeHead;
+
+        // Updates the board cell where the snake's tail is now to CellType.SnakeTail.
+        // This is done only if the snake's head and tail are not at the same position.
+        if (_snake.Tail.X != _snake.Head.X || _snake.Tail.Y != _snake.Head.Y)
+        {
+            _board.GetBoard()[_snake.Tail.X][_snake.Tail.Y] = CellType.SnakeTail;
+        }
+
         // Send the updated board to all clients
         _chatHub?.Clients.All.SendAsync("SnakeBoardUpdate", _board.GetBoard());
     }

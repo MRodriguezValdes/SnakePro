@@ -2,8 +2,10 @@
   Empty,
   Block,
   Food,
-  Snake,
-  SnakeHead
+  SnakeBody,
+  SnakeHead,
+  SnakeMouthOpen,
+  SnakeTail
 }
 export enum GameStates {
   None,
