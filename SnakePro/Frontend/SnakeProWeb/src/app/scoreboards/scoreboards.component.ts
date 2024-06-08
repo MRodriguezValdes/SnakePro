@@ -9,11 +9,13 @@ import {SnakeCommunicationsService} from "../../services/snake-communications.se
 })
 export class ScoreboardsComponent implements OnInit {
   scores: { player: string, points: number }[] = [];
+  isLoading = false; // Nueva variable para rastrear si los datos se están cargando
 
   constructor(private userService: UserService, private snakeCommunicationsService: SnakeCommunicationsService) {
   }
 
   ngOnInit(): void {
+    this.isLoading = true; // Configura isLoading en true antes de cargar los datos
     this.snakeCommunicationsService.getBestScore(6).subscribe((bestScore: { [key: string]: number[] }) => {
       for (let user in bestScore) {
         bestScore[user].forEach((score: number) => {
@@ -21,6 +23,7 @@ export class ScoreboardsComponent implements OnInit {
         });
       }
       this.sortScores();
+      this.isLoading = false; // Configura isLoading en false una vez que los datos se han cargado
     });
   }
 

@@ -2,7 +2,8 @@
 
 <div class="retro-container">
   <h1 class="retro-title">Scoreboard</h1>
-  <div class="score-items">
+  <div *ngIf="isLoading">Loading...</div>
+  <div class="score-items" *ngIf="!isLoading">
     <div class="retro-item">
       <app-score-item *ngFor="let score of scores" [score]="score"></app-score-item>
     </div>
