@@ -1,4 +1,4 @@
-using WebApplication2.GameClasses.DataBase;
+using WebApplication2.DataBase;
 using WebApplication2.hubs;
 
 // Create a new web application builder with the provided command-line arguments.

@@ -12,6 +12,11 @@ public class GameExecution
     private static GameExecution? _instance;
 
     /// <summary>
+    /// A CancellationTokenSource that can be used to stop the background thread
+    ///</summary>
+    private CancellationTokenSource? _cancellationTokenSource;
+
+    /// <summary>
     /// Current state of the game.
     /// </summary>
     private GameStates? _gameState;
@@ -41,7 +46,8 @@ public class GameExecution
     /// </summary>
     private IHubContext<SnakeGameHub>? _chatHub;
 
-    public static GameExecution Instance => _instance ??= new GameExecution();
+    public static GameExecution Instance => _instance ??= new GameExecution
+        { _cancellationTokenSource = new CancellationTokenSource() };
 
     /// <summary>
     /// Gets the current state of the game and sends changes via SignalR.
@@ -76,38 +82,75 @@ public class GameExecution
     }
 
     /// <summary>
-    /// Starts the game with the specified number of columns and rows.
+    /// This method is responsible for starting the game.
+    /// </summary>
+    /// <param name="columns">The number of columns for the game board. This determines the width of the game board.</param>
+    /// <param name="rows">The number of rows for the game board. This determines the height of the game board.</param>
+    /// <param name="chatHub">The SignalR hub context. This is used for real-time communication between the server and the clients.</param>
+    public void StartGame(int columns, int rows, IHubContext<SnakeGameHub>? chatHub)
+    {
+        InitializeGame(columns, rows, chatHub);
+        RunGameLoop();
+    }
+
+    /// <summary>
+    /// Initializes the game with the specified number of columns and rows.
     /// </summary>
     /// <param name="columns">The number of columns in the game board.</param>
     /// <param name="rows">The number of rows in the game board.</param>
     /// <param name="chatHub">The SignalR hub context.</param>
-    public void StartGame(int columns, int rows, IHubContext<SnakeGameHub>? chatHub)
+    private void InitializeGame(int columns, int rows, IHubContext<SnakeGameHub>? chatHub)
     {
+        // Assign the SignalR hub context
         _chatHub = chatHub;
+
+        // Set the game state to Running
         GameState = GameStates.Running;
+
+        // Initialize the game board with the specified number of columns and rows
         _board = new Board(columns, rows);
+
+        // Reset the score to 0
         _score = 0;
 
+        // Get a random valid cell on the board to start the snake
         var (startX, startY) = _board.GetRandomValidCell();
+
+        // Initialize the snake at the starting position
         _snake = new Snake.Snake(startX, startY);
-        _board.GetBoard()[startX][startY] = CellType.Snake; // Set the initial snake position
+
+        // Set the initial snake position on the board
+        _board.GetBoard()[startX][startY] = CellType.Snake;
+
+        // Generate initial food on the board
         _board.GenerateFood(4);
 
         // Send the initial board to all clients
         _chatHub?.Clients.All.SendAsync("SnakeBoardUpdate", _board.GetBoard());
-        Task.Run(() =>
-        {
-            while (GameState is GameStates.Running or GameStates.Paused)
-            {
-                while (GameState is GameStates.Paused)
-                {
-                    Thread.Sleep(100);
-                }
+    }
 
-                MoveSnake();
-                Task.Delay(TimeSpan.FromMilliseconds(200)).Wait();
-            }
-        });
+    /// <summary>
+    /// Runs the game loop in a separate task.
+    /// </summary>
+    private void RunGameLoop()
+    {
+        if (_cancellationTokenSource != null)
+        {
+            Task.Run(() =>
+            {
+                while (GameState is GameStates.Running or GameStates.Paused &&
+                       !_cancellationTokenSource.Token.IsCancellationRequested)
+                {
+                    while (GameState is GameStates.Paused)
+                    {
+                        Thread.Sleep(100);
+                    }
+
+                    MoveSnake();
+                    Task.Delay(TimeSpan.FromMilliseconds(200)).Wait();
+                }
+            }, _cancellationTokenSource.Token);
+        }
     }
 
     /// <summary>
@@ -124,6 +167,33 @@ public class GameExecution
     public void ResumeGame()
     {
         GameState = GameStates.Running;
+    }
+
+    /// <summary>
+    /// Stops the current game and destroys the instance.
+    /// </summary>
+    public void StopGame()
+    {
+        // Cancel the background thread
+        _cancellationTokenSource?.Cancel();
+
+        // Set the game state to None
+        GameState = GameStates.None;
+
+        // Clear the game board
+        _board = null;
+
+        // Clear the snake
+        _snake = null;
+
+        // Clear the current movement
+        _currentMovement = Movements.None;
+
+        // Clear the SignalR hub context
+        _chatHub = null;
+
+        // Destroy the instance
+        _instance = null;
     }
 
     /// <summary>
