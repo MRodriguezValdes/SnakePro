@@ -116,17 +116,99 @@ h3 {
   background-color: var(--snake-color);
   position: relative;
 }
-.class-snake-head {
-  background-color: #bb3131;
-  position: relative;
+.class-snake-head-up {
+  background: #1a1818;
+  border-radius: 1em 1em 0 0;
+  color: #000;
+
 }
-.class-snake-mouth-open{
-  background-color: #3158bb;
-  position: relative;
+
+.class-snake-head-down {
+  background: #1a1818;
+  border-radius: 0 0 1em 1em;
+  color: #000;
 }
+
+.class-snake-head-left {
+  background: #1a1818;
+  border-radius: 1em 0 0 1em;
+  color: #000;
+}
+
+.class-snake-head-right {
+  background: #1a1818;
+  border-radius: 0 1em 1em 0;
+  color: #000;
+}
+.class-snake-head-up:before {
+  content: "⢈";
+  color: #f5f5f5;
+}
+
+.class-snake-head-down:before {
+  content: "⢈";
+  color: #f5f5f5;
+}
+
+.class-snake-head-left:before {
+  content: "⢈";
+  color: #f5f5f5;
+}
+
+.class-snake-head-right:before {
+  content: "⢈";
+  color: #f5f5f5;
+}
+.class-snake-mouth-open-up {
+  background: #e10c0c;
+  border-radius: 1em 1em 0 0;
+  color: #000;
+}
+
+.class-snake-mouth-open-down {
+  background: #e10c0c;
+  border-radius: 0 0 1em 1em;
+  color: #000;
+}
+
+.class-snake-mouth-open-left {
+  background: #e10c0c;
+  border-radius: 1em 0 0 1em;
+  color: #000;
+}
+
+.class-snake-mouth-open-right {
+  background: #e10c0c;
+  border-radius: 0 1em 1em 0;
+  color: #000;
+}
+.class-snake-mouth-open-up:before {
+  content: "⢈";
+  color: #f5f5f5;
+}
+
+.class-snake-mouth-open-down:before {
+  content: "⢈";
+  color: #f5f5f5;
+}
+
+.class-snake-mouth-open-left:before {
+  content: "⢈";
+  color: #f5f5f5;
+}
+
+.class-snake-mouth-open-right:before {
+  content: "⢈";
+  color: #f5f5f5;
+}
+
+
 .class-snake-tail {
-  background-color: #b231bb;
+  background-color: #282d28;
   position: relative;
+  background-image: radial-gradient(ellipse at center, #7ed957 20%, transparent 20%), radial-gradient(ellipse at center, #7ed957 20%, transparent 20%);
+  background-position: 0 0, 15px 15px;
+  background-size: 30px 30px;
 }
 
 .class-snake:before {

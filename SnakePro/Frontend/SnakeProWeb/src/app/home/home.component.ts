@@ -24,6 +24,8 @@ export class HomeComponent implements OnInit{
   score: number = 0;
   bestScore: number = 0;
   snakeColor: string = '#6dbb31';
+  snakeHeadDirection = 'up';
+  public snakeHeadElement: any = null;
   constructor(private snakeCommunicationsService: SnakeCommunicationsService, private http: HttpClient, private userService: UserService) {
   }
 
@@ -80,6 +82,11 @@ export class HomeComponent implements OnInit{
       localStorage.setItem('snakeColor', this.snakeColor);
       document.documentElement.style.setProperty('--snake-color', this.snakeColor);
     }
+    const savedSnakeHeadDirection = localStorage.getItem('snakeHeadDirection');
+    if (savedSnakeHeadDirection) {
+      this.snakeHeadDirection = savedSnakeHeadDirection;
+    }
+
   }
 
   changeStateMessage(gameState: GameStates) {
@@ -101,6 +108,7 @@ export class HomeComponent implements OnInit{
 
 
   colorCell(row: number, col: number): string {
+    let cellClass = '';
     switch (this.boardArray[row][col]) {
       case CellType.Empty:
         return 'class-empty';
@@ -111,14 +119,33 @@ export class HomeComponent implements OnInit{
       case CellType.SnakeBody:
         return 'class-snake';
       case CellType.SnakeHead:
-        return 'class-snake-head';
+        if (this.snakeHeadDirection === 'up') {
+          cellClass = 'class-snake-head-up';
+        } else if (this.snakeHeadDirection === 'down') {
+          cellClass = 'class-snake-head-down';
+        } else if (this.snakeHeadDirection === 'left') {
+          cellClass = 'class-snake-head-left';
+        } else if (this.snakeHeadDirection === 'right') {
+          cellClass = 'class-snake-head-right';
+        }
+        break;
       case CellType.SnakeMouthOpen:
-        return 'class-snake-mouth-open';
+        if (this.snakeHeadDirection === 'up') {
+          cellClass = 'class-snake-mouth-open-up';
+        } else if (this.snakeHeadDirection === 'down') {
+          cellClass = 'class-snake-mouth-open-down';
+        } else if (this.snakeHeadDirection === 'left') {
+          cellClass = 'class-snake-mouth-open-left';
+        } else if (this.snakeHeadDirection === 'right') {
+          cellClass = 'class-snake-mouth-open-right';
+        }
+        break;
       case CellType.SnakeTail:
         return 'class-snake-tail';
       default:
         return 'class-default';
     }
+    return cellClass;
   }
 
   showSettings() {
@@ -148,6 +175,21 @@ export class HomeComponent implements OnInit{
       this.snakeCommunicationsService.resumeGame().subscribe();
     } else {
       this.snakeCommunicationsService.setMovement(event.key).subscribe();
+      switch (event.key) {
+        case 'ArrowUp':
+          this.snakeHeadDirection = 'up';
+          break;
+        case 'ArrowDown':
+          this.snakeHeadDirection = 'down';
+          break;
+        case 'ArrowLeft':
+          this.snakeHeadDirection = 'left';
+          break;
+        case 'ArrowRight':
+          this.snakeHeadDirection = 'right';
+          break;
+      }
+      localStorage.setItem('snakeHeadDirection', this.snakeHeadDirection);
     }
   }
 
