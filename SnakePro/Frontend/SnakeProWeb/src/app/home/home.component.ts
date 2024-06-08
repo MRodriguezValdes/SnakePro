@@ -182,27 +182,32 @@ export class HomeComponent implements OnInit{
   }
   @HostListener('document:keydown', ['$event'])
   handleKeyPress(event: KeyboardEvent) {
+    let newDirection = this.snakeHeadDirection;
+    switch (event.key) {
+      case 'ArrowUp':
+        newDirection = 'up';
+        break;
+      case 'ArrowDown':
+        newDirection = 'down';
+        break;
+      case 'ArrowLeft':
+        newDirection = 'left';
+        break;
+      case 'ArrowRight':
+        newDirection = 'right';
+        break;
+    }
+
+    if (this.isValidMove(newDirection)) {
+      this.snakeHeadDirection = newDirection;
+      localStorage.setItem('snakeHeadDirection', this.snakeHeadDirection);
+      this.snakeCommunicationsService.setMovement(event.key).subscribe();
+    }
+
     if (event.key === 'p') {
       this.snakeCommunicationsService.pauseGame().subscribe();
     } else if (event.key === ' ') {
       this.snakeCommunicationsService.resumeGame().subscribe();
-    } else {
-      this.snakeCommunicationsService.setMovement(event.key).subscribe();
-      switch (event.key) {
-        case 'ArrowUp':
-          this.snakeHeadDirection = 'up';
-          break;
-        case 'ArrowDown':
-          this.snakeHeadDirection = 'down';
-          break;
-        case 'ArrowLeft':
-          this.snakeHeadDirection = 'left';
-          break;
-        case 'ArrowRight':
-          this.snakeHeadDirection = 'right';
-          break;
-      }
-      localStorage.setItem('snakeHeadDirection', this.snakeHeadDirection);
     }
   }
 
@@ -219,4 +224,15 @@ export class HomeComponent implements OnInit{
   hidePause() {
     this.pauseVisible = false;
   }
+
+
+  isValidMove(newDirection: string): boolean {
+    // No permitir que la serpiente se mueva en la dirección opuesta a su movimiento actual
+    if ((this.snakeHeadDirection === 'up' && newDirection === 'down') ||
+      (this.snakeHeadDirection === 'down' && newDirection === 'up') ||
+      (this.snakeHeadDirection === 'left' && newDirection === 'right') ||
+      (this.snakeHeadDirection === 'right' && newDirection === 'left')) {
+      return false;
+    }
+    return true;}
 }
