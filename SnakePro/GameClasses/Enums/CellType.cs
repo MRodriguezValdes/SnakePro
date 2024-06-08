@@ -23,5 +23,9 @@ public enum CellType
     /// <summary>
     /// A snake cell, representing a part of the snake.
     /// </summary>
-    Snake
+    Snake,
+    /// <summary>
+    /// A snake cell, representing the head of the snake.
+    /// </summary>
+    SnakeHead
 }

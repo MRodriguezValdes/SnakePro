@@ -99,6 +99,8 @@ export class HomeComponent implements OnInit{
         return 'class-food';
       case CellType.Snake:
         return 'class-snake';
+      case CellType.SnakeHead:
+        return 'class-snake-head';
       default:
         return 'class-default';
     }

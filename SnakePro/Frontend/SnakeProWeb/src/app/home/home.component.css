@@ -112,6 +112,10 @@ h3 {
   background-color: #6dbb31;
   position: relative;
 }
+.class-snake-head {
+  background-color: #bb3131;
+  position: relative;
+}
 
 .class-snake:before {
   content: "";
