@@ -17,6 +17,9 @@ body {
   height: 100vh;
   margin: 0;
   font-family: 'Arial', sans-serif;
+  overflow: hidden;
+  min-width: 800px;
+  min-height: 600px;
 }
 
 body.login-page {

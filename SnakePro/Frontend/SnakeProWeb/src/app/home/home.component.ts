@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
   snakeHeadDirection = Direction.Up;
   firstMove: boolean = true;
   public gameState: GameStates = GameStates.None;
+  audio = new Audio();
 
   constructor(private snakeCommunicationsService: SnakeCommunicationsService, private http: HttpClient, private userService: UserService) {
     if (typeof window !== 'undefined') {
@@ -99,6 +100,26 @@ export class HomeComponent implements OnInit {
       }
       this.pauseVisible = true;
     }
+
+    this.audio.src = "/assets/aves_4.mp3";
+    this.audio.load();
+    this.audio.loop = true;
+    this.audio.play();
+    const isMusicPlaying = localStorage.getItem('isMusicPlaying');
+    if (isMusicPlaying === 'true') {
+      const musicTime = localStorage.getItem('musicTime');
+      if (musicTime !== null) {
+        this.audio.currentTime = +musicTime;
+      }
+      this.audio.play();
+    }
+
+    // Actualiza el estado de reproducción y la posición de la música en el localStorage cada segundo
+    setInterval(() => {
+      localStorage.setItem('isMusicPlaying', this.audio.paused ? 'false' : 'true');
+      localStorage.setItem('musicTime', this.audio.currentTime.toString());
+    }, 1000);
+
   }
 
   changeStateMessage(gameState: GameStates) {
@@ -177,9 +198,15 @@ export class HomeComponent implements OnInit {
     });
     this.firstMove = true;
     localStorage.removeItem('gameStarted');
+
+    // Start audio playback
+    this.audio.play().catch((error) => {
+      console.log('Audio play failed due to', error);
+      // Handle error here
+    });
   }
 
-  updateBoardDimensions(): void {
+      updateBoardDimensions(): void {
     const savedboardCols = localStorage.getItem('boardCols');
     if (savedboardCols !== null) {
       this.boardCols = +savedboardCols;
