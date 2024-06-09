@@ -1,5 +1,6 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {SnakeCommunicationsService} from "../../services/snake-communications.service";
+import {GameStates} from "../../common/Enums";
 
 @Component({
   selector: 'app-starting-menu',
@@ -7,6 +8,7 @@ import {SnakeCommunicationsService} from "../../services/snake-communications.se
   styleUrls: ['./starting-menu.component.css']
 })
 export class StartingMenuComponent implements OnInit {
+
 /**
  * Flag to indicate if the menu is hidden or not.
  * @type {boolean}
@@ -35,7 +37,9 @@ private hasErrorOccurred: boolean | undefined;
  * Constructor for the StartingMenuComponent.
  * @param {SnakeCommunicationsService} snakeCommunicationsService - The service to communicate with the snake game.
  */
-constructor(private snakeCommunicationsService: SnakeCommunicationsService) { }
+constructor(private snakeCommunicationsService: SnakeCommunicationsService) {
+
+}
 
 /**
  * Angular lifecycle hook that is called after data-bound properties of a directive are initialized.
@@ -50,6 +54,12 @@ ngOnInit() {
   if (gameStarted === 'true') {
     this.isMenuHidden = true;
   }
+
+  this.snakeCommunicationsService.getGameStates().subscribe((gameState) => {
+    if (gameState === GameStates.Running) {
+      this.isMenuHidden = true;
+    }
+  });
 }
 
 /**
@@ -58,11 +68,9 @@ ngOnInit() {
 closeMenu() {
   if (!this.hasErrorOccurred) {
     this.isMenuHidden = true;
-    localStorage.setItem('gameStarted', 'true');
-    setTimeout(() => {
       this.startClicked.emit();
-    }, 1000);
-  }
+    }
+
 }
 
 /**

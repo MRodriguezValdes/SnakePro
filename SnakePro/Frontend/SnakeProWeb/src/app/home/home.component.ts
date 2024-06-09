@@ -169,8 +169,12 @@ export class HomeComponent implements OnInit {
 
   startGame(): void {
     this.updateBoardDimensions();
-    this.snakeCommunicationsService.startGame(this.boardCols, this.boardRows).subscribe(() => console.log("Game started"));
+    this.snakeCommunicationsService.startGame(this.boardCols, this.boardRows).subscribe(() => {
+      console.log("Game started");
+      localStorage.setItem('gameBoard', JSON.stringify(this.boardArray));
+    });
     this.firstMove = true;
+    localStorage.removeItem('gameStarted');
   }
 
   updateBoardDimensions(): void {
@@ -214,7 +218,7 @@ export class HomeComponent implements OnInit {
       this.snakeHeadDirection = newDirection;
       localStorage.setItem('snakeHeadDirection', Direction[this.snakeHeadDirection]);
       this.snakeCommunicationsService.setMovement(event.key).subscribe();
-      this.firstMove = false;  // Actualizar después del primer movimiento válido
+      this.firstMove = false;
     }
 
     if (event.key === 'p') {
@@ -247,6 +251,7 @@ export class HomeComponent implements OnInit {
   isValidMove(newDirection: Direction): boolean {
     // Permitir cualquier movimiento si es el primer movimiento
     if (this.firstMove) {
+      localStorage.setItem('gameStarted', 'true');
       return true;
     }
 
