@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
   snakeColor: string = '#6dbb31';
   snakeHeadDirection = Direction.Up;
   firstMove: boolean = true;
+  public gameState: GameStates = GameStates.None;
 
   constructor(private snakeCommunicationsService: SnakeCommunicationsService, private http: HttpClient, private userService: UserService) {
     if (typeof window !== 'undefined') {
@@ -47,6 +48,7 @@ export class HomeComponent implements OnInit {
         this.boardArray = board;
       });
       this.snakeCommunicationsService.getGameStates().subscribe((gameState: GameStates) => {
+        this.gameState = gameState;
         this.changeStateMessage(gameState);
         if (gameState === GameStates.GameOver) {
           this.snakeCommunicationsService.saveScore(this.score).subscribe(() => console.log("Score saved"));
@@ -198,40 +200,41 @@ export class HomeComponent implements OnInit {
 
   @HostListener('document:keydown', ['$event'])
   handleKeyPress(event: KeyboardEvent) {
-    let newDirection = this.snakeHeadDirection;
-    switch (event.key) {
-      case 'ArrowUp':
-        newDirection = Direction.Up;
-        break;
-      case 'ArrowDown':
-        newDirection= Direction.Down;
-        break;
-      case 'ArrowLeft':
-        newDirection = Direction.Left;
-        break;
-      case 'ArrowRight':
-        newDirection= Direction.Right;
-        break;
-    }
-    console.log(this.firstMove)
-    if (this.isValidMove(newDirection)) {
-      this.snakeHeadDirection = newDirection;
-      localStorage.setItem('snakeHeadDirection', Direction[this.snakeHeadDirection]);
-      this.snakeCommunicationsService.setMovement(event.key).subscribe();
-      this.firstMove = false;
-    }
+    if (this.gameState !== GameStates.GameOver) {
+      let newDirection = this.snakeHeadDirection;
+      switch (event.key) {
+        case 'ArrowUp':
+          newDirection = Direction.Up;
+          break;
+        case 'ArrowDown':
+          newDirection= Direction.Down;
+          break;
+        case 'ArrowLeft':
+          newDirection = Direction.Left;
+          break;
+        case 'ArrowRight':
+          newDirection= Direction.Right;
+          break;
+      }
+      if (this.isValidMove(newDirection)) {
+        this.snakeHeadDirection = newDirection;
+        localStorage.setItem('snakeHeadDirection', Direction[this.snakeHeadDirection]);
+        this.snakeCommunicationsService.setMovement(event.key).subscribe();
+        this.firstMove = false;
+      }
 
-    if (event.key === 'p') {
-      this.snakeCommunicationsService.pauseGame().subscribe(() => {
-        localStorage.setItem('gamePaused', 'true');
-        localStorage.setItem('gameBoard', JSON.stringify(this.boardArray));
-      });
-    } else if (event.key === ' ') {
-      this.snakeCommunicationsService.resumeGame().subscribe(() => {
-        localStorage.removeItem('gamePaused');
-        localStorage.removeItem('gameBoard');
-        localStorage.removeItem('snakeHeadDirection');
-      });
+      if (event.key === 'p') {
+        this.snakeCommunicationsService.pauseGame().subscribe(() => {
+          localStorage.setItem('gamePaused', 'true');
+          localStorage.setItem('gameBoard', JSON.stringify(this.boardArray));
+        });
+      } else if (event.key === ' ') {
+        this.snakeCommunicationsService.resumeGame().subscribe(() => {
+          localStorage.removeItem('gamePaused');
+          localStorage.removeItem('gameBoard');
+          localStorage.removeItem('snakeHeadDirection');
+        });
+      }
     }
   }
 
