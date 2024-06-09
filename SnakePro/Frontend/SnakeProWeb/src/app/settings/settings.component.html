@@ -24,6 +24,11 @@
       </div>
     </div>
 
+    <div class="input-group">
+      <label for="snake-color">Snake Color:</label>
+      <input type="color" id="snake-color" [(ngModel)]="snakeColor" (change)="saveSettings()">
+    </div>
+
     <div class="button-group">
       <button (click)="closeSettings()">Close</button>
     </div>

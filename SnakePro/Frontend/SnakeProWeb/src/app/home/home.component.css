@@ -108,6 +108,10 @@ h3 {
   background-color: #a3ffa9;
 }
 
+:root {
+  --snake-color: #6dbb31;
+}
+
 .class-special-food{
   image-rendering: pixelated;
   background-size: contain;
@@ -116,20 +120,81 @@ h3 {
   position: relative;
 }
 .class-snake {
-  background-color: #6dbb31;
+  background-color: var(--snake-color);
   position: relative;
 }
-.class-snake-head {
-  background-color: #bb3131;
-  position: relative;
+.class-snake-head-up {
+  background-image: url("/assets/head2eyes.png");
+  image-rendering: pixelated;
+  background-size: contain;
+  background-color: #a3ffa9;
+
 }
-.class-snake-mouth-open{
-  background-color: #3158bb;
-  position: relative;
+
+.class-snake-head-down {
+  background-image: url("/assets/head2eyes.png");
+  image-rendering: pixelated;
+  background-size: contain;
+  background-color: #a3ffa9;
+  transform: rotate(180deg);
 }
+
+.class-snake-head-left {
+  background-image: url("/assets/head2eyes.png");
+  image-rendering: pixelated;
+  background-size: contain;
+  background-color: #a3ffa9;
+  transform: rotate(-90deg);
+}
+
+.class-snake-head-right {
+  background-image: url("/assets/head2eyes.png");
+  image-rendering: pixelated;
+  background-size: contain;
+  background-color: #a3ffa9;
+  transform: rotate(90deg);
+
+}
+
+.class-snake-mouth-open-up {
+  background-image: url("/assets/head_mouth_open_2_eyes.png");
+  image-rendering: pixelated;
+  background-size: contain;
+  background-color: #a3ffa9;
+}
+
+.class-snake-mouth-open-down {
+  background-image: url("/assets/head_mouth_open_2_eyes.png");
+  image-rendering: pixelated;
+  background-size: contain;
+  background-color: #a3ffa9;
+  transform: rotate(180deg);
+}
+
+.class-snake-mouth-open-left {
+  background-image: url("/assets/head_mouth_open_2_eyes.png");
+  image-rendering: pixelated;
+  background-size: contain;
+  background-color: #a3ffa9;
+  transform: rotate(-90deg);
+}
+
+.class-snake-mouth-open-right {
+  background-image: url("/assets/head_mouth_open_2_eyes_right.png");
+  image-rendering: pixelated;
+  background-size: contain;
+  background-color: #a3ffa9;
+
+}
+
+
+
 .class-snake-tail {
-  background-color: #b231bb;
+  background-color: #282d28;
   position: relative;
+  background-image: radial-gradient(ellipse at center, #7ed957 20%, transparent 20%), radial-gradient(ellipse at center, #7ed957 20%, transparent 20%);
+  background-position: 0 0, 15px 15px;
+  background-size: 30px 30px;
 }
 
 .class-snake:before {
@@ -151,5 +216,28 @@ h3 {
 }
 
 
+.restart-button{
+  text-align: center;
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  padding: 10px 0 10px 10px ;
+  background-color: lightgray;
+  text-shadow: -1px -1px black, 1px 1px white;
+  color: gray;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -o-border-radius: 7px;
+  border-radius: 7px;
+  box-shadow: 0 .2em gray;
+  cursor: pointer;
+  font-size: 25pt;
 
+}
+.restart-button:active {
+  box-shadow: none;
+  position: relative;
+  top: .2em;
+}
 

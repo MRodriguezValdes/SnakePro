@@ -1,18 +1,16 @@
-import {Component, HostListener, OnInit, ViewEncapsulation} from '@angular/core';
-import {CellType, GameStates} from "../../common/Enums";
-import {SnakeCommunicationsService} from "../../services/snake-communications.service";
-import {HttpClient} from "@angular/common/http";
-import {User} from "../../common/User";
-import {UserService} from "../../services/user.service";
-import {concatWith} from "rxjs";
+import { Component, HostListener, OnInit } from '@angular/core';
+import { CellType, GameStates } from "../../common/Enums";
+import { SnakeCommunicationsService } from "../../services/snake-communications.service";
+import { HttpClient } from "@angular/common/http";
+import { User } from "../../common/User";
+import { UserService } from "../../services/user.service";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
+  styleUrls: ['./home.component.css'],
 })
-
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
   title = 'SnakeProWeb';
   public boardArray: CellType[][] = [];
   public visible: boolean = true;
@@ -23,14 +21,11 @@ export class HomeComponent implements OnInit{
   boardRows: number = 20;
   score: number = 0;
   bestScore: number = 0;
+  snakeColor: string = '#6dbb31';
+  snakeHeadDirection = 'up';
+  firstMove: boolean = true;
 
   constructor(private snakeCommunicationsService: SnakeCommunicationsService, private http: HttpClient, private userService: UserService) {
-  }
-
-  public errorsVisible = false;
-  public errorMessage: string = '';
-
-  ngOnInit() {
     if (typeof window !== 'undefined') {
       const savedboardCols = localStorage.getItem('boardCols');
       if (savedboardCols !== null) {
@@ -41,12 +36,18 @@ export class HomeComponent implements OnInit{
         this.boardRows = +savedboardRows;
       }
     }
+  }
+
+  public errorsVisible = false;
+  public errorMessage: string = '';
+
+  ngOnInit() {
     this.snakeCommunicationsService.startConnection().then(() => {
       this.snakeCommunicationsService.getSnakeBoardUpdate().subscribe((board) => {
         this.boardArray = board;
       });
       this.snakeCommunicationsService.getGameStates().subscribe((gameState: GameStates) => {
-        this.changeStateMessage(gameState)
+        this.changeStateMessage(gameState);
         if (gameState === GameStates.GameOver) {
           this.snakeCommunicationsService.saveScore(this.score).subscribe(() => console.log("Score saved"));
           localStorage.removeItem('gameStarted');
@@ -59,7 +60,7 @@ export class HomeComponent implements OnInit{
         }
       });
       this.snakeCommunicationsService.getBestScore(1).subscribe((bestScore) => {
-        console.log(bestScore)
+        console.log(bestScore);
         this.bestScore = Number(Object.values(bestScore)[0]);
       });
     });
@@ -67,8 +68,32 @@ export class HomeComponent implements OnInit{
     this.snakeCommunicationsService.errorOccurred.subscribe((error) => {
       this.errorsVisible = true;
       this.errorMessage = error;
+      localStorage.removeItem('gameStarted');
     });
     console.log(this.userService.getToken());
+
+    const savedColor = localStorage.getItem('snakeColor');
+    if (savedColor) {
+      this.snakeColor = savedColor;
+      document.documentElement.style.setProperty('--snake-color', this.snakeColor);
+    } else {
+      this.snakeColor = '#6dbb31'; // default snake color
+      localStorage.setItem('snakeColor', this.snakeColor);
+      document.documentElement.style.setProperty('--snake-color', this.snakeColor);
+    }
+    const savedSnakeHeadDirection = localStorage.getItem('snakeHeadDirection');
+    if (savedSnakeHeadDirection) {
+      this.snakeHeadDirection = savedSnakeHeadDirection;
+    }
+
+    const gamePaused = localStorage.getItem('gamePaused');
+    if (gamePaused === 'true') {
+      const savedGameBoard = localStorage.getItem('gameBoard');
+      if (savedGameBoard !== null) {
+        this.boardArray = JSON.parse(savedGameBoard);
+      }
+      this.pauseVisible = true;
+    }
   }
 
   changeStateMessage(gameState: GameStates) {
@@ -88,8 +113,8 @@ export class HomeComponent implements OnInit{
     }
   }
 
-
   colorCell(row: number, col: number): string {
+    let cellClass = '';
     switch (this.boardArray[row][col]) {
       case CellType.Empty:
         return 'class-empty';
@@ -102,14 +127,33 @@ export class HomeComponent implements OnInit{
       case CellType.SnakeBody:
         return 'class-snake';
       case CellType.SnakeHead:
-        return 'class-snake-head';
+        if (this.snakeHeadDirection === 'up') {
+          cellClass = 'class-snake-head-up';
+        } else if (this.snakeHeadDirection === 'down') {
+          cellClass = 'class-snake-head-down';
+        } else if (this.snakeHeadDirection === 'left') {
+          cellClass = 'class-snake-head-left';
+        } else if (this.snakeHeadDirection === 'right') {
+          cellClass = 'class-snake-head-right';
+        }
+        break;
       case CellType.SnakeMouthOpen:
-        return 'class-snake-mouth-open';
+        if (this.snakeHeadDirection === 'up') {
+          cellClass = 'class-snake-mouth-open-up';
+        } else if (this.snakeHeadDirection === 'down') {
+          cellClass = 'class-snake-mouth-open-down';
+        } else if (this.snakeHeadDirection === 'left') {
+          cellClass = 'class-snake-mouth-open-left';
+        } else if (this.snakeHeadDirection === 'right') {
+          cellClass = 'class-snake-mouth-open-right';
+        }
+        break;
       case CellType.SnakeTail:
         return 'class-snake-tail';
       default:
         return 'class-default';
     }
+    return cellClass;
   }
 
   showSettings() {
@@ -121,7 +165,20 @@ export class HomeComponent implements OnInit{
   }
 
   startGame(): void {
+    this.updateBoardDimensions();
     this.snakeCommunicationsService.startGame(this.boardCols, this.boardRows).subscribe(() => console.log("Game started"));
+    this.firstMove = true;
+  }
+
+  updateBoardDimensions(): void {
+    const savedboardCols = localStorage.getItem('boardCols');
+    if (savedboardCols !== null) {
+      this.boardCols = +savedboardCols;
+    }
+    const savedboardRows = localStorage.getItem('boardRows');
+    if (savedboardRows !== null) {
+      this.boardRows = +savedboardRows;
+    }
   }
 
   handleStartClicked(): void {
@@ -131,17 +188,45 @@ export class HomeComponent implements OnInit{
   handleSettingsClicked(): void {
     this.settingsVisible = true;
   }
+
   @HostListener('document:keydown', ['$event'])
   handleKeyPress(event: KeyboardEvent) {
-    if (event.key === 'p') {
-      this.snakeCommunicationsService.pauseGame().subscribe();
-    } else if (event.key === ' ') {
-      this.snakeCommunicationsService.resumeGame().subscribe();
-    } else {
+    let newDirection = this.snakeHeadDirection;
+    switch (event.key) {
+      case 'ArrowUp':
+        newDirection = 'up';
+        break;
+      case 'ArrowDown':
+        newDirection = 'down';
+        break;
+      case 'ArrowLeft':
+        newDirection = 'left';
+        break;
+      case 'ArrowRight':
+        newDirection = 'right';
+        break;
+    }
+    console.log(this.firstMove)
+    if (this.isValidMove(newDirection)) {
+      this.snakeHeadDirection = newDirection;
+      localStorage.setItem('snakeHeadDirection', this.snakeHeadDirection);
       this.snakeCommunicationsService.setMovement(event.key).subscribe();
+      this.firstMove = false;  // Actualizar después del primer movimiento válido
+    }
+
+    if (event.key === 'p') {
+      this.snakeCommunicationsService.pauseGame().subscribe(() => {
+        localStorage.setItem('gamePaused', 'true');
+        localStorage.setItem('gameBoard', JSON.stringify(this.boardArray));
+      });
+    } else if (event.key === ' ') {
+      this.snakeCommunicationsService.resumeGame().subscribe(() => {
+        localStorage.removeItem('gamePaused');
+        localStorage.removeItem('gameBoard');
+        localStorage.removeItem('snakeHeadDirection');
+      });
     }
   }
-
 
   hideErrors() {
     this.errorsVisible = false;
@@ -149,10 +234,26 @@ export class HomeComponent implements OnInit{
 
   hideGameOver() {
     this.gameOverVisible = false;
-    this.score=0;
+    this.score = 0;
   }
 
   hidePause() {
     this.pauseVisible = false;
+  }
+
+  isValidMove(newDirection: string): boolean {
+    // Permitir cualquier movimiento si es el primer movimiento
+    if (this.firstMove) {
+      return true;
+    }
+
+    // No permitir que la serpiente se mueva en la dirección opuesta a su movimiento actual
+    if ((this.snakeHeadDirection === 'up' && newDirection === 'down') ||
+      (this.snakeHeadDirection === 'down' && newDirection === 'up') ||
+      (this.snakeHeadDirection === 'left' && newDirection === 'right') ||
+      (this.snakeHeadDirection === 'right' && newDirection === 'left')) {
+      return false;
+    }
+    return true;
   }
 }

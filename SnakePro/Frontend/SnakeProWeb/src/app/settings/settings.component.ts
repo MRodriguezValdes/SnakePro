@@ -11,6 +11,7 @@ export class SettingsComponent implements OnInit {
   @Output() close = new EventEmitter<void>();
   boardCols = new FormControl(20, [Validators.min(10), Validators.max(30)]);
   boardRows = new FormControl(20, [Validators.min(10), Validators.max(30)]);
+  snakeColor: string = '#6dbb31';
 
   constructor(public snakeCommunicationsService: SnakeCommunicationsService) {
   }
@@ -34,6 +35,15 @@ export class SettingsComponent implements OnInit {
     this.boardRows.valueChanges.subscribe(value => {
       this.boardCols.setValue(value, {emitEvent: false});
     });
+    const savedColor = localStorage.getItem('snakeColor');
+    if (savedColor) {
+      this.snakeColor = savedColor;
+      document.documentElement.style.setProperty('--snake-color', this.snakeColor);
+    } else {
+      this.snakeColor = '#6dbb31'; // default snake color
+      localStorage.setItem('snakeColor', this.snakeColor);
+      document.documentElement.style.setProperty('--snake-color', this.snakeColor);
+    }
   }
 
   saveSettings() {
@@ -54,7 +64,8 @@ export class SettingsComponent implements OnInit {
 
     localStorage.setItem('boardCols', newBoardColsValue.toString());
     localStorage.setItem('boardRows', newBoardRowsValue.toString());
-    console.log(newBoardColsValue, newBoardRowsValue);
+    localStorage.setItem('snakeColor', this.snakeColor);
+    document.documentElement.style.setProperty('--snake-color', this.snakeColor);
   }
 
   closeSettings() {
