@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { CellType, GameStates } from "../../common/Enums";
+import {CellType, Direction, GameStates} from "../../common/Enums";
 import { SnakeCommunicationsService } from "../../services/snake-communications.service";
 import { HttpClient } from "@angular/common/http";
 import { User } from "../../common/User";
@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   score: number = 0;
   bestScore: number = 0;
   snakeColor: string = '#6dbb31';
-  snakeHeadDirection = 'up';
+  snakeHeadDirection = Direction.Up;
   firstMove: boolean = true;
 
   constructor(private snakeCommunicationsService: SnakeCommunicationsService, private http: HttpClient, private userService: UserService) {
@@ -63,6 +63,9 @@ export class HomeComponent implements OnInit {
         console.log(bestScore);
         this.bestScore = Number(Object.values(bestScore)[0]);
       });
+      this.snakeCommunicationsService.getDirection().subscribe((movement) => {
+        this.snakeHeadDirection = movement;
+      });
     });
 
     this.snakeCommunicationsService.errorOccurred.subscribe((error) => {
@@ -83,7 +86,7 @@ export class HomeComponent implements OnInit {
     }
     const savedSnakeHeadDirection = localStorage.getItem('snakeHeadDirection');
     if (savedSnakeHeadDirection) {
-      this.snakeHeadDirection = savedSnakeHeadDirection;
+      this.snakeHeadDirection = this.snakeHeadDirection = Direction[savedSnakeHeadDirection as keyof typeof Direction];
     }
 
     const gamePaused = localStorage.getItem('gamePaused');
@@ -127,24 +130,24 @@ export class HomeComponent implements OnInit {
       case CellType.SnakeBody:
         return 'class-snake';
       case CellType.SnakeHead:
-        if (this.snakeHeadDirection === 'up') {
+        if (this.snakeHeadDirection === Direction.Up) {
           cellClass = 'class-snake-head-up';
-        } else if (this.snakeHeadDirection === 'down') {
+        } else if (this.snakeHeadDirection === Direction.Down) {
           cellClass = 'class-snake-head-down';
-        } else if (this.snakeHeadDirection === 'left') {
+        } else if (this.snakeHeadDirection === Direction.Left) {
           cellClass = 'class-snake-head-left';
-        } else if (this.snakeHeadDirection === 'right') {
+        } else if (this.snakeHeadDirection === Direction.Right) {
           cellClass = 'class-snake-head-right';
         }
         break;
       case CellType.SnakeMouthOpen:
-        if (this.snakeHeadDirection === 'up') {
+        if (this.snakeHeadDirection === Direction.Up) {
           cellClass = 'class-snake-mouth-open-up';
-        } else if (this.snakeHeadDirection === 'down') {
+        } else if (this.snakeHeadDirection === Direction.Down) {
           cellClass = 'class-snake-mouth-open-down';
-        } else if (this.snakeHeadDirection === 'left') {
+        } else if (this.snakeHeadDirection === Direction.Left) {
           cellClass = 'class-snake-mouth-open-left';
-        } else if (this.snakeHeadDirection === 'right') {
+        } else if (this.snakeHeadDirection === Direction.Right) {
           cellClass = 'class-snake-mouth-open-right';
         }
         break;
@@ -194,22 +197,22 @@ export class HomeComponent implements OnInit {
     let newDirection = this.snakeHeadDirection;
     switch (event.key) {
       case 'ArrowUp':
-        newDirection = 'up';
+        newDirection = Direction.Up;
         break;
       case 'ArrowDown':
-        newDirection = 'down';
+        newDirection= Direction.Down;
         break;
       case 'ArrowLeft':
-        newDirection = 'left';
+        newDirection = Direction.Left;
         break;
       case 'ArrowRight':
-        newDirection = 'right';
+        newDirection= Direction.Right;
         break;
     }
     console.log(this.firstMove)
     if (this.isValidMove(newDirection)) {
       this.snakeHeadDirection = newDirection;
-      localStorage.setItem('snakeHeadDirection', this.snakeHeadDirection);
+      localStorage.setItem('snakeHeadDirection', Direction[this.snakeHeadDirection]);
       this.snakeCommunicationsService.setMovement(event.key).subscribe();
       this.firstMove = false;  // Actualizar después del primer movimiento válido
     }
@@ -241,19 +244,17 @@ export class HomeComponent implements OnInit {
     this.pauseVisible = false;
   }
 
-  isValidMove(newDirection: string): boolean {
+  isValidMove(newDirection: Direction): boolean {
     // Permitir cualquier movimiento si es el primer movimiento
     if (this.firstMove) {
       return true;
     }
 
     // No permitir que la serpiente se mueva en la dirección opuesta a su movimiento actual
-    if ((this.snakeHeadDirection === 'up' && newDirection === 'down') ||
-      (this.snakeHeadDirection === 'down' && newDirection === 'up') ||
-      (this.snakeHeadDirection === 'left' && newDirection === 'right') ||
-      (this.snakeHeadDirection === 'right' && newDirection === 'left')) {
-      return false;
-    }
-    return true;
+    return !((this.snakeHeadDirection === Direction.Up && newDirection === Direction.Down) ||
+      (this.snakeHeadDirection === Direction.Down && newDirection === Direction.Up) ||
+      (this.snakeHeadDirection === Direction.Left && newDirection === Direction.Right) ||
+      (this.snakeHeadDirection === Direction.Right && newDirection === Direction.Left));
+
   }
 }

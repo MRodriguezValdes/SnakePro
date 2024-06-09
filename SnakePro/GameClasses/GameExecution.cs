@@ -221,6 +221,9 @@ public class GameExecution
     public void ChangeCurrentMovement(Movements? movement)
     {
         _currentMovement = movement;
+        
+        // We send the movement to front so that the snake's head moves either directed by the mobile phone or by the keyboard
+        _chatHub?.Clients.All.SendAsync("CurrentMovement", _currentMovement);
     }
 
     /// <summary>

@@ -97,7 +97,10 @@ h3 {
 }
 
 .class-block {
-  background-color: black;
+  background-image:url("/assets/block.png");
+  image-rendering: pixelated;
+  background-size: contain;
+  filter: drop-shadow(0 0 6px #ce5a2d);
 }
 
 .class-food {
@@ -113,11 +116,11 @@ h3 {
 }
 
 .class-special-food{
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAAElBMVEVHcEzetDVuWBaZfSjUrzf////CVzsZAAAAAXRSTlMAQObYZgAAAFhJREFUeNqNz0EKACEMQ1Fr6/2vPImGyNCNf6HyqKBDRYzWo04G1UGWaEZgr4TKGPZCR2mFuK5FPYPloBy1XTW6juwdE9g0/c6O7HfbKpLd32+SmU1mZPoAtRsDrII18DgAAAAASUVORK5CYII=);
   image-rendering: pixelated;
   background-size: contain;
-  filter: drop-shadow(0 0 6px gold);
-  background-color: #fab000;
-  position: relative;
+  filter: drop-shadow(0 0 6px #fca400);
+  background-color: #a3ffa9;
 }
 .class-snake {
   background-color: var(--snake-color);

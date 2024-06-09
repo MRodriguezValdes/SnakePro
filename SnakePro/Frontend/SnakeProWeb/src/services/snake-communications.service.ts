@@ -1,6 +1,6 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import * as signalR from '@microsoft/signalr';
-import {CellType, GameStates} from "../common/Enums";
+import {CellType, Direction, GameStates} from "../common/Enums";
 import {Observable, Subject} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {User} from "../common/User";
@@ -13,6 +13,7 @@ export class SnakeCommunicationsService {
   private snakeBoardUpdate = new Subject<CellType[][]>()
   private gameStates = new Subject<GameStates>()
   private score = new Subject<number>()
+  private movement = new Subject<Direction>()
   public errorOccurred = new EventEmitter<string>();
 
   constructor(private http: HttpClient) {
@@ -41,6 +42,9 @@ export class SnakeCommunicationsService {
     });
     this.hubConnection.on("Score", (score: number) => {
       this.score.next(score);
+    });
+    this.hubConnection.on("CurrentMovement", (currentMovement: Direction) => {
+     this.movement.next(currentMovement);
     });
   }
 
@@ -90,6 +94,9 @@ export class SnakeCommunicationsService {
     return this.score.asObservable();
   }
 
+  public getDirection(): Observable<Direction> {
+    return this.movement.asObservable();
+  }
   public sendToken(idToken: string): Observable<User> {
     const headers = { 'Content-Type': 'application/json' };
     const body = JSON.stringify(idToken);

@@ -15,3 +15,11 @@ export enum GameStates {
   GameOver,
   Win
 }
+
+export enum Direction {
+Up=1,
+  Down,
+  Left,
+  Right
+}
+
