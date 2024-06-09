@@ -97,6 +97,8 @@ export class HomeComponent implements OnInit{
         return 'class-block';
       case CellType.Food:
         return 'class-food';
+      case CellType.SpecialFood:
+        return 'class-special-food';
       case CellType.SnakeBody:
         return 'class-snake';
       case CellType.SnakeHead:

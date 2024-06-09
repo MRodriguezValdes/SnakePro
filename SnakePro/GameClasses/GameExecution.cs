@@ -124,6 +124,9 @@ public class GameExecution
 
         // Generate initial food on the board
         _board.GenerateFood(4);
+        
+        // Generate the blocks
+        _board.GenerateBlocks(20);
 
         // Send the initial board to all clients
         _chatHub?.Clients.All.SendAsync("SnakeBoardUpdate", _board.GetBoard());
@@ -134,23 +137,39 @@ public class GameExecution
     /// </summary>
     private void RunGameLoop()
     {
-        if (_cancellationTokenSource != null)
-        {
-            Task.Run(() =>
-            {
-                while (GameState is GameStates.Running or GameStates.Paused &&
-                       !_cancellationTokenSource.Token.IsCancellationRequested)
-                {
-                    while (GameState is GameStates.Paused)
-                    {
-                        Thread.Sleep(100);
-                    }
+        if (_cancellationTokenSource == null) return;
+        // Define the initial delay time in milliseconds
+        var delayTime = 200;
 
-                    MoveSnake();
-                    Task.Delay(TimeSpan.FromMilliseconds(200)).Wait();
+        // Define the time when the game started
+        var gameStartTime = DateTime.Now;
+
+        Task.Run(() =>
+        {
+            while (GameState is GameStates.Running or GameStates.Paused &&
+                   !_cancellationTokenSource.Token.IsCancellationRequested)
+            {
+                while (GameState is GameStates.Paused)
+                {
+                    Thread.Sleep(100);
                 }
-            }, _cancellationTokenSource.Token);
-        }
+
+                MoveSnake();
+
+                // Check if 3 seconds have passed since the game started
+                if ((DateTime.Now - gameStartTime).TotalSeconds >= 3)
+                {
+                    // Decrease the delay time by 10 milliseconds
+                    delayTime = Math.Max(80,
+                        delayTime - 10); // Ensure the delay time doesn't go below 80 milliseconds
+
+                    // Reset the game start time
+                    gameStartTime = DateTime.Now;
+                }
+
+                Task.Delay(TimeSpan.FromMilliseconds(delayTime)).Wait();
+            }
+        }, _cancellationTokenSource.Token);
     }
 
     /// <summary>
@@ -247,7 +266,9 @@ public class GameExecution
 
         // Wrap the coordinates if they are out of the board bounds
         (newX, newY) = WrapCoordinates(newX, newY);
-        if (_snake.CheckCollision(newX, newY))
+        
+        // Check if it has collided with itself or with a block
+        if (_snake.CheckCollision(newX, newY) || _board.GetBoard()[newX][newY] == CellType.Block)
         {
             GameState = GameStates.GameOver;
             return;
