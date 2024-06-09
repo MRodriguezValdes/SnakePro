@@ -1,18 +1,16 @@
-import {Component, HostListener, OnInit, ViewEncapsulation} from '@angular/core';
-import {CellType, GameStates} from "../../common/Enums";
-import {SnakeCommunicationsService} from "../../services/snake-communications.service";
-import {HttpClient} from "@angular/common/http";
-import {User} from "../../common/User";
-import {UserService} from "../../services/user.service";
-import {concatWith} from "rxjs";
+import { Component, HostListener, OnInit } from '@angular/core';
+import { CellType, GameStates } from "../../common/Enums";
+import { SnakeCommunicationsService } from "../../services/snake-communications.service";
+import { HttpClient } from "@angular/common/http";
+import { User } from "../../common/User";
+import { UserService } from "../../services/user.service";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrl: './home.component.css',
+  styleUrls: ['./home.component.css'],
 })
-
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
   title = 'SnakeProWeb';
   public boardArray: CellType[][] = [];
   public visible: boolean = true;
@@ -25,7 +23,7 @@ export class HomeComponent implements OnInit{
   bestScore: number = 0;
   snakeColor: string = '#6dbb31';
   snakeHeadDirection = 'up';
-  public snakeHeadElement: any = null;
+  firstMove: boolean = true;
 
   constructor(private snakeCommunicationsService: SnakeCommunicationsService, private http: HttpClient, private userService: UserService) {
     if (typeof window !== 'undefined') {
@@ -49,7 +47,7 @@ export class HomeComponent implements OnInit{
         this.boardArray = board;
       });
       this.snakeCommunicationsService.getGameStates().subscribe((gameState: GameStates) => {
-        this.changeStateMessage(gameState)
+        this.changeStateMessage(gameState);
         if (gameState === GameStates.GameOver) {
           this.snakeCommunicationsService.saveScore(this.score).subscribe(() => console.log("Score saved"));
           localStorage.removeItem('gameStarted');
@@ -62,7 +60,7 @@ export class HomeComponent implements OnInit{
         }
       });
       this.snakeCommunicationsService.getBestScore(1).subscribe((bestScore) => {
-        console.log(bestScore)
+        console.log(bestScore);
         this.bestScore = Number(Object.values(bestScore)[0]);
       });
     });
@@ -88,6 +86,14 @@ export class HomeComponent implements OnInit{
       this.snakeHeadDirection = savedSnakeHeadDirection;
     }
 
+    const gamePaused = localStorage.getItem('gamePaused');
+    if (gamePaused === 'true') {
+      const savedGameBoard = localStorage.getItem('gameBoard');
+      if (savedGameBoard !== null) {
+        this.boardArray = JSON.parse(savedGameBoard);
+      }
+      this.pauseVisible = true;
+    }
   }
 
   changeStateMessage(gameState: GameStates) {
@@ -106,7 +112,6 @@ export class HomeComponent implements OnInit{
         break;
     }
   }
-
 
   colorCell(row: number, col: number): string {
     let cellClass = '';
@@ -160,7 +165,9 @@ export class HomeComponent implements OnInit{
   startGame(): void {
     this.updateBoardDimensions();
     this.snakeCommunicationsService.startGame(this.boardCols, this.boardRows).subscribe(() => console.log("Game started"));
+    this.firstMove = true;
   }
+
   updateBoardDimensions(): void {
     const savedboardCols = localStorage.getItem('boardCols');
     if (savedboardCols !== null) {
@@ -172,7 +179,6 @@ export class HomeComponent implements OnInit{
     }
   }
 
-
   handleStartClicked(): void {
     this.startGame();
   }
@@ -180,6 +186,7 @@ export class HomeComponent implements OnInit{
   handleSettingsClicked(): void {
     this.settingsVisible = true;
   }
+
   @HostListener('document:keydown', ['$event'])
   handleKeyPress(event: KeyboardEvent) {
     let newDirection = this.snakeHeadDirection;
@@ -197,20 +204,27 @@ export class HomeComponent implements OnInit{
         newDirection = 'right';
         break;
     }
-
+    console.log(this.firstMove)
     if (this.isValidMove(newDirection)) {
       this.snakeHeadDirection = newDirection;
       localStorage.setItem('snakeHeadDirection', this.snakeHeadDirection);
       this.snakeCommunicationsService.setMovement(event.key).subscribe();
+      this.firstMove = false;  // Actualizar después del primer movimiento válido
     }
 
     if (event.key === 'p') {
-      this.snakeCommunicationsService.pauseGame().subscribe();
+      this.snakeCommunicationsService.pauseGame().subscribe(() => {
+        localStorage.setItem('gamePaused', 'true');
+        localStorage.setItem('gameBoard', JSON.stringify(this.boardArray));
+      });
     } else if (event.key === ' ') {
-      this.snakeCommunicationsService.resumeGame().subscribe();
+      this.snakeCommunicationsService.resumeGame().subscribe(() => {
+        localStorage.removeItem('gamePaused');
+        localStorage.removeItem('gameBoard');
+        localStorage.removeItem('snakeHeadDirection');
+      });
     }
   }
-
 
   hideErrors() {
     this.errorsVisible = false;
@@ -218,15 +232,19 @@ export class HomeComponent implements OnInit{
 
   hideGameOver() {
     this.gameOverVisible = false;
-    this.score=0;
+    this.score = 0;
   }
 
   hidePause() {
     this.pauseVisible = false;
   }
 
-
   isValidMove(newDirection: string): boolean {
+    // Permitir cualquier movimiento si es el primer movimiento
+    if (this.firstMove) {
+      return true;
+    }
+
     // No permitir que la serpiente se mueva en la dirección opuesta a su movimiento actual
     if ((this.snakeHeadDirection === 'up' && newDirection === 'down') ||
       (this.snakeHeadDirection === 'down' && newDirection === 'up') ||
@@ -234,5 +252,6 @@ export class HomeComponent implements OnInit{
       (this.snakeHeadDirection === 'right' && newDirection === 'left')) {
       return false;
     }
-    return true;}
+    return true;
+  }
 }
