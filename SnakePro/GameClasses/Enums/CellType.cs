@@ -19,6 +19,11 @@ public enum CellType
     /// A food cell, which the snake can eat to grow.
     /// </summary>
     Food,
+    
+    /// <summary>
+    ///  A special food cell, which the snake can eat to grow faster.
+    /// </summary>
+    SpecialFood,
 
     /// <summary>
     /// A snake cell, representing a part of the snake.

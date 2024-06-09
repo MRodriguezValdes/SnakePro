@@ -41,16 +41,23 @@ public class Snake
         var newHead = new SnakeNode(newX, newY);
         _nodes.AddFirst(newHead);
 
-        if (board.GetBoard()[newX][newY] != CellType.Food)
+        var cellType = board.GetBoard()[newX][newY];
+        if (cellType != CellType.Food && cellType != CellType.SpecialFood)
         {
             // If the snake didn't eat, remove the tail
             _nodes.RemoveLast();
         }
         else
         {
-            // Increase the score by 10 and notify via SignalR
-            GameExecution.Instance.Score += 10;
+            // Increase the score by 10 or 70 and notify via SignalR
+            GameExecution.Instance.Score += cellType == CellType.Food ? 10 : 70;
             board.GenerateFood(1);
+
+            if (cellType != CellType.SpecialFood || _nodes.Last?.Value == null) return;
+            // If the snake ate a special food, don't remove the tail for the next two moves
+            // This will make the snake grow by three segments
+            _nodes.AddLast(new SnakeNode(_nodes.Last.Value.X, _nodes.Last.Value.Y));
+            _nodes.AddLast(new SnakeNode(_nodes.Last.Value.X, _nodes.Last.Value.Y));
         }
     }
 

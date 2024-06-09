@@ -112,6 +112,13 @@ h3 {
   --snake-color: #6dbb31;
 }
 
+.class-special-food{
+  image-rendering: pixelated;
+  background-size: contain;
+  filter: drop-shadow(0 0 6px gold);
+  background-color: #fab000;
+  position: relative;
+}
 .class-snake {
   background-color: var(--snake-color);
   position: relative;

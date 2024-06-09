@@ -2,6 +2,7 @@
   Empty,
   Block,
   Food,
+  SpecialFood,
   SnakeBody,
   SnakeHead,
   SnakeMouthOpen,
