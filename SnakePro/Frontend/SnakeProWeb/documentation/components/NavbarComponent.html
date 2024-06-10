@@ -10,7 +10,6 @@
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
         <link rel="stylesheet" href="../styles/dark.css">
-        <link rel="stylesheet" href="../styles/laravel.css">
     </head>
     <body>
           <script>
@@ -216,6 +215,9 @@
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>The constructor for the NavbarComponent class.
+It injects the Router and UserService services.</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -224,6 +226,7 @@
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -238,6 +241,12 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>The Angular router service.</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>userService</td>
@@ -250,6 +259,12 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>The service for user-related operations.</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -289,14 +304,22 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="17"
-                                    class="link-to-prism">src/app/navbar/navbar.component.ts:17</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="27"
+                                    class="link-to-prism">src/app/navbar/navbar.component.ts:27</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>The logout method is used to log out the user.
+It performs the following steps:</p>
+<ol>
+<li>Calls the logout method of the UserService.</li>
+<li>If the logout is successful, it navigates to the login page.</li>
+<li>If any errors occur during this process, it logs the error to the console.</li>
+</ol>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -323,11 +346,21 @@ import {UserService} from &quot;../../services/user.service&quot;;
 })
 export class NavbarComponent {
 
-  constructor(private router: Router,  private userService: UserService) {
+  /**
+   * The constructor for the NavbarComponent class.
+   * It injects the Router and UserService services.
+   * @param {Router} router - The Angular router service.
+   * @param {UserService} userService - The service for user-related operations.
+   */
+  constructor(private router: Router,  private userService: UserService) {}
 
-  }
-
-
+  /**
+   * The logout method is used to log out the user.
+   * It performs the following steps:
+   * 1. Calls the logout method of the UserService.
+   * 2. If the logout is successful, it navigates to the login page.
+   * 3. If any errors occur during this process, it logs the error to the console.
+   */
   logout(): void {
     this.userService.logout()
       .then(() &#x3D;&gt; {
@@ -335,6 +368,7 @@ export class NavbarComponent {
       })
       .catch(error &#x3D;&gt; console.error(error));
   }
+  
 
 }
 </code></pre>
@@ -346,6 +380,7 @@ export class NavbarComponent {
     &lt;li&gt;&lt;a href&#x3D;&quot;/home&quot;&gt;Home&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href&#x3D;&quot;/scoreboards&quot;&gt;Scoreboards&lt;/a&gt;&lt;/li&gt;
     &lt;li&gt;&lt;a href&#x3D;&quot;/contact&quot;&gt;Contact&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href&#x3D;&quot;/documentation&quot;&gt;Documentation&lt;/a&gt;&lt;/li&gt;
     &lt;li class&#x3D;&quot;logout&quot;&gt;&lt;a href&#x3D;&quot;&quot; (click)&#x3D;&quot;logout()&quot;&gt;Logout&lt;/a&gt;&lt;/li&gt;
   &lt;/ul&gt;
 &lt;/nav&gt;
@@ -379,8 +414,8 @@ export class NavbarComponent {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><nav class="snake-navbar">  <ul>    <li><a href="/home">Home</a></li>    <li><a href="/scoreboards">Scoreboards</a></li>    <li><a href="/contact">Contact</a></li>    <li class="logout"><a href="" (click)="logout()">Logout</a></li>  </ul></nav></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DocumentationComponent', 'selector': 'app-documentation'},{'name': 'ErrorsComponent', 'selector': 'app-errors'},{'name': 'GameOverComponent', 'selector': 'app-game-over'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PauseComponent', 'selector': 'app-pause'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ScoreboardsComponent', 'selector': 'app-scoreboards'},{'name': 'ScoreItemComponent', 'selector': 'app-score-item'},{'name': 'SettingsComponent', 'selector': 'app-settings'}];
+        var COMPONENT_TEMPLATE = '<div><nav class="snake-navbar">  <ul>    <li><a href="/home">Home</a></li>    <li><a href="/scoreboards">Scoreboards</a></li>    <li><a href="/contact">Contact</a></li>    <li><a href="/documentation">Documentation</a></li>    <li class="logout"><a href="" (click)="logout()">Logout</a></li>  </ul></nav></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DocumentationComponent', 'selector': 'app-documentation'},{'name': 'ErrorsComponent', 'selector': 'app-errors'},{'name': 'GameOverComponent', 'selector': 'app-game-over'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PauseComponent', 'selector': 'app-pause'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ScoreboardsComponent', 'selector': 'app-scoreboards'},{'name': 'ScoreItemComponent', 'selector': 'app-score-item'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'StartingMenuComponent', 'selector': 'app-starting-menu'}];
     var DIRECTIVES = [{'name': 'BodyClassDirective', 'selector': '[appBodyClass]'}];
     var ACTUAL_COMPONENT = {'name': 'NavbarComponent'};
 </script>

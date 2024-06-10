@@ -10,7 +10,6 @@
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
         <link rel="stylesheet" href="../styles/dark.css">
-        <link rel="stylesheet" href="../styles/laravel.css">
     </head>
     <body>
           <script>
@@ -116,6 +115,9 @@
                             <a href="#CellType" title="src/common/Enums.ts" ><b>CellType</b>&nbsp;&nbsp;&nbsp;(src/.../Enums.ts)</a>
                         </li>
                         <li>
+                            <a href="#Direction" title="src/common/Enums.ts" ><b>Direction</b>&nbsp;&nbsp;&nbsp;(src/.../Enums.ts)</a>
+                        </li>
+                        <li>
                             <a href="#GameStates" title="src/common/Enums.ts" ><b>GameStates</b>&nbsp;&nbsp;&nbsp;(src/.../Enums.ts)</a>
                         </li>
                     </ul>
@@ -135,6 +137,23 @@
                         <span class="name "><b>CellType</b><a href="#CellType"><span class="icon ion-ios-link"></span></a></span>
                     </td>
                 </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>CellType is an enumeration that represents the different types of cells in the game.
+It has the following values:</p>
+<ul>
+<li>Empty: represents an empty cell.</li>
+<li>Block: represents a block cell.</li>
+<li>Food: represents a food cell.</li>
+<li>SpecialFood: represents a special food cell.</li>
+<li>SnakeBody: represents a snake body cell.</li>
+<li>SnakeHead: represents a snake head cell.</li>
+<li>SnakeMouthOpen: represents a snake mouth open cell.</li>
+<li>SnakeTail: represents a snake tail cell.</li>
+</ul>
+</div>
+                        </td>
+                    </tr>
                         <tr>
                             <td class="col-md-4">
                                 &nbsp;Empty
@@ -152,7 +171,75 @@
                         </tr>
                         <tr>
                             <td class="col-md-4">
-                                &nbsp;Snake
+                                &nbsp;SpecialFood
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                &nbsp;SnakeBody
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                &nbsp;SnakeHead
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                &nbsp;SnakeMouthOpen
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                &nbsp;SnakeTail
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="Direction"></a>
+                        <span class="name "><b>Direction</b><a href="#Direction"><span class="icon ion-ios-link"></span></a></span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>Direction is an enumeration that represents the different directions in the game.
+It has the following values:</p>
+<ul>
+<li>Up: represents the up direction.</li>
+<li>Down: represents the down direction.</li>
+<li>Left: represents the left direction.</li>
+<li>Right: represents the right direction.</li>
+</ul>
+</div>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                &nbsp;Up
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <i>Value : </i><code>1</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                &nbsp;Down
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                &nbsp;Left
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                &nbsp;Right
                             </td>
                         </tr>
             </tbody>
@@ -165,6 +252,20 @@
                         <span class="name "><b>GameStates</b><a href="#GameStates"><span class="icon ion-ios-link"></span></a></span>
                     </td>
                 </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-description"><p>GameStates is an enumeration that represents the different states of the game.
+It has the following values:</p>
+<ul>
+<li>None: represents the initial state of the game.</li>
+<li>Running: represents the state when the game is running.</li>
+<li>Paused: represents the state when the game is paused.</li>
+<li>GameOver: represents the state when the game is over.</li>
+<li>Win: represents the state when the game is won.</li>
+</ul>
+</div>
+                        </td>
+                    </tr>
                         <tr>
                             <td class="col-md-4">
                                 &nbsp;None

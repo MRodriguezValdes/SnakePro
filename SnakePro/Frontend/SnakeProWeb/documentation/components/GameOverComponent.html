@@ -10,7 +10,6 @@
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
         <link rel="stylesheet" href="../styles/dark.css">
-        <link rel="stylesheet" href="../styles/laravel.css">
     </head>
     <body>
           <script>
@@ -246,7 +245,7 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/game-over/game-over.component.ts:10</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/game-over/game-over.component.ts:20</a></div>
                             </td>
                         </tr>
             </tbody>
@@ -270,9 +269,16 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/app/game-over/game-over.component.ts:9</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/game-over/game-over.component.ts:14</a></div>
                             </td>
                         </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>through which data can travel from the child to the parent. Here it&#39;s used to emit
+an event when the game over screen needs to be closed.</p>
+</div>
+                    </td>
+                </tr>
             </tbody>
         </table>
 </section>
@@ -303,14 +309,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="12"
-                                    class="link-to-prism">src/app/game-over/game-over.component.ts:12</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="26"
+                                    class="link-to-prism">src/app/game-over/game-over.component.ts:26</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>This method is used to emit the &#39;close&#39; event, which should be handled by the parent component
+to close the game over screen.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -334,9 +343,23 @@
   styleUrl: &#x27;./game-over.component.css&#x27;
 })
 export class GameOverComponent {
+  /**
+   * @Output() decorator is used to mark a property in a child component as a doorway
+   * through which data can travel from the child to the parent. Here it&#x27;s used to emit
+   * an event when the game over screen needs to be closed.
+   */
   @Output() close &#x3D; new EventEmitter&lt;void&gt;();
+
+  /**
+   * @Input() decorator is used to allow data to flow from a parent component into a child component.
+   * Here it&#x27;s used to receive the final score from the parent component.
+   */
   @Input() score!: number;
 
+  /**
+   * This method is used to emit the &#x27;close&#x27; event, which should be handled by the parent component
+   * to close the game over screen.
+   */
   closeGameOver() {
     this.close.emit();
   }
@@ -385,7 +408,7 @@ export class GameOverComponent {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="game-over-container">  <div class="game-over-message">    <h1>Game Over</h1>    <p>Thanks for playing! Your score was: <span id="final-score">{{score}}</span></p>    <div class="button-container">      <button class="error-button" (click)="closeGameOver()">Close</button>    </div>  </div></div></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DocumentationComponent', 'selector': 'app-documentation'},{'name': 'ErrorsComponent', 'selector': 'app-errors'},{'name': 'GameOverComponent', 'selector': 'app-game-over'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PauseComponent', 'selector': 'app-pause'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ScoreboardsComponent', 'selector': 'app-scoreboards'},{'name': 'ScoreItemComponent', 'selector': 'app-score-item'},{'name': 'SettingsComponent', 'selector': 'app-settings'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DocumentationComponent', 'selector': 'app-documentation'},{'name': 'ErrorsComponent', 'selector': 'app-errors'},{'name': 'GameOverComponent', 'selector': 'app-game-over'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PauseComponent', 'selector': 'app-pause'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ScoreboardsComponent', 'selector': 'app-scoreboards'},{'name': 'ScoreItemComponent', 'selector': 'app-score-item'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'StartingMenuComponent', 'selector': 'app-starting-menu'}];
     var DIRECTIVES = [{'name': 'BodyClassDirective', 'selector': '[appBodyClass]'}];
     var ACTUAL_COMPONENT = {'name': 'GameOverComponent'};
 </script>

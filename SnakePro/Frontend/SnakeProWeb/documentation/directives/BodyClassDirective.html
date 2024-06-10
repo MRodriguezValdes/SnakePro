@@ -10,7 +10,6 @@
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
         <link rel="stylesheet" href="../styles/dark.css">
-        <link rel="stylesheet" href="../styles/laravel.css">
     </head>
     <body>
           <script>
@@ -207,12 +206,15 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/body-class.directive.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/body-class.directive.ts:13</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>The constructor for the BodyClassDirective class.
+It injects the Renderer2, Router, and DOCUMENT services.</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -221,6 +223,7 @@
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -235,6 +238,12 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>The service for rendering operations.</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>router</td>
@@ -247,6 +256,12 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>The Angular router service.</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>document</td>
@@ -259,6 +274,12 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>The global document object.</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -298,14 +319,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="35"
-                                    class="link-to-prism">src/app/body-class.directive.ts:35</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="58"
+                                    class="link-to-prism">src/app/body-class.directive.ts:58</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>The ngOnDestroy method is a lifecycle hook that is called just before Angular destroys the directive.
+In this method, it unsubscribes from the router events.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -335,14 +359,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="14"
-                                    class="link-to-prism">src/app/body-class.directive.ts:14</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="28"
+                                    class="link-to-prism">src/app/body-class.directive.ts:28</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>The ngOnInit method is a lifecycle hook that is called after Angular has initialized all data-bound properties of a directive.
+In this method, it subscribes to the router events and calls the updateBodyClass method when a NavigationEnd event occurs.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -372,14 +399,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="22"
-                                    class="link-to-prism">src/app/body-class.directive.ts:22</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="41"
+                                    class="link-to-prism">src/app/body-class.directive.ts:41</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>The updateBodyClass method updates the class of the body element based on the current route.
+It removes the &#39;login-page&#39; and &#39;home-page&#39; classes, then it adds the appropriate class based on the current route.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -390,6 +420,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -404,6 +435,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The URL of the current route.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -445,10 +482,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/app/body-class.directive.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/body-class.directive.ts:13</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>routerSubscription is a Subscription instance that represents the subscription to the router events.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -468,10 +511,24 @@ import { DOCUMENT } from &#x27;@angular/common&#x27;;
   selector: &#x27;[appBodyClass]&#x27;
 })
 export class BodyClassDirective implements OnInit, OnDestroy {
+  /**
+   * routerSubscription is a Subscription instance that represents the subscription to the router events.
+   */
   private routerSubscription: Subscription | undefined;
 
+  /**
+   * The constructor for the BodyClassDirective class.
+   * It injects the Renderer2, Router, and DOCUMENT services.
+   * @param {Renderer2} renderer - The service for rendering operations.
+   * @param {Router} router - The Angular router service.
+   * @param {Document} document - The global document object.
+   */
   constructor(private renderer: Renderer2, private router: Router, @Inject(DOCUMENT) private document: Document) {}
 
+  /**
+   * The ngOnInit method is a lifecycle hook that is called after Angular has initialized all data-bound properties of a directive.
+   * In this method, it subscribes to the router events and calls the updateBodyClass method when a NavigationEnd event occurs.
+   */
   ngOnInit() {
     this.routerSubscription &#x3D; this.router.events.subscribe(event &#x3D;&gt; {
       if (event instanceof NavigationEnd) {
@@ -480,6 +537,11 @@ export class BodyClassDirective implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * The updateBodyClass method updates the class of the body element based on the current route.
+   * It removes the &#x27;login-page&#x27; and &#x27;home-page&#x27; classes, then it adds the appropriate class based on the current route.
+   * @param {string} url - The URL of the current route.
+   */
   updateBodyClass(url: string) {
     this.renderer.removeClass(this.document.body, &#x27;login-page&#x27;);
     this.renderer.removeClass(this.document.body, &#x27;home-page&#x27;);
@@ -493,6 +555,10 @@ export class BodyClassDirective implements OnInit, OnDestroy {
       this.renderer.addClass(this.document.body, &#x27;home-page&#x27;);}
   }
 
+  /**
+   * The ngOnDestroy method is a lifecycle hook that is called just before Angular destroys the directive.
+   * In this method, it unsubscribes from the router events.
+   */
   ngOnDestroy() {
     if (this.routerSubscription) {
       this.routerSubscription.unsubscribe();

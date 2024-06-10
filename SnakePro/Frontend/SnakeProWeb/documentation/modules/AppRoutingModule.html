@@ -10,7 +10,6 @@
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
         <link rel="stylesheet" href="../styles/dark.css">
-        <link rel="stylesheet" href="../styles/laravel.css">
     </head>
     <body>
           <script>
@@ -141,6 +140,15 @@ import {ContactComponent} from &quot;./contact/contact.component&quot;;
 import {LoginGuardian} from &quot;./login/login-guardian&quot;;
 import {DocumentationComponent} from &quot;./documentation/documentation.component&quot;;
 
+/**
+ * routes is an array of route configurations.
+ * Each route configuration is an object with the following properties:
+ * - path: a string that represents the URL path for the route.
+ * - redirectTo: a string that represents the URL path to redirect to. This is used when the path is an empty string (&#x27;&#x27;).
+ * - pathMatch: a string that specifies how to match the URL path. This is used in combination with redirectTo.
+ * - component: the component to display when the route is activated.
+ * - canActivate: an array of services that determine if the route can be activated. In this case, the LoginGuardian service is used.
+ */
 const routes: Routes &#x3D; [
   {path: &#x27;&#x27;, redirectTo: &#x27;/home&#x27;, pathMatch: &#x27;full&#x27;},
   {path: &#x27;home&#x27;, component: HomeComponent, canActivate:[LoginGuardian]},

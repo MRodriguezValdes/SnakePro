@@ -10,7 +10,6 @@
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
         <link rel="stylesheet" href="../styles/dark.css">
-        <link rel="stylesheet" href="../styles/laravel.css">
     </head>
     <body>
           <script>
@@ -251,9 +250,15 @@
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/app/pause/pause.component.ts:9</a></div>
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/pause/pause.component.ts:16</a></div>
                             </td>
                         </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>The PauseComponent class is an Angular component that represents the pause functionality in a game.</p>
+</div>
+                    </td>
+                </tr>
             </tbody>
         </table>
 </section>
@@ -284,12 +289,19 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="11"
-                                    class="link-to-prism">src/app/pause/pause.component.ts:11</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="29"
+                                    class="link-to-prism">src/app/pause/pause.component.ts:29</a></div>
                         </td>
                     </tr>
 
 
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>When a keydown event occurs, it calls the handleKeyDown method with the event object.</p>
+</div>
+
+                </td>
+            </tr>
         </tbody>
     </table>
 </section>
@@ -327,14 +339,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="11"
-                                    class="link-to-prism">src/app/pause/pause.component.ts:11</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="29"
+                                    class="link-to-prism">src/app/pause/pause.component.ts:29</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>When a keydown event occurs, it calls the handleKeyDown method with the event object.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -394,14 +408,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="17"
-                                    class="link-to-prism">src/app/pause/pause.component.ts:17</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="38"
+                                    class="link-to-prism">src/app/pause/pause.component.ts:38</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>The resumeGame method emits the close event, indicating that the game should be resumed.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -425,17 +441,38 @@
   styleUrl: &#x27;./pause.component.css&#x27;
 })
 export class PauseComponent {
-  @Output() close &#x3D; new EventEmitter&lt;void&gt;();
-  @HostListener(&#x27;window:keydown&#x27;, [&#x27;$event&#x27;])
-  handleKeyDown(event: KeyboardEvent) {
-    if (event.key &#x3D;&#x3D;&#x3D; &#x27; &#x27;) {
-      this.resumeGame();
-    }
-  }
+/**
+ * The PauseComponent class is an Angular component that represents the pause functionality in a game.
+ */
 
-  resumeGame() {
-    this.close.emit();
+/**
+ * @Output() close is an EventEmitter that emits an event when the game is resumed.
+ */
+@Output() close &#x3D; new EventEmitter&lt;void&gt;();
+
+/**
+ * @HostListener(&#x27;window:keydown&#x27;, [&#x27;$event&#x27;]) is a decorator that listens for the &#x27;keydown&#x27; event on the window object.
+ * When a keydown event occurs, it calls the handleKeyDown method with the event object.
+ */
+@HostListener(&#x27;window:keydown&#x27;, [&#x27;$event&#x27;])
+
+/**
+ * The handleKeyDown method handles the keydown event.
+ * If the key pressed is the space bar (&#x27; &#x27;), it calls the resumeGame method.
+ * @param {KeyboardEvent} event - The keydown event object.
+ */
+handleKeyDown(event: KeyboardEvent) {
+  if (event.key &#x3D;&#x3D;&#x3D; &#x27; &#x27;) {
+    this.resumeGame();
   }
+}
+
+/**
+ * The resumeGame method emits the close event, indicating that the game should be resumed.
+ */
+resumeGame() {
+  this.close.emit();
+}
 }
 </code></pre>
     </div>
@@ -479,7 +516,7 @@ export class PauseComponent {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="pause-container">  <div class="pause-message">    <h1>The game is paused</h1>    <p>Please press <u><b>space</b></u> to continue.</p>    <div class="button-container">    </div>  </div></div></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DocumentationComponent', 'selector': 'app-documentation'},{'name': 'ErrorsComponent', 'selector': 'app-errors'},{'name': 'GameOverComponent', 'selector': 'app-game-over'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PauseComponent', 'selector': 'app-pause'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ScoreboardsComponent', 'selector': 'app-scoreboards'},{'name': 'ScoreItemComponent', 'selector': 'app-score-item'},{'name': 'SettingsComponent', 'selector': 'app-settings'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DocumentationComponent', 'selector': 'app-documentation'},{'name': 'ErrorsComponent', 'selector': 'app-errors'},{'name': 'GameOverComponent', 'selector': 'app-game-over'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PauseComponent', 'selector': 'app-pause'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ScoreboardsComponent', 'selector': 'app-scoreboards'},{'name': 'ScoreItemComponent', 'selector': 'app-score-item'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'StartingMenuComponent', 'selector': 'app-starting-menu'}];
     var DIRECTIVES = [{'name': 'BodyClassDirective', 'selector': '[appBodyClass]'}];
     var ACTUAL_COMPONENT = {'name': 'PauseComponent'};
 </script>

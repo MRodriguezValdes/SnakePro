@@ -89,7 +89,7 @@
   <li class="breadcrumb-item">Components</li>
   <li class="breadcrumb-item"
   >
-  ScoreboardsComponent</li>
+  StartingMenuComponent</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -106,6 +106,10 @@
                 role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
         </li>
         <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
             <a href="#tree" class="nav-link"
                 role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
         </li>
@@ -116,7 +120,7 @@
     <h3>File</h3>
 </p>
 <p class="comment">
-    <code>src/app/scoreboards/scoreboards.component.ts</code>
+    <code>src/app/starting-menu/starting-menu.component.ts</code>
 </p>
 
 
@@ -148,25 +152,25 @@
 
             <tr>
                 <td class="col-md-3">selector</td>
-                <td class="col-md-9"><code>app-scoreboards</code></td>
+                <td class="col-md-9"><code>app-starting-menu</code></td>
             </tr>
 
 
 
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./starting-menu.component.css</code></td>
+            </tr>
 
 
 
             <tr>
                 <td class="col-md-3">templateUrl</td>
-                <td class="col-md-9"><code>./scoreboards.component.html</code></td>
+                <td class="col-md-9"><code>./starting-menu.component.html</code></td>
             </tr>
 
 
 
-            <tr>
-                <td class="col-md-3">styleUrl</td>
-                <td class="col-md-9"><code>./scoreboards.component.css</code></td>
-            </tr>
 
 
 
@@ -189,10 +193,11 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
-                                <a href="#isLoading" >isLoading</a>
+                                    <span class="modifier">Private</span>
+                                <a href="#hasErrorOccurred" >hasErrorOccurred</a>
                             </li>
                             <li>
-                                <a href="#scores" >scores</a>
+                                <a href="#isMenuHidden" >isMenuHidden</a>
                             </li>
                         </ul>
                     </td>
@@ -207,16 +212,36 @@
                     <td class="col-md-4">
                         <ul class="index-list">
                             <li>
+                                <a href="#closeMenu" >closeMenu</a>
+                            </li>
+                            <li>
                                 <a href="#ngOnInit" >ngOnInit</a>
                             </li>
                             <li>
-                                <a href="#sortScores" >sortScores</a>
+                                <a href="#openSettings" >openSettings</a>
                             </li>
                         </ul>
                     </td>
                 </tr>
 
 
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#settingsClicked" >settingsClicked</a>
+                            </li>
+                            <li>
+                                <a href="#startClicked" >startClicked</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
 
 
 
@@ -230,19 +255,18 @@
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(userService: <a href="../injectables/UserService.html" target="_self">UserService</a>, snakeCommunicationsService: <a href="../injectables/SnakeCommunicationsService.html" target="_self">SnakeCommunicationsService</a>)</code>
+<code>constructor(snakeCommunicationsService: <a href="../injectables/SnakeCommunicationsService.html" target="_self">SnakeCommunicationsService</a>)</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/scoreboards/scoreboards.component.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/starting-menu/starting-menu.component.ts:34</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
-                            <div class="io-description"><p>The constructor for the ScoreboardsComponent class.
-It injects the UserService and SnakeCommunicationsService services.</p>
+                            <div class="io-description"><p>Constructor for the StartingMenuComponent.</p>
 </div>
                             <div>
                                     <b>Parameters :</b>
@@ -257,24 +281,6 @@ It injects the UserService and SnakeCommunicationsService services.</p>
                                         </thead>
                                         <tbody>
                                                 <tr>
-                                                        <td>userService</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="../injectables/UserService.html" target="_self" >UserService</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                        <td>
-                                                                <ul>
-<li>The service for user-related operations.</li>
-</ul>
-
-                                                        </td>
-                                                </tr>
-                                                <tr>
                                                         <td>snakeCommunicationsService</td>
                                                   
                                                         <td>
@@ -287,7 +293,7 @@ It injects the UserService and SnakeCommunicationsService services.</p>
                                                     
                                                         <td>
                                                                 <ul>
-<li>The service for snake game-related operations.</li>
+<li>The service to communicate with the snake game.</li>
 </ul>
 
                                                         </td>
@@ -302,7 +308,63 @@ It injects the UserService and SnakeCommunicationsService services.</p>
 </section>
 
 
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="settingsClicked"></a>
+                        <b>settingsClicked</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
 
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="28" class="link-to-prism">src/app/starting-menu/starting-menu.component.ts:28</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Event emitter for the settings click event.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="startClicked"></a>
+                        <b>startClicked</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/starting-menu/starting-menu.component.ts:22</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Event emitter for the start click event.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
 
 
     <section data-compodoc="block-methods">
@@ -310,6 +372,45 @@ It injects the UserService and SnakeCommunicationsService services.</p>
     <h3 id="methods">
         Methods
     </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeMenu"></a>
+                    <span class="name">
+                        <span ><b>closeMenu</b></span>
+                        <a href="#closeMenu"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeMenu()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="68"
+                                    class="link-to-prism">src/app/starting-menu/starting-menu.component.ts:68</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>Method to close the menu. If no error has occurred, it hides the menu and emits the startClicked event after 1 second.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <table class="table table-sm table-bordered">
         <tbody>
             <tr>
@@ -330,18 +431,16 @@ It injects the UserService and SnakeCommunicationsService services.</p>
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="37"
-                                    class="link-to-prism">src/app/scoreboards/scoreboards.component.ts:37</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="48"
+                                    class="link-to-prism">src/app/starting-menu/starting-menu.component.ts:48</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>The ngOnInit method is a lifecycle hook that is called after Angular has initialized all data-bound properties of a directive.
-In this method, it sets isLoading to true, then it calls the getBestScore method of the SnakeCommunicationsService with the number 6.
-It subscribes to the Observable returned by getBestScore and pushes the scores to the scores array.
-It then sorts the scores array and sets isLoading to false.</p>
+                        <div class="io-description"><p>Angular lifecycle hook that is called after data-bound properties of a directive are initialized.
+Here, it subscribes to the errorOccurred event from the snakeCommunicationsService.</p>
 </div>
 
                         <div class="io-description">
@@ -356,31 +455,31 @@ It then sorts the scores array and sets isLoading to false.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="sortScores"></a>
+                    <a name="openSettings"></a>
                     <span class="name">
-                        <span ><b>sortScores</b></span>
-                        <a href="#sortScores"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>openSettings</b></span>
+                        <a href="#openSettings"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
             <tr>
                 <td class="col-md-4">
-<code>sortScores()</code>
+<code>openSettings()</code>
                 </td>
             </tr>
 
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="53"
-                                    class="link-to-prism">src/app/scoreboards/scoreboards.component.ts:53</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="79"
+                                    class="link-to-prism">src/app/starting-menu/starting-menu.component.ts:79</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                        <div class="io-description"><p>The sortScores method sorts the scores array in descending order based on the points.</p>
+                        <div class="io-description"><p>Method to open the settings. It emits the settingsClicked event.</p>
 </div>
 
                         <div class="io-description">
@@ -401,27 +500,29 @@ It then sorts the scores array and sets isLoading to false.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="isLoading"></a>
+                    <a name="hasErrorOccurred"></a>
                     <span class="name">
-                        <span ><b>isLoading</b></span>
-                        <a href="#isLoading"><span class="icon ion-ios-link"></span></a>
+                            <span class="modifier">Private</span>
+                        <span ><b>hasErrorOccurred</b></span>
+                        <a href="#hasErrorOccurred"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Default value : </i><code>false</code>
+                        <i>Type : </i>    <code>boolean | undefined</code>
+
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/scoreboards/scoreboards.component.ts:20</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="34" class="link-to-prism">src/app/starting-menu/starting-menu.component.ts:34</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>isLoading is a boolean that indicates whether the component is currently loading data.</p>
+                    <div class="io-description"><p>Flag to indicate if an error has occurred.</p>
 </div>
                 </td>
             </tr>
@@ -432,34 +533,27 @@ It then sorts the scores array and sets isLoading to false.</p>
         <tbody>
             <tr>
                 <td class="col-md-4">
-                    <a name="scores"></a>
+                    <a name="isMenuHidden"></a>
                     <span class="name">
-                        <span ><b>scores</b></span>
-                        <a href="#scores"><span class="icon ion-ios-link"></span></a>
+                        <span ><b>isMenuHidden</b></span>
+                        <a href="#isMenuHidden"><span class="icon ion-ios-link"></span></a>
                     </span>
                 </td>
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Type : </i>    <code>literal type[]</code>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td class="col-md-4">
-                        <i>Default value : </i><code>[]</code>
+                        <i>Default value : </i><code>false</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/scoreboards/scoreboards.component.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/starting-menu/starting-menu.component.ts:16</a></div>
                         </td>
                     </tr>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-description"><p>scores is an array that holds the scores of the players.
-Each score is an object with a &#39;player&#39; property that represents the player&#39;s name and a &#39;points&#39; property that represents the player&#39;s points.</p>
+                    <div class="io-description"><p>Flag to indicate if the menu is hidden or not.</p>
 </div>
                 </td>
             </tr>
@@ -472,80 +566,198 @@ Each score is an object with a &#39;player&#39; property that represents the pla
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Component, OnInit} from &#x27;@angular/core&#x27;;
-import {UserService} from &quot;../../services/user.service&quot;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Component, EventEmitter, OnInit, Output} from &#x27;@angular/core&#x27;;
 import {SnakeCommunicationsService} from &quot;../../services/snake-communications.service&quot;;
+import {GameStates} from &quot;../../common/Enums&quot;;
 
 @Component({
-  selector: &#x27;app-scoreboards&#x27;,
-  templateUrl: &#x27;./scoreboards.component.html&#x27;,
-  styleUrl: &#x27;./scoreboards.component.css&#x27;
+  selector: &#x27;app-starting-menu&#x27;,
+  templateUrl: &#x27;./starting-menu.component.html&#x27;,
+  styleUrls: [&#x27;./starting-menu.component.css&#x27;]
 })
-export class ScoreboardsComponent implements OnInit {
-  /**
-   * scores is an array that holds the scores of the players.
-   * Each score is an object with a &#x27;player&#x27; property that represents the player&#x27;s name and a &#x27;points&#x27; property that represents the player&#x27;s points.
-   */
-  scores: { player: string, points: number }[] &#x3D; [];
+export class StartingMenuComponent implements OnInit {
 
-  /**
-   * isLoading is a boolean that indicates whether the component is currently loading data.
-   */
-  isLoading &#x3D; false;
+/**
+ * Flag to indicate if the menu is hidden or not.
+ * @type {boolean}
+ */
+isMenuHidden &#x3D; false;
 
-  /**
-   * The constructor for the ScoreboardsComponent class.
-   * It injects the UserService and SnakeCommunicationsService services.
-   * @param {UserService} userService - The service for user-related operations.
-   * @param {SnakeCommunicationsService} snakeCommunicationsService - The service for snake game-related operations.
-   */
-  constructor(private userService: UserService, private snakeCommunicationsService: SnakeCommunicationsService) {
+/**
+ * Event emitter for the start click event.
+ * @type {EventEmitter&lt;void&gt;}
+ */
+@Output() startClicked &#x3D; new EventEmitter&lt;void&gt;();
+
+/**
+ * Event emitter for the settings click event.
+ * @type {EventEmitter&lt;void&gt;}
+ */
+@Output() settingsClicked &#x3D; new EventEmitter&lt;void&gt;();
+
+/**
+ * Flag to indicate if an error has occurred.
+ * @type {boolean | undefined}
+ */
+private hasErrorOccurred: boolean | undefined;
+
+/**
+ * Constructor for the StartingMenuComponent.
+ * @param {SnakeCommunicationsService} snakeCommunicationsService - The service to communicate with the snake game.
+ */
+constructor(private snakeCommunicationsService: SnakeCommunicationsService) {
+
+}
+
+/**
+ * Angular lifecycle hook that is called after data-bound properties of a directive are initialized.
+ * Here, it subscribes to the errorOccurred event from the snakeCommunicationsService.
+ */
+ngOnInit() {
+  this.snakeCommunicationsService.errorOccurred.subscribe((error) &#x3D;&gt; {
+    this.hasErrorOccurred &#x3D; true;
+  });
+
+  const gameStarted &#x3D; localStorage.getItem(&#x27;gameStarted&#x27;);
+  if (gameStarted &#x3D;&#x3D;&#x3D; &#x27;true&#x27;) {
+    this.isMenuHidden &#x3D; true;
   }
 
-  /**
-   * The ngOnInit method is a lifecycle hook that is called after Angular has initialized all data-bound properties of a directive.
-   * In this method, it sets isLoading to true, then it calls the getBestScore method of the SnakeCommunicationsService with the number 6.
-   * It subscribes to the Observable returned by getBestScore and pushes the scores to the scores array.
-   * It then sorts the scores array and sets isLoading to false.
-   */
-  ngOnInit(): void {
-    this.isLoading &#x3D; true;
-    this.snakeCommunicationsService.getBestScore(6).subscribe((bestScore: { [key: string]: number[] }) &#x3D;&gt; {
-      for (let user in bestScore) {
-        bestScore[user].forEach((score: number) &#x3D;&gt; {
-          this.scores.push({player: user, points: score});
-        });
-      }
-      this.sortScores();
-      this.isLoading &#x3D; false;
-    });
-  }
+  this.snakeCommunicationsService.getGameStates().subscribe((gameState) &#x3D;&gt; {
+    if (gameState &#x3D;&#x3D;&#x3D; GameStates.Running) {
+      this.isMenuHidden &#x3D; true;
+    }
+  });
+}
 
-  /**
-   * The sortScores method sorts the scores array in descending order based on the points.
-   */
-  sortScores(): void {
-    this.scores.sort((a, b) &#x3D;&gt; b.points - a.points);
-  }
+/**
+ * Method to close the menu. If no error has occurred, it hides the menu and emits the startClicked event after 1 second.
+ */
+closeMenu() {
+  if (!this.hasErrorOccurred) {
+    this.isMenuHidden &#x3D; true;
+      this.startClicked.emit();
+    }
+
+}
+
+/**
+ * Method to open the settings. It emits the settingsClicked event.
+ */
+openSettings() {
+  this.settingsClicked.emit();
+}
+
 }
 </code></pre>
     </div>
 
     <div class="tab-pane fade " id="templateData">
-        <pre class="line-numbers"><code class="language-html">&lt;app-navbar&gt;&lt;/app-navbar&gt;
-
-&lt;div class&#x3D;&quot;retro-container&quot;&gt;
-  &lt;h1 class&#x3D;&quot;retro-title&quot;&gt;Scoreboard&lt;/h1&gt;
-  &lt;div *ngIf&#x3D;&quot;isLoading&quot;&gt;Loading...&lt;/div&gt;
-  &lt;div class&#x3D;&quot;score-items&quot; *ngIf&#x3D;&quot;!isLoading&quot;&gt;
-    &lt;div class&#x3D;&quot;retro-item&quot;&gt;
-      &lt;app-score-item *ngFor&#x3D;&quot;let score of scores&quot; [score]&#x3D;&quot;score&quot;&gt;&lt;/app-score-item&gt;
-    &lt;/div&gt;
+        <pre class="line-numbers"><code class="language-html">&lt;div class&#x3D;&quot;menu&quot; [ngClass]&#x3D;&quot;{ &#x27;hidden&#x27;: isMenuHidden }&quot;&gt;
+  &lt;div class&#x3D;&quot;game-title&quot;&gt;
+    &lt;h1&gt;Serpent Adventures&lt;/h1&gt;
+  &lt;/div&gt;
+  &lt;div class&#x3D;&quot;buttons&quot;&gt;
+    &lt;span class&#x3D;&#x27;start-btn&#x27; (click)&#x3D;&quot;closeMenu()&quot;&gt;START&lt;/span&gt;
+    &lt;span class&#x3D;&#x27;start-btn&#x27; (click)&#x3D;&quot;openSettings()&quot;&gt;SETTINGS&lt;/span&gt;
+  &lt;/div&gt;
+  &lt;div class&#x3D;&quot;instructions&quot;&gt;
+    &lt;h2&gt;Instructions:&lt;/h2&gt;
+    &lt;p&gt;Use arrow keys to move&lt;/p&gt;
+    &lt;p&gt;Press &#x27;P&#x27; to pause&lt;/p&gt;
+    &lt;p&gt;Objective: Eat as many apples as possible&lt;/p&gt;
   &lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
     </div>
 
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./starting-menu.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">body {
+  font-family: &#x27;Press Start 2P&#x27;, cursive;
+  margin: 0;
+  padding: 0;
+  background-color: #d8e8d8;
+  color: #000;
+}
+
+.menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 9999;
+  background-color: rgb(255, 255, 255);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.menu.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.game-title {
+  font-size: 48px;
+  margin-bottom: 30px;
+  color: #1b5e20;
+  text-align: center;
+}
+
+.buttons {
+  display: block;
+  justify-content: space-between;
+}
+
+
+.instructions {
+  text-align: center;
+  transform: translateY(+100px);
+}
+
+.instructions h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.instructions p {
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+.start-btn{
+  text-align: center;
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  padding: 10px 0 10px 10px ;
+  background-color: lightgray;
+  text-shadow: -1px -1px black, 1px 1px white;
+  color: gray;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -o-border-radius: 7px;
+  border-radius: 7px;
+  box-shadow: 0 .2em gray;
+  cursor: pointer;
+  font-size: 25pt;
+
+}
+.start-btn:active {
+  box-shadow: none;
+  position: relative;
+  top: .2em;
+}
+</code></pre>
+    </div>
 
     <div class="tab-pane fade " id="tree">
         <div id="tree-container"></div>
@@ -572,10 +784,10 @@ export class ScoreboardsComponent implements OnInit {
 <script src="../js/libs/htmlparser.js"></script>
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
-        var COMPONENT_TEMPLATE = '<div><app-navbar></app-navbar><div class="retro-container">  <h1 class="retro-title">Scoreboard</h1>  <div *ngIf="isLoading">Loading...</div>  <div class="score-items" *ngIf="!isLoading">    <div class="retro-item">      <app-score-item *ngFor="let score of scores" [score]="score"></app-score-item>    </div>  </div></div></div>'
+        var COMPONENT_TEMPLATE = '<div><div class="menu" [ngClass]="{ \'hidden\': isMenuHidden }">  <div class="game-title">    <h1>Serpent Adventures</h1>  </div>  <div class="buttons">    <span class=\'start-btn\' (click)="closeMenu()">START</span>    <span class=\'start-btn\' (click)="openSettings()">SETTINGS</span>  </div>  <div class="instructions">    <h2>Instructions:</h2>    <p>Use arrow keys to move</p>    <p>Press \'P\' to pause</p>    <p>Objective: Eat as many apples as possible</p>  </div></div></div>'
     var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DocumentationComponent', 'selector': 'app-documentation'},{'name': 'ErrorsComponent', 'selector': 'app-errors'},{'name': 'GameOverComponent', 'selector': 'app-game-over'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PauseComponent', 'selector': 'app-pause'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ScoreboardsComponent', 'selector': 'app-scoreboards'},{'name': 'ScoreItemComponent', 'selector': 'app-score-item'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'StartingMenuComponent', 'selector': 'app-starting-menu'}];
     var DIRECTIVES = [{'name': 'BodyClassDirective', 'selector': '[appBodyClass]'}];
-    var ACTUAL_COMPONENT = {'name': 'ScoreboardsComponent'};
+    var ACTUAL_COMPONENT = {'name': 'StartingMenuComponent'};
 </script>
 <script src="../js/tree.js"></script>
 
@@ -621,7 +833,7 @@ export class ScoreboardsComponent implements OnInit {
        <script>
             var COMPODOC_CURRENT_PAGE_DEPTH = 1;
             var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
-            var COMPODOC_CURRENT_PAGE_URL = 'ScoreboardsComponent.html';
+            var COMPODOC_CURRENT_PAGE_URL = 'StartingMenuComponent.html';
             var MAX_SEARCH_RESULTS = 15;
        </script>
 

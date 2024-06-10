@@ -10,7 +10,6 @@
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
         <link rel="stylesheet" href="../styles/dark.css">
-        <link rel="stylesheet" href="../styles/laravel.css">
     </head>
     <body>
           <script>
@@ -171,6 +170,9 @@
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>The constructor for the LoginGuardian class.
+It injects the UserService and Router services.</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -179,6 +181,7 @@
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -193,6 +196,12 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>The service for user-related operations.</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>router</td>
@@ -205,6 +214,12 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>The Angular router service.</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -240,14 +255,19 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="11"
-                                    class="link-to-prism">src/app/login/login-guardian.ts:11</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="28"
+                                    class="link-to-prism">src/app/login/login-guardian.ts:28</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>The canActivate method is a guard that determines whether a route can be activated.
+It checks if the user is authenticated by calling the getToken method of the UserService.
+If the user is authenticated, it returns true and the route can be activated.
+If the user is not authenticated, it navigates to the login page and returns false, preventing the route from being activated.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -258,6 +278,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -272,6 +293,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The current route snapshot.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                         <tr>
                                                 <td>state</td>
@@ -284,6 +311,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The current router state snapshot.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -293,7 +326,10 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <ul>
+<li>A boolean indicating whether the route can be activated.</li>
+</ul>
+
                             </div>
                 </td>
             </tr>
@@ -312,8 +348,25 @@ import {UserService} from &quot;../../services/user.service&quot;;
   providedIn: &#x27;root&#x27;
 })
 export class LoginGuardian implements CanActivate {
+
+  /**
+   * The constructor for the LoginGuardian class.
+   * It injects the UserService and Router services.
+   * @param {UserService} loginService - The service for user-related operations.
+   * @param {Router} router - The Angular router service.
+   */
   constructor(private loginService: UserService, private router: Router) {}
 
+
+  /**
+   * The canActivate method is a guard that determines whether a route can be activated.
+   * It checks if the user is authenticated by calling the getToken method of the UserService.
+   * If the user is authenticated, it returns true and the route can be activated.
+   * If the user is not authenticated, it navigates to the login page and returns false, preventing the route from being activated.
+   * @param {ActivatedRouteSnapshot} route - The current route snapshot.
+   * @param {RouterStateSnapshot} state - The current router state snapshot.
+   * @returns {boolean} - A boolean indicating whether the route can be activated.
+   */
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot

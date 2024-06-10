@@ -10,7 +10,6 @@
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
         <link rel="stylesheet" href="../styles/dark.css">
-        <link rel="stylesheet" href="../styles/laravel.css">
     </head>
     <body>
           <script>
@@ -177,12 +176,15 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/services/contact.service.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/services/contact.service.ts:12</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>The constructor for the ContactService class.
+It injects the HttpClient service.</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -191,6 +193,7 @@
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -205,6 +208,12 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>The Angular HttpClient service for making HTTP requests.</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -240,14 +249,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="13"
-                                    class="link-to-prism">src/services/contact.service.ts:13</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="28"
+                                    class="link-to-prism">src/services/contact.service.ts:28</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>The sendContactForm method sends the contact form data to the API endpoint.
+It makes a POST request to the apiUrl with the data as the request body.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -258,6 +270,7 @@
                                             <td>Name</td>
                                                 <td>Type</td>
                                             <td>Optional</td>
+                                                <td>Description</td>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -272,6 +285,12 @@
                                             </td>
 
 
+                                            <td>
+                                                    <ul>
+<li>The contact form data.</li>
+</ul>
+
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -281,7 +300,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>An Observable that contains the response from the API endpoint.</p>
+
                             </div>
                 </td>
             </tr>
@@ -318,10 +338,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="9" class="link-to-prism">src/services/contact.service.ts:9</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="12" class="link-to-prism">src/services/contact.service.ts:12</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>apiUrl is a string that represents the URL of the API endpoint for sending the contact form.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -331,18 +357,33 @@
 
 
     <div class="tab-pane fade  tab-source-code" id="source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
-import { HttpClient } from &#x27;@angular/common/http&#x27;;
-import { Observable } from &#x27;rxjs&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Injectable} from &#x27;@angular/core&#x27;;
+import {HttpClient} from &#x27;@angular/common/http&#x27;;
+import {Observable} from &#x27;rxjs&#x27;;
 
 @Injectable({
   providedIn: &#x27;root&#x27;
 })
 export class ContactService {
+  /**
+   * apiUrl is a string that represents the URL of the API endpoint for sending the contact form.
+   */
   private apiUrl &#x3D; &#x27;http://localhost:5273/api/Contact/send&#x27;;
 
-  constructor(private http: HttpClient) {}
+  /**
+   * The constructor for the ContactService class.
+   * It injects the HttpClient service.
+   * @param {HttpClient} http - The Angular HttpClient service for making HTTP requests.
+   */
+  constructor(private http: HttpClient) {
+  }
 
+  /**
+   * The sendContactForm method sends the contact form data to the API endpoint.
+   * It makes a POST request to the apiUrl with the data as the request body.
+   * @param {any} data - The contact form data.
+   * @returns {Observable&lt;any&gt;} An Observable that contains the response from the API endpoint.
+   */
   sendContactForm(data: any): Observable&lt;any&gt; {
     return this.http.post&lt;any&gt;(this.apiUrl, data);
   }

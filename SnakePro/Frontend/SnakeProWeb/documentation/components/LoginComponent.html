@@ -10,7 +10,6 @@
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
         <link rel="stylesheet" href="../styles/dark.css">
-        <link rel="stylesheet" href="../styles/laravel.css">
     </head>
     <body>
           <script>
@@ -250,12 +249,15 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/login/login.component.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/login/login.component.ts:32</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>The constructor for the LoginComponent class.
+It initializes the login form and injects the necessary services.</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -264,6 +266,7 @@
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -278,6 +281,12 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>The service for user-related operations.</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>router</td>
@@ -290,6 +299,12 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>The Angular router for navigation.</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>snakeCommunicationsService</td>
@@ -302,6 +317,12 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>The service for snake game-related operations.</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -341,14 +362,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="49"
-                                    class="link-to-prism">src/app/login/login.component.ts:49</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="90"
+                                    class="link-to-prism">src/app/login/login.component.ts:90</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>The navigateToRegister method is used to navigate to the registration page.
+It uses the Angular router&#39;s navigate method to change the route to &#39;/register&#39;.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -378,14 +402,25 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="77"
-                                    class="link-to-prism">src/app/login/login.component.ts:77</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="137"
+                                    class="link-to-prism">src/app/login/login.component.ts:137</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>The onGithubLogin method handles the Github login process.
+It performs the following steps:</p>
+<ol>
+<li>Calls the loginWithGithub method of the UserService.</li>
+<li>If a user is returned from the loginWithGithub method, it gets the user&#39;s ID token.</li>
+<li>If no user is returned, it throws an error.</li>
+<li>Sends the ID token to the server using the sendToken method of the SnakeCommunicationsService.</li>
+<li>Navigates to the home page.</li>
+<li>If any errors occur during this process, it sets the errorMessage property with a relevant message.</li>
+</ol>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -415,14 +450,25 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="53"
-                                    class="link-to-prism">src/app/login/login.component.ts:53</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="104"
+                                    class="link-to-prism">src/app/login/login.component.ts:104</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>The onGoogleLogin method handles the Google login process.
+It performs the following steps:</p>
+<ol>
+<li>Calls the loginWithGoogle method of the UserService.</li>
+<li>If a user is returned from the loginWithGoogle method, it gets the user&#39;s ID token.</li>
+<li>If no user is returned, it throws an error.</li>
+<li>Sends the ID token to the server using the sendToken method of the SnakeCommunicationsService.</li>
+<li>Navigates to the home page.</li>
+<li>If any errors occur during this process, it sets the errorMessage property with a relevant message.</li>
+</ol>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -452,14 +498,25 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="26"
-                                    class="link-to-prism">src/app/login/login.component.ts:26</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="63"
+                                    class="link-to-prism">src/app/login/login.component.ts:63</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>The onSubmit method handles the form submission for email/password login.
+It performs the following steps:</p>
+<ol>
+<li>Calls the login method of the UserService with the formLogin value.</li>
+<li>If a user is returned from the login method, it gets the user&#39;s ID token.</li>
+<li>If no user is returned, it throws an error.</li>
+<li>Sends the ID token to the server using the sendToken method of the SnakeCommunicationsService.</li>
+<li>Navigates to the home page.</li>
+<li>If any errors occur during this process, it sets the errorMessage property with a relevant message.</li>
+</ol>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -489,14 +546,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="103"
-                                    class="link-to-prism">src/app/login/login.component.ts:103</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="163"
+                                    class="link-to-prism">src/app/login/login.component.ts:163</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>togglePasswordVisibility is a method that toggles the visibility of the password input field.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
@@ -536,10 +595,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/login/login.component.ts:15</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="22" class="link-to-prism">src/app/login/login.component.ts:22</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>errorMessage is a string that holds any error messages that occur during login.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -562,10 +627,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/login/login.component.ts:14</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/login/login.component.ts:17</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>formLogin is a FormGroup instance that represents the login form.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -593,10 +664,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/login/login.component.ts:16</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="27" class="link-to-prism">src/app/login/login.component.ts:27</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>hidePassword is a boolean that determines whether the password input field is of type password or text.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -625,10 +702,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/login/login.component.ts:17</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/login/login.component.ts:32</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>token is a string that holds the user&#39;s ID token after successful login.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -651,18 +734,55 @@ import {SnakeCommunicationsService} from &quot;../../services/snake-communicatio
   styleUrls: [&#x27;./login.component.css&#x27;],
 })
 export class LoginComponent {
+  /**
+   * formLogin is a FormGroup instance that represents the login form.
+   */
   formLogin: FormGroup;
+
+  /**
+   * errorMessage is a string that holds any error messages that occur during login.
+   */
   errorMessage: string | null &#x3D; null;
+
+  /**
+   * hidePassword is a boolean that determines whether the password input field is of type password or text.
+   */
   hidePassword: boolean &#x3D; true;
+
+  /**
+   * token is a string that holds the user&#x27;s ID token after successful login.
+   */
   private token: string | null &#x3D; null;
 
+  /**
+   * The constructor for the LoginComponent class.
+   * It initializes the login form and injects the necessary services.
+   *
+   * @param {UserService} userService - The service for user-related operations.
+   * @param {Router} router - The Angular router for navigation.
+   * @param {SnakeCommunicationsService} snakeCommunicationsService - The service for snake game-related operations.
+   */
   constructor(private userService: UserService, private router: Router, private snakeCommunicationsService: SnakeCommunicationsService) {
+    /**
+     * formLogin is a FormGroup instance that represents the login form.
+     * It has two form controls: email and password.
+     */
     this.formLogin &#x3D; new FormGroup({
       email: new FormControl(),
       password: new FormControl()
     });
   }
 
+  /**
+   * The onSubmit method handles the form submission for email/password login.
+   * It performs the following steps:
+   * 1. Calls the login method of the UserService with the formLogin value.
+   * 2. If a user is returned from the login method, it gets the user&#x27;s ID token.
+   * 3. If no user is returned, it throws an error.
+   * 4. Sends the ID token to the server using the sendToken method of the SnakeCommunicationsService.
+   * 5. Navigates to the home page.
+   * 6. If any errors occur during this process, it sets the errorMessage property with a relevant message.
+   */
   onSubmit() {
     this.userService.login(this.formLogin.value)
       .then(response &#x3D;&gt; {
@@ -686,10 +806,24 @@ export class LoginComponent {
       });
   }
 
+  /**
+   * The navigateToRegister method is used to navigate to the registration page.
+   * It uses the Angular router&#x27;s navigate method to change the route to &#x27;/register&#x27;.
+   */
   navigateToRegister() {
     this.router.navigate([&#x27;/register&#x27;]);
   }
 
+  /**
+   * The onGoogleLogin method handles the Google login process.
+   * It performs the following steps:
+   * 1. Calls the loginWithGoogle method of the UserService.
+   * 2. If a user is returned from the loginWithGoogle method, it gets the user&#x27;s ID token.
+   * 3. If no user is returned, it throws an error.
+   * 4. Sends the ID token to the server using the sendToken method of the SnakeCommunicationsService.
+   * 5. Navigates to the home page.
+   * 6. If any errors occur during this process, it sets the errorMessage property with a relevant message.
+   */
   onGoogleLogin() {
     this.userService.loginWithGoogle()
       .then(response &#x3D;&gt; {
@@ -711,9 +845,18 @@ export class LoginComponent {
         console.error(error)
         this.errorMessage &#x3D; &quot;Failed to login with Google. Please try again.&quot;;
       });
-
   }
 
+  /**
+   * The onGithubLogin method handles the Github login process.
+   * It performs the following steps:
+   * 1. Calls the loginWithGithub method of the UserService.
+   * 2. If a user is returned from the loginWithGithub method, it gets the user&#x27;s ID token.
+   * 3. If no user is returned, it throws an error.
+   * 4. Sends the ID token to the server using the sendToken method of the SnakeCommunicationsService.
+   * 5. Navigates to the home page.
+   * 6. If any errors occur during this process, it sets the errorMessage property with a relevant message.
+   */
   onGithubLogin() {
     this.userService.loginWithGithub()
       .then(response &#x3D;&gt; {
@@ -735,11 +878,11 @@ export class LoginComponent {
         console.error(error)
         this.errorMessage &#x3D; &quot;Failed to login with Github. Please try again.&quot;;
       });
-
   }
 
-
-
+  /**
+   * togglePasswordVisibility is a method that toggles the visibility of the password input field.
+   */
   togglePasswordVisibility() {
     this.hidePassword &#x3D; !this.hidePassword;
   }
@@ -983,7 +1126,7 @@ span:hover {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="login-wrapper">  <div class="login-container">    <h2>Log in</h2>    <form [formGroup]="formLogin" (ngSubmit)="onSubmit()">      <div class="form-group">        <input id="email" type="email" formControlName="email" placeholder="Email*" required>      </div>      <div class="form-group">        <input id="password" [type]="hidePassword ? \'password\' : \'text\'" formControlName="password" placeholder="Enter your password*" required>        <span class="toggle-password" (click)="togglePasswordVisibility()">👁️</span>      </div>      <button type="submit" class="login-btn">Log in</button>    </form>    <div *ngIf="errorMessage" class="error-message">      {{ errorMessage }}    </div>    <div class="divider"></div>    <div class="alternative-login">      <p>Have Google or GitHub?</p>      <button (click)="onGoogleLogin()" class="google-btn">        <img src="assets/logo_google_g_icon.svg" alt="Google logo">        <span>Log in with Google</span>      </button>      <button (click)="onGithubLogin()" class="github-btn">        <img src="assets/github_logo_icon.png" alt="GitHub logo">        <span>Log in with GitHub</span>      </button>    </div>    <div class="register-link">      <span>Don\'t have an account yet?</span>      <a (click)="navigateToRegister()">Sign up</a>    </div>  </div></div></div>'
-    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DocumentationComponent', 'selector': 'app-documentation'},{'name': 'ErrorsComponent', 'selector': 'app-errors'},{'name': 'GameOverComponent', 'selector': 'app-game-over'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PauseComponent', 'selector': 'app-pause'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ScoreboardsComponent', 'selector': 'app-scoreboards'},{'name': 'ScoreItemComponent', 'selector': 'app-score-item'},{'name': 'SettingsComponent', 'selector': 'app-settings'}];
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DocumentationComponent', 'selector': 'app-documentation'},{'name': 'ErrorsComponent', 'selector': 'app-errors'},{'name': 'GameOverComponent', 'selector': 'app-game-over'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PauseComponent', 'selector': 'app-pause'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ScoreboardsComponent', 'selector': 'app-scoreboards'},{'name': 'ScoreItemComponent', 'selector': 'app-score-item'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'StartingMenuComponent', 'selector': 'app-starting-menu'}];
     var DIRECTIVES = [{'name': 'BodyClassDirective', 'selector': '[appBodyClass]'}];
     var ACTUAL_COMPONENT = {'name': 'LoginComponent'};
 </script>

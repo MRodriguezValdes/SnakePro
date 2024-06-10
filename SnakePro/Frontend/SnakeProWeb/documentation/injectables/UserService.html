@@ -10,7 +10,6 @@
         <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
 	   <link rel="stylesheet" href="../styles/style.css">
         <link rel="stylesheet" href="../styles/dark.css">
-        <link rel="stylesheet" href="../styles/laravel.css">
     </head>
     <body>
           <script>
@@ -192,12 +191,15 @@
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/services/user.service.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/services/user.service.ts:13</a></div>
                             </td>
                         </tr>
 
                 <tr>
                     <td class="col-md-4">
+                            <div class="io-description"><p>The constructor for the UserService class.
+It injects the Auth and CookieService services.</p>
+</div>
                             <div>
                                     <b>Parameters :</b>
                                     <table class="params">
@@ -206,6 +208,7 @@
                                                 <td>Name</td>
                                                     <td>Type</td>
                                                 <td>Optional</td>
+                                                    <td>Description</td>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -220,6 +223,12 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>The Firebase Auth service for authentication operations.</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                                 <tr>
                                                         <td>cookies</td>
@@ -232,6 +241,12 @@
                                                             No
                                                     </td>
                                                     
+                                                        <td>
+                                                                <ul>
+<li>The CookieService for cookie operations.</li>
+</ul>
+
+                                                        </td>
                                                 </tr>
                                         </tbody>
                                     </table>
@@ -267,19 +282,25 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="54"
-                                    class="link-to-prism">src/services/user.service.ts:54</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="95"
+                                    class="link-to-prism">src/services/user.service.ts:95</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>The getToken method gets the authentication token from the cookie.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                         </div>
+                            <div class="io-description">
+                                <p>The authentication token.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -304,14 +325,17 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="17"
-                                    class="link-to-prism">src/services/user.service.ts:17</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="38"
+                                    class="link-to-prism">src/services/user.service.ts:38</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>The login method logs in a user with the given email and password.
+It also sets the authentication token in a cookie.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -344,7 +368,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves with the user credential.</p>
+
                             </div>
                 </td>
             </tr>
@@ -370,19 +395,26 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="38"
-                                    class="link-to-prism">src/services/user.service.ts:38</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="70"
+                                    class="link-to-prism">src/services/user.service.ts:70</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>The loginWithGithub method logs in a user with Github.
+It also sets the authentication token in a cookie.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                         </div>
+                            <div class="io-description">
+                                <p>A promise that resolves with the user credential.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -407,19 +439,26 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="27"
-                                    class="link-to-prism">src/services/user.service.ts:27</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="54"
+                                    class="link-to-prism">src/services/user.service.ts:54</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>The loginWithGoogle method logs in a user with Google.
+It also sets the authentication token in a cookie.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                         </div>
+                            <div class="io-description">
+                                <p>A promise that resolves with the user credential.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -444,19 +483,25 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="48"
-                                    class="link-to-prism">src/services/user.service.ts:48</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="85"
+                                    class="link-to-prism">src/services/user.service.ts:85</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>The logout method logs out the user and clears the authentication token from the cookie.</p>
+</div>
 
                         <div class="io-description">
                             <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
 
                         </div>
+                            <div class="io-description">
+                                <p>A promise that resolves when the user is logged out.</p>
+
+                            </div>
                 </td>
             </tr>
         </tbody>
@@ -481,14 +526,16 @@
 
                     <tr>
                         <td class="col-md-4">
-                            <div class="io-line">Defined in <a href="" data-line="13"
-                                    class="link-to-prism">src/services/user.service.ts:13</a></div>
+                            <div class="io-line">Defined in <a href="" data-line="28"
+                                    class="link-to-prism">src/services/user.service.ts:28</a></div>
                         </td>
                     </tr>
 
 
             <tr>
                 <td class="col-md-4">
+                        <div class="io-description"><p>The register method registers a new user with the given email and password.</p>
+</div>
 
                             <div class="io-description">
                                 <b>Parameters :</b>
@@ -521,7 +568,8 @@
 
                         </div>
                             <div class="io-description">
-                                
+                                <p>A promise that resolves with the user credential.</p>
+
                             </div>
                 </td>
             </tr>
@@ -558,10 +606,16 @@
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Defined in <a href="" data-line="10" class="link-to-prism">src/services/user.service.ts:10</a></div>
+                                <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/services/user.service.ts:13</a></div>
                         </td>
                     </tr>
 
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>token is a string that represents the authentication token of the user. It is null when the user is not logged in.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>
@@ -580,54 +634,94 @@ import {CookieService} from &quot;ngx-cookie-service&quot;;
   providedIn: &#x27;root&#x27;
 })
 export class UserService {
-  private token: string | null &#x3D; null;
-  constructor(private auth: Auth,private cookies:CookieService) { }
+/**
+ * token is a string that represents the authentication token of the user. It is null when the user is not logged in.
+ */
+private token: string | null &#x3D; null;
 
-  register({email, password}: any) {
-    return createUserWithEmailAndPassword(this.auth, email, password);
-  }
+/**
+ * The constructor for the UserService class.
+ * It injects the Auth and CookieService services.
+ * @param {Auth} auth - The Firebase Auth service for authentication operations.
+ * @param {CookieService} cookies - The CookieService for cookie operations.
+ */
+constructor(private auth: Auth,private cookies:CookieService) { }
 
-  login({email, password}: any) {
-    return signInWithEmailAndPassword(this.auth, email, password).then((userCredential) &#x3D;&gt; {
-      // Set the token when the user logs in
-      userCredential.user.getIdToken().then((idToken) &#x3D;&gt; {
-        this.token &#x3D; idToken;
-        this.cookies.set(&quot;token&quot;,this.token)
-      });
-      return userCredential;
+/**
+ * The register method registers a new user with the given email and password.
+ * @param {any} {email, password} - The email and password of the user.
+ * @returns {Promise} A promise that resolves with the user credential.
+ */
+register({email, password}: any) {
+  return createUserWithEmailAndPassword(this.auth, email, password);
+}
+
+/**
+ * The login method logs in a user with the given email and password.
+ * It also sets the authentication token in a cookie.
+ * @param {any} {email, password} - The email and password of the user.
+ * @returns {Promise} A promise that resolves with the user credential.
+ */
+login({email, password}: any) {
+  return signInWithEmailAndPassword(this.auth, email, password).then((userCredential) &#x3D;&gt; {
+    // Set the token when the user logs in
+    userCredential.user.getIdToken().then((idToken) &#x3D;&gt; {
+      this.token &#x3D; idToken;
+      this.cookies.set(&quot;token&quot;,this.token)
     });
-  }
-  loginWithGoogle() {
-    return signInWithPopup(this.auth, new GoogleAuthProvider()).then((userCredential) &#x3D;&gt; {
-      // Set the token when the user logs in
-      userCredential.user.getIdToken().then((idToken) &#x3D;&gt; {
-        this.token &#x3D; idToken;
-        this.cookies.set(&quot;token&quot;,this.token);
-      });
-      return userCredential;
+    return userCredential;
+  });
+}
+
+/**
+ * The loginWithGoogle method logs in a user with Google.
+ * It also sets the authentication token in a cookie.
+ * @returns {Promise} A promise that resolves with the user credential.
+ */
+loginWithGoogle() {
+  return signInWithPopup(this.auth, new GoogleAuthProvider()).then((userCredential) &#x3D;&gt; {
+    // Set the token when the user logs in
+    userCredential.user.getIdToken().then((idToken) &#x3D;&gt; {
+      this.token &#x3D; idToken;
+      this.cookies.set(&quot;token&quot;,this.token);
     });
-  }
+    return userCredential;
+  });
+}
 
-  loginWithGithub(){
-    return signInWithPopup(this.auth, new GithubAuthProvider()).then((userCredential) &#x3D;&gt; {
-      // Set the token when the user logs in
-      userCredential.user.getIdToken().then((idToken) &#x3D;&gt; {
-        this.token &#x3D; idToken;
-        this.cookies.set(&quot;token&quot;,this.token);
-      });
-      return userCredential;
+/**
+ * The loginWithGithub method logs in a user with Github.
+ * It also sets the authentication token in a cookie.
+ * @returns {Promise} A promise that resolves with the user credential.
+ */
+loginWithGithub(){
+  return signInWithPopup(this.auth, new GithubAuthProvider()).then((userCredential) &#x3D;&gt; {
+    // Set the token when the user logs in
+    userCredential.user.getIdToken().then((idToken) &#x3D;&gt; {
+      this.token &#x3D; idToken;
+      this.cookies.set(&quot;token&quot;,this.token);
     });
-  }
-  logout() {
-    this.token&#x3D;&quot;&quot;;
-    this.cookies.set(&quot;token&quot;,this.token)
-    return signOut(this.auth);
-  }
+    return userCredential;
+  });
+}
 
-  getToken() {
-    return this.cookies.get(&quot;token&quot;)
-  }
+/**
+ * The logout method logs out the user and clears the authentication token from the cookie.
+ * @returns {Promise} A promise that resolves when the user is logged out.
+ */
+logout() {
+  this.token&#x3D;&quot;&quot;;
+  this.cookies.set(&quot;token&quot;,this.token)
+  return signOut(this.auth);
+}
 
+/**
+ * The getToken method gets the authentication token from the cookie.
+ * @returns {string} The authentication token.
+ */
+getToken() {
+  return this.cookies.get(&quot;token&quot;)
+}
 }
 </code></pre>
     </div>
