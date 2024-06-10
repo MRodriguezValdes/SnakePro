@@ -16,6 +16,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Apk\" />
       <Folder Include="Frontend\" />
       <Folder Include="Frontend\SnakeProWeb\src\services\" />
       <Folder Include="Key\" />
