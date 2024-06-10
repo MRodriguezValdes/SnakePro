@@ -22,6 +22,7 @@ import { ScoreItemComponent } from './scoreboards/score-item/score-item.componen
 import {BodyClassDirective} from "./body-class.directive";
 import { ContactComponent } from './contact/contact.component';
 import { StartingMenuComponent } from './starting-menu/starting-menu.component';
+import { DocumentationComponent } from './documentation/documentation.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +40,7 @@ import { StartingMenuComponent } from './starting-menu/starting-menu.component';
     RegisterComponent,
     BodyClassDirective,
     ContactComponent,
+    DocumentationComponent,
     StartingMenuComponent
   ],
   imports: [

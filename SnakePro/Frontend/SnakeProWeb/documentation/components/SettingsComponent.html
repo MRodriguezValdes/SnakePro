@@ -1,0 +1,988 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>Snake pro web documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+    </head>
+    <body>
+          <script>
+               // Blocking script to avoid flickering dark mode
+               // Dark mode toggle button
+               var useDark = window.matchMedia('(prefers-color-scheme: dark)');
+               var darkModeState = useDark.matches;
+               var $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               var $darkModeToggles = document.querySelectorAll('.dark-mode-switch');
+               var darkModeStateLocal = localStorage.getItem('compodoc_darkmode-state');
+
+               function checkToggle(check) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].checked = check;
+                    }
+               }
+
+               function toggleDarkMode(state) {
+                    if (window.localStorage) {
+                         localStorage.setItem('compodoc_darkmode-state', state);
+                    }
+
+                    checkToggle(state);
+
+                    const hasClass = document.body.classList.contains('dark');
+
+                    if (state) {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.add('dark');
+                         }
+                         if (!hasClass) {
+                              document.body.classList.add('dark');
+                         }
+                    } else {
+                         for (var i = 0; i < $darkModeToggles.length; i++) {
+                              $darkModeToggles[i].classList.remove('dark');
+                         }
+                         if (hasClass) {
+                              document.body.classList.remove('dark');
+                         }
+                    }
+               }
+
+               useDark.addEventListener('change', function (evt) {
+                    toggleDarkMode(evt.matches);
+               });
+               if (darkModeStateLocal) {
+                    darkModeState = darkModeStateLocal === 'true';
+               }
+               toggleDarkMode(darkModeState);
+          </script>
+
+        <div class="navbar navbar-default navbar-fixed-top d-md-none p-0">
+               <div class="d-flex">
+                    <a href="../" class="navbar-brand">Snake pro web documentation</a>
+                    <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+               </div>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="d-none d-md-block menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li class="breadcrumb-item">Components</li>
+  <li class="breadcrumb-item"
+  >
+  SettingsComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a href="#info" class="nav-link active"
+                role="tab" id="info-tab" data-bs-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li class="nav-item">
+            <a href="#source" class="nav-link"
+                role="tab" id="source-tab" data-bs-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li class="nav-item">
+            <a href="#templateData" class="nav-link"
+                role="tab" id="templateData-tab" data-bs-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li class="nav-item">
+            <a href="#styleData" class="nav-link"
+                role="tab" id="styleData-tab" data-bs-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li class="nav-item">
+            <a href="#tree" class="nav-link"
+                role="tab" id="tree-tab" data-bs-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/settings/settings.component.ts</code>
+</p>
+
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                <code>OnInit</code>
+    </p>
+
+
+<section data-compodoc="block-metadata">
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-settings</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./settings.component.css</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./settings.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-index">
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#boardCols" >boardCols</a>
+                            </li>
+                            <li>
+                                <a href="#boardRows" >boardRows</a>
+                            </li>
+                            <li>
+                                <a href="#snakeColor" >snakeColor</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#snakeCommunicationsService" >snakeCommunicationsService</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#closeSettings" >closeSettings</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit" >ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#saveSettings" >saveSettings</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Outputs</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#close" >close</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section data-compodoc="block-constructor">
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(snakeCommunicationsService: <a href="../injectables/SnakeCommunicationsService.html" target="_self">SnakeCommunicationsService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/settings/settings.component.ts:32</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>The constructor for the SettingsComponent class.
+It injects the SnakeCommunicationsService service.</p>
+</div>
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                                    <td>Description</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>snakeCommunicationsService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SnakeCommunicationsService.html" target="_self" >SnakeCommunicationsService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <ul>
+<li>The service for snake game-related operations.</li>
+</ul>
+
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-outputs">
+    <h3 id="outputs">Outputs</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="close"></a>
+                        <b>close</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>    <code>EventEmitter</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/settings/settings.component.ts:14</a></div>
+                            </td>
+                        </tr>
+            </tbody>
+        </table>
+</section>
+
+
+    <section data-compodoc="block-methods">
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="closeSettings"></a>
+                    <span class="name">
+                        <span ><b>closeSettings</b></span>
+                        <a href="#closeSettings"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>closeSettings()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="107"
+                                    class="link-to-prism">src/app/settings/settings.component.ts:107</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The closeSettings method is used to close the settings.
+It emits the close event.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <span ><b>ngOnInit</b></span>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="47"
+                                    class="link-to-prism">src/app/settings/settings.component.ts:47</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The ngOnInit method is a lifecycle hook that is called after Angular has initialized all data-bound properties of a directive.
+In this method, it retrieves the saved board columns, board rows, and snake color from the local storage and sets them to the respective form controls and properties.
+It also subscribes to the value changes of the boardCols and boardRows form controls and sets the value of the other form control to the new value.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="saveSettings"></a>
+                    <span class="name">
+                        <span ><b>saveSettings</b></span>
+                        <a href="#saveSettings"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>saveSettings()</code>
+                </td>
+            </tr>
+
+
+                    <tr>
+                        <td class="col-md-4">
+                            <div class="io-line">Defined in <a href="" data-line="81"
+                                    class="link-to-prism">src/app/settings/settings.component.ts:81</a></div>
+                        </td>
+                    </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-description"><p>The saveSettings method is called to save the settings.
+It retrieves the saved board columns and board rows from the local storage and sets them to the respective form controls.
+It also checks if the new values are within the valid range, and if not, it sets them to the old values.
+Finally, it saves the new board columns, board rows, and snake color to the local storage and sets the snake color CSS variable.</p>
+</div>
+
+                        <div class="io-description">
+                            <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                        </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section data-compodoc="block-properties">
+    
+    <h3 id="inputs">
+        Properties
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="boardCols"></a>
+                    <span class="name">
+                        <span ><b>boardCols</b></span>
+                        <a href="#boardCols"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new FormControl(20, [Validators.min(10), Validators.max(30)])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/settings/settings.component.ts:20</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>boardCols is a FormControl that represents the number of columns in the game board.
+It has a default value of 20 and it must be between 10 and 30.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="boardRows"></a>
+                    <span class="name">
+                        <span ><b>boardRows</b></span>
+                        <a href="#boardRows"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>new FormControl(20, [Validators.min(10), Validators.max(30)])</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="26" class="link-to-prism">src/app/settings/settings.component.ts:26</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>boardRows is a FormControl that represents the number of rows in the game board.
+It has a default value of 20 and it must be between 10 and 30.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="snakeColor"></a>
+                    <span class="name">
+                        <span ><b>snakeColor</b></span>
+                        <a href="#snakeColor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Default value : </i><code>&#x27;#6dbb31&#x27;</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="32" class="link-to-prism">src/app/settings/settings.component.ts:32</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>snakeColor is a string that represents the color of the snake in the game.
+It has a default value of &#39;#6dbb31&#39;.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="snakeCommunicationsService"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>snakeCommunicationsService</b></span>
+                        <a href="#snakeCommunicationsService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Type : </i>        <code><a href="../injectables/SnakeCommunicationsService.html" target="_self" >SnakeCommunicationsService</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="39" class="link-to-prism">src/app/settings/settings.component.ts:39</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description">- The service for snake game-related operations.</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {Component, Output, EventEmitter, OnInit} from &#x27;@angular/core&#x27;;
+import {FormControl, Validators} from &quot;@angular/forms&quot;;
+import {SnakeCommunicationsService} from &quot;../../services/snake-communications.service&quot;;
+
+@Component({
+  selector: &#x27;app-settings&#x27;,
+  templateUrl: &#x27;./settings.component.html&#x27;,
+  styleUrls: [&#x27;./settings.component.css&#x27;]
+})
+export class SettingsComponent implements OnInit {
+  /**
+   * @Output() close is an EventEmitter that emits an event when the settings are closed.
+   */
+  @Output() close &#x3D; new EventEmitter&lt;void&gt;();
+
+  /**
+   * boardCols is a FormControl that represents the number of columns in the game board.
+   * It has a default value of 20 and it must be between 10 and 30.
+   */
+  boardCols &#x3D; new FormControl(20, [Validators.min(10), Validators.max(30)]);
+
+  /**
+   * boardRows is a FormControl that represents the number of rows in the game board.
+   * It has a default value of 20 and it must be between 10 and 30.
+   */
+  boardRows &#x3D; new FormControl(20, [Validators.min(10), Validators.max(30)]);
+
+  /**
+   * snakeColor is a string that represents the color of the snake in the game.
+   * It has a default value of &#x27;#6dbb31&#x27;.
+   */
+  snakeColor: string &#x3D; &#x27;#6dbb31&#x27;;
+
+  /**
+   * The constructor for the SettingsComponent class.
+   * It injects the SnakeCommunicationsService service.
+   * @param {SnakeCommunicationsService} snakeCommunicationsService - The service for snake game-related operations.
+   */
+  constructor(public snakeCommunicationsService: SnakeCommunicationsService) {
+  }
+
+  /**
+   * The ngOnInit method is a lifecycle hook that is called after Angular has initialized all data-bound properties of a directive.
+   * In this method, it retrieves the saved board columns, board rows, and snake color from the local storage and sets them to the respective form controls and properties.
+   * It also subscribes to the value changes of the boardCols and boardRows form controls and sets the value of the other form control to the new value.
+   */
+  ngOnInit() {
+    const savedboardCols &#x3D; localStorage.getItem(&#x27;boardCols&#x27;);
+    if (savedboardCols !&#x3D;&#x3D; null) {
+      this.boardCols.setValue(+savedboardCols);
+    }
+    const savedboardRows &#x3D; localStorage.getItem(&#x27;boardRows&#x27;);
+    if (savedboardRows !&#x3D;&#x3D; null) {
+      this.boardRows.setValue(+savedboardRows);
+    }
+
+    this.boardCols.valueChanges.subscribe(value &#x3D;&gt; {
+      this.boardRows.setValue(value, {emitEvent: false});
+    });
+
+    this.boardRows.valueChanges.subscribe(value &#x3D;&gt; {
+      this.boardCols.setValue(value, {emitEvent: false});
+    });
+    const savedColor &#x3D; localStorage.getItem(&#x27;snakeColor&#x27;);
+    if (savedColor) {
+      this.snakeColor &#x3D; savedColor;
+      document.documentElement.style.setProperty(&#x27;--snake-color&#x27;, this.snakeColor);
+    } else {
+      this.snakeColor &#x3D; &#x27;#6dbb31&#x27;;
+      localStorage.setItem(&#x27;snakeColor&#x27;, this.snakeColor);
+      document.documentElement.style.setProperty(&#x27;--snake-color&#x27;, this.snakeColor);
+    }
+  }
+
+  /**
+   * The saveSettings method is called to save the settings.
+   * It retrieves the saved board columns and board rows from the local storage and sets them to the respective form controls.
+   * It also checks if the new values are within the valid range, and if not, it sets them to the old values.
+   * Finally, it saves the new board columns, board rows, and snake color to the local storage and sets the snake color CSS variable.
+   */
+  saveSettings() {
+    const boardColsItem &#x3D; localStorage.getItem(&#x27;boardCols&#x27;);
+    const boardRowsItem &#x3D; localStorage.getItem(&#x27;boardRows&#x27;);
+    const oldBoardColsValue &#x3D; boardColsItem ? +boardColsItem : 20;
+    const oldBoardRowsValue &#x3D; boardRowsItem ? +boardRowsItem : 20;
+
+    let newBoardColsValue &#x3D; this.boardCols.value ?? oldBoardColsValue;
+    let newBoardRowsValue &#x3D; this.boardRows.value ?? oldBoardRowsValue;
+
+    if (newBoardColsValue &gt; 30 || newBoardColsValue &lt; 10) {
+      newBoardColsValue &#x3D; oldBoardColsValue;
+    }
+    if (newBoardRowsValue &gt; 30 || newBoardRowsValue &lt; 10) {
+      newBoardRowsValue &#x3D; oldBoardRowsValue;
+    }
+
+    localStorage.setItem(&#x27;boardCols&#x27;, newBoardColsValue.toString());
+    localStorage.setItem(&#x27;boardRows&#x27;, newBoardRowsValue.toString());
+    localStorage.setItem(&#x27;snakeColor&#x27;, this.snakeColor);
+    document.documentElement.style.setProperty(&#x27;--snake-color&#x27;, this.snakeColor);
+  }
+
+  /**
+   * The closeSettings method is used to close the settings.
+   * It emits the close event.
+   */
+  closeSettings() {
+    this.close.emit();
+  }
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;div id&#x3D;&quot;settings-menu&quot;&gt;
+  &lt;div id&#x3D;&quot;settings-content&quot;&gt;
+    &lt;h2&gt;Settings&lt;/h2&gt;
+
+    &lt;div class&#x3D;&quot;input-group&quot;&gt;
+      &lt;label for&#x3D;&quot;board-cols&quot;&gt;Board Cols:&lt;/label&gt;
+      &lt;input type&#x3D;&quot;number&quot; id&#x3D;&quot;board-cols&quot; [formControl]&#x3D;&quot;boardCols&quot; (change)&#x3D;&quot;saveSettings()&quot;&gt;
+      &lt;div *ngIf&#x3D;&quot;boardCols.errors?.[&#x27;max&#x27;]&quot;&gt;
+        The maximum value is 30.
+      &lt;/div&gt;
+      &lt;div *ngIf&#x3D;&quot;boardCols.errors?.[&#x27;min&#x27;]&quot;&gt;
+        The minimum value is 10.
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;input-group&quot;&gt;
+      &lt;label for&#x3D;&quot;board-rows&quot;&gt;Board Rows:&lt;/label&gt;
+      &lt;input type&#x3D;&quot;number&quot; id&#x3D;&quot;board-rows&quot; [formControl]&#x3D;&quot;boardRows&quot; (change)&#x3D;&quot;saveSettings()&quot;&gt;
+      &lt;div *ngIf&#x3D;&quot;boardRows.errors?.[&#x27;max&#x27;]&quot;&gt;
+        The maximum value is 30.
+      &lt;/div&gt;
+      &lt;div *ngIf&#x3D;&quot;boardRows.errors?.[&#x27;min&#x27;]&quot;&gt;
+        The minimum value is 10.
+      &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;input-group&quot;&gt;
+      &lt;label for&#x3D;&quot;snake-color&quot;&gt;Snake Color:&lt;/label&gt;
+      &lt;input type&#x3D;&quot;color&quot; id&#x3D;&quot;snake-color&quot; [(ngModel)]&#x3D;&quot;snakeColor&quot; (change)&#x3D;&quot;saveSettings()&quot;&gt;
+    &lt;/div&gt;
+
+    &lt;div class&#x3D;&quot;button-group&quot;&gt;
+      &lt;button (click)&#x3D;&quot;closeSettings()&quot;&gt;Close&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="styleData">
+                <p class="comment">
+                    <code>./settings.component.css</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">#settings-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.3s ease;
+  opacity: 1;
+  z-index: 10000;
+}
+
+#settings-menu.ng-hide {
+  opacity: 0;
+}
+
+#settings-content {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 400px;
+  width: 90%;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform: translateY(0);
+  opacity: 1;
+}
+
+#settings-content.ng-hide {
+  transform: translateY(-20px);
+  opacity: 0;
+}
+
+#settings-content h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+.input-group {
+  margin-bottom: 20px;
+}
+
+#settings-content label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+#settings-content input[type&#x3D;&quot;number&quot;] {
+  width: calc(100% - 20px);
+  margin-bottom: 10px;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  outline: none;
+  box-sizing: border-box;
+}
+
+#settings-content input[type&#x3D;&quot;number&quot;]::-webkit-inner-spin-button,
+#settings-content input[type&#x3D;&quot;number&quot;]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#settings-content input[type&#x3D;&quot;number&quot;]:hover,
+#settings-content input[type&#x3D;&quot;number&quot;]:focus {
+  border-color: #3eff65;
+}
+
+.button-group {
+  margin-top: 20px;
+}
+
+#settings-content button {
+  background-color: #3eff65;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  font-family: VideoGameFont, serif;
+}
+
+#settings-content button:hover {
+  background-color: #3ea62d;
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><div id="settings-menu">  <div id="settings-content">    <h2>Settings</h2>    <div class="input-group">      <label for="board-cols">Board Cols:</label>      <input type="number" id="board-cols" [formControl]="boardCols" (change)="saveSettings()">      <div *ngIf="boardCols.errors?.[\'max\']">        The maximum value is 30.      </div>      <div *ngIf="boardCols.errors?.[\'min\']">        The minimum value is 10.      </div>    </div>    <div class="input-group">      <label for="board-rows">Board Rows:</label>      <input type="number" id="board-rows" [formControl]="boardRows" (change)="saveSettings()">      <div *ngIf="boardRows.errors?.[\'max\']">        The maximum value is 30.      </div>      <div *ngIf="boardRows.errors?.[\'min\']">        The minimum value is 10.      </div>    </div>    <div class="input-group">      <label for="snake-color">Snake Color:</label>      <input type="color" id="snake-color" [(ngModel)]="snakeColor" (change)="saveSettings()">    </div>    <div class="button-group">      <button (click)="closeSettings()">Close</button>    </div>  </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'ContactComponent', 'selector': 'app-contact'},{'name': 'DocumentationComponent', 'selector': 'app-documentation'},{'name': 'ErrorsComponent', 'selector': 'app-errors'},{'name': 'GameOverComponent', 'selector': 'app-game-over'},{'name': 'HomeComponent', 'selector': 'app-home'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'NavbarComponent', 'selector': 'app-navbar'},{'name': 'PauseComponent', 'selector': 'app-pause'},{'name': 'RegisterComponent', 'selector': 'app-register'},{'name': 'ScoreboardsComponent', 'selector': 'app-scoreboards'},{'name': 'ScoreItemComponent', 'selector': 'app-score-item'},{'name': 'SettingsComponent', 'selector': 'app-settings'},{'name': 'StartingMenuComponent', 'selector': 'app-starting-menu'}];
+    var DIRECTIVES = [{'name': 'BodyClassDirective', 'selector': '[appBodyClass]'}];
+    var ACTUAL_COMPONENT = {'name': 'SettingsComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> results matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'SettingsComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script>
+               $darkModeToggleSwitchers = document.querySelectorAll('.dark-mode-switch input');
+               checkToggle(darkModeState);
+               if ($darkModeToggleSwitchers.length > 0) {
+                    for (var i = 0; i < $darkModeToggleSwitchers.length; i++) {
+                         $darkModeToggleSwitchers[i].addEventListener('change', function (event) {
+                              darkModeState = !darkModeState;
+                              toggleDarkMode(darkModeState);
+                         });
+                    }
+               }
+          </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

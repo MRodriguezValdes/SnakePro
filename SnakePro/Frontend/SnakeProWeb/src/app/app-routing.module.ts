@@ -7,6 +7,7 @@ import {canActivate, redirectUnauthorizedTo} from "@angular/fire/auth-guard";
 import {ScoreboardsComponent} from "./scoreboards/scoreboards.component";
 import {ContactComponent} from "./contact/contact.component";
 import {LoginGuardian} from "./login/login-guardian";
+import {DocumentationComponent} from "./documentation/documentation.component";
 
 /**
  * routes is an array of route configurations.
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'scoreboards', component: ScoreboardsComponent,canActivate:[LoginGuardian]},
   {path: 'contact', component: ContactComponent, canActivate:[LoginGuardian]},
+  { path: 'documentation', component: DocumentationComponent },
 ];
 
 @NgModule({
