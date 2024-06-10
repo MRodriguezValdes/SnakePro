@@ -160,8 +160,8 @@ public class GameExecution
                 if ((DateTime.Now - gameStartTime).TotalSeconds >= 3)
                 {
                     // Decrease the delay time by 10 milliseconds
-                    delayTime = Math.Max(80,
-                        delayTime - 10); // Ensure the delay time doesn't go below 80 milliseconds
+                    delayTime = Math.Max(120,
+                        delayTime - 10); // Ensure the delay time doesn't go below 120 milliseconds
 
                     // Reset the game start time
                     gameStartTime = DateTime.Now;
