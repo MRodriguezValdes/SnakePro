@@ -8,6 +8,9 @@
       <div *ngIf="boardCols.errors?.['max']">
         The maximum value is 30.
       </div>
+      <div *ngIf="boardCols.errors?.['min']">
+        The minimum value is 10.
+      </div>
     </div>
 
     <div class="input-group">
@@ -16,6 +19,14 @@
       <div *ngIf="boardRows.errors?.['max']">
         The maximum value is 30.
       </div>
+      <div *ngIf="boardRows.errors?.['min']">
+        The minimum value is 10.
+      </div>
+    </div>
+
+    <div class="input-group">
+      <label for="snake-color">Snake Color:</label>
+      <input type="color" id="snake-color" [(ngModel)]="snakeColor" (change)="saveSettings()">
     </div>
 
     <div class="button-group">

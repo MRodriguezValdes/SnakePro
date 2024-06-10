@@ -23,10 +23,5 @@ public enum GameStates
     /// <summary>
     /// The game is over, typically because the player lost.
     /// </summary>
-    GameOver,
-
-    /// <summary>
-    /// The game is over, with the player having won.
-    /// </summary>
-    Win
+    GameOver
 }

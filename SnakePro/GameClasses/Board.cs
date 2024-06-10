@@ -15,6 +15,11 @@ public class Board
     private readonly Random _random = new();
 
     /// <summary>
+    /// Keeps track of the number of food items generated on the game board.
+    /// </summary>
+    private int _foodCount;
+
+    /// <summary>
     /// Initializes a new instance of the <see cref="Board"/> class.
     /// </summary>
     /// <param name="columns">The number of columns in the game board.</param>
@@ -22,6 +27,7 @@ public class Board
     public Board(int columns, int rows)
     {
         _board = new CellType[columns][];
+        _foodCount = 0;
         GenerateBoard(columns, rows);
         FillBoard();
     }
@@ -92,13 +98,47 @@ public class Board
     /// <summary>
     /// Generates the specified number of food items on the game board.
     /// </summary>
+    /// <remarks>
+    /// This method generates a specified number of food items on the game board. 
+    /// For every 10th food item generated, a special food item is created instead of a regular one.
+    /// The position of the food item is determined by the GetRandomValidCell method, which ensures that the food item is not placed on an occupied cell.
+    /// </remarks>
     /// <param name="howMany">The number of food items to generate.</param>
     public void GenerateFood(int howMany)
     {
+        // Loop for the specified number of food items to generate
         for (var i = 0; i < howMany; i++)
         {
+            // Get a random valid cell on the game board
             var (x, y) = GetRandomValidCell();
-            _board[x][y] = CellType.Food;
+
+            // If the food count is a multiple of 10, generate a special food item
+            if (++_foodCount % 10 == 0)
+            {
+                _board[x][y] = CellType.SpecialFood;
+            }
+            // Otherwise, generate a regular food item
+            else
+            {
+                _board[x][y] = CellType.Food;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Generates the specified number of blocks on the game board.
+    /// </summary>
+    /// <param name="howMany">The number of blocks to generate.</param>
+    public void GenerateBlocks(int howMany)
+    {
+        // Loop for the specified number of blocks to generate
+        for (var i = 0; i < howMany; i++)
+        {
+            // Get a random valid cell on the game board
+            var (x, y) = GetRandomValidCell();
+
+            // Set the cell type to Block
+            _board[x][y] = CellType.Block;
         }
     }
 }

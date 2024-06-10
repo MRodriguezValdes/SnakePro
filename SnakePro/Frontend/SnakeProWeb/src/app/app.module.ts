@@ -21,6 +21,7 @@ import { ScoreboardsComponent } from './scoreboards/scoreboards.component';
 import { ScoreItemComponent } from './scoreboards/score-item/score-item.component';
 import {BodyClassDirective} from "./body-class.directive";
 import { ContactComponent } from './contact/contact.component';
+import { StartingMenuComponent } from './starting-menu/starting-menu.component';
 import { DocumentationComponent } from './documentation/documentation.component';
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { DocumentationComponent } from './documentation/documentation.component'
     RegisterComponent,
     BodyClassDirective,
     ContactComponent,
-    DocumentationComponent
+    DocumentationComponent,
+    StartingMenuComponent
   ],
   imports: [
     BrowserModule,

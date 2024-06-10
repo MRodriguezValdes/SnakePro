@@ -30,11 +30,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
 
+    // API service to make requests to the game API
     private ApiService apiService;
+
+    // Settings button
     Button buttonSetting;
+
+    // Number of columns and rows for the game
     int columns = 20;
     int rows = 20;
 
+    // Indicator if the game is paused
     private boolean gamePaused = false;
 
     @Override
@@ -42,21 +48,26 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Logging interceptor for HTTP requests
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
+        // HTTP client with the logging interceptor
         OkHttpClient client = new OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
                 .build();
 
+        // Retrofit instance for API communication
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://192.168.1.130:5273/")
+                .baseUrl("http://10.0.2.2:5273/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build();
 
+        // Create the API service
         apiService = retrofit.create(ApiService.class);
 
+        // Initialize buttons
         Button buttonUp = findViewById(R.id.button_up);
         Button buttonDown = findViewById(R.id.button_down);
         Button buttonLeft = findViewById(R.id.button_left);
@@ -65,20 +76,28 @@ public class MainActivity extends AppCompatActivity {
         Button buttonPause = findViewById(R.id.button_pause);
         buttonSetting = findViewById(R.id.button_settings);
 
+        // Set shadow layer for play button
         buttonPlay.setShadowLayer(1, -1, -1, Color.BLACK);
 
-
+        // Set shadow layer for pause button
         buttonPause.setShadowLayer(1, -1, -1, Color.BLACK);
 
+        // Set shadow layer for settings button
         buttonSetting.setShadowLayer(1, -1, -1, Color.BLACK);
 
+        // Set onClick listeners for movement buttons
         buttonUp.setOnClickListener(view -> sendMovement("ArrowUp"));
         buttonDown.setOnClickListener(view -> sendMovement("ArrowDown"));
         buttonLeft.setOnClickListener(view -> sendMovement("ArrowLeft"));
         buttonRight.setOnClickListener(view -> sendMovement("ArrowRight"));
+
+        // Set onClick listener for play button
         buttonPlay.setOnClickListener(view -> startGame(columns, rows));
 
+        // Set onClick listener for settings button
         buttonSetting.setOnClickListener(view -> showSettingsDialog());
+
+        // Set onClick listener for pause button
         buttonPause.setOnClickListener(view -> {
             if (gamePaused) {
                 resumeGame();
@@ -88,27 +107,29 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    // Sends a movement command to the API
     private void sendMovement(String key) {
         Call<Void> call = apiService.setMovement(key);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(MainActivity.this, "Movimiento enviado con éxito", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Movement sent successfully", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(MainActivity.this, "Error en el envío del movimiento", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Error sending movement", Toast.LENGTH_SHORT).show();
                     Log.e("API_ERROR", "Error: " + response.code() + " " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Error en la solicitud: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Request error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("API_ERROR", "Error: " + t.getMessage(), t);
             }
         });
     }
 
+    // Starts the game with the specified number of columns and rows
     private void startGame(int columns, int rows) {
         StartGameRequest request = new StartGameRequest(columns, rows);
         Call<Void> call = apiService.startGame(request);
@@ -116,85 +137,92 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(MainActivity.this, "Juego iniciado con éxito", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Game started successfully", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(MainActivity.this, "Error al iniciar el juego", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Error starting the game", Toast.LENGTH_SHORT).show();
                     Log.e("API_ERROR", "Error: " + response.code() + " " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Error en la solicitud: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Request error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("API_ERROR", "Error: " + t.getMessage(), t);
             }
         });
     }
 
-
+    // Shows the settings dialog to configure columns and rows
     private void showSettingsDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Settings");
 
+        // Inflate the custom dialog view
         View dialogView = getLayoutInflater().inflate(R.layout.dialog_settings, null);
         builder.setView(dialogView);
 
+        // Get references to the EditTexts for columns and rows
         EditText editTextColumns = dialogView.findViewById(R.id.editText_columns);
         EditText editTextRows = dialogView.findViewById(R.id.editText_rows);
 
-
+        // Set the current values of columns and rows in the EditTexts
         editTextColumns.setText(String.valueOf(columns));
         editTextRows.setText(String.valueOf(rows));
 
+        // Set the positive button to save the new settings
         builder.setPositiveButton("Save", (dialog, which) -> {
-
             columns = Integer.parseInt(editTextColumns.getText().toString());
             rows = Integer.parseInt(editTextRows.getText().toString());
         });
+
+        // Set the negative button to cancel the dialog
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
 
+        // Show the dialog
         builder.show();
     }
 
+    // Pauses the game by sending a pause request to the API
     private void pauseGame() {
         Call<Void> call = apiService.pauseGame();
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(MainActivity.this, "Juego pausado con éxito", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Game paused successfully", Toast.LENGTH_SHORT).show();
                     gamePaused = true;
                 } else {
-                    Toast.makeText(MainActivity.this, "Error al pausar el juego", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Error pausing the game", Toast.LENGTH_SHORT).show();
                     Log.e("API_ERROR", "Error: " + response.code() + " " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Error en la solicitud: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Request error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("API_ERROR", "Error: " + t.getMessage(), t);
             }
         });
     }
 
+    // Resumes the game by sending a resume request to the API
     private void resumeGame() {
         Call<Void> call = apiService.resumeGame();
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(MainActivity.this, "Juego reanudado con éxito", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Game resumed successfully", Toast.LENGTH_SHORT).show();
                     gamePaused = false;
                 } else {
-                    Toast.makeText(MainActivity.this, "Error al reanudar el juego", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Error resuming the game", Toast.LENGTH_SHORT).show();
                     Log.e("API_ERROR", "Error: " + response.code() + " " + response.message());
                 }
             }
 
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Error en la solicitud: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "Request error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 Log.e("API_ERROR", "Error: " + t.getMessage(), t);
             }
         });

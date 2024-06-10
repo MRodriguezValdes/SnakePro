@@ -28,7 +28,7 @@ body {
 .snake-cell {
   width: 30px;
   height: 30px;
-  border: 1px solid #ccc;
+  border: 1px solid #000000;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,33 +44,6 @@ body {
 
 .my-component {
   font-family: 'VideoGameFont';
-}
-
-/* BUTTON */
-
-.start-btn{
-  text-align: center;
-  display: inline-block;
-  margin:5px;
-  font-weight: bold;
-  padding: 10px 0 10px 10px ;
-  background-color: lightgray;
-  text-shadow: -1px -1px black, 1px 1px white;
-  color: gray;
-  -webkit-border-radius: 7px;
-  -moz-border-radius: 7px;
-  -o-border-radius: 7px;
-  border-radius: 7px;
-  box-shadow: 0 .2em gray;
-  cursor: pointer;
-  font-size: 25pt;
-
-}
-.start-btn:active {
-  box-shadow: none;
-  position: relative;
-  top: .2em;
-
 }
 
 /* NAVBAR */
@@ -119,8 +92,155 @@ h3 {
   margin-right: auto;
 
 }
+.class-empty {
+  background-color: #a3ffa9;
+}
+
+.class-block {
+  background-image:url("/assets/block.png");
+  image-rendering: pixelated;
+  background-size: contain;
+  filter: drop-shadow(0 0 6px #ce5a2d);
+}
+
+.class-food {
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAAD1BMVEVHcEyjHBAAAADoPCn///8cxLM9AAAAAXRSTlMAQObYZgAAAFVJREFUeNqNz1EOQBEQQ1E19r/m19JUXubHjSAnJAwHjNajTkX1xgY29yhQbYprsaOyYprXkp6Dlag6GrsaTB3VO4LYFHlnR/W7HTXZ7u832cKhMAt95CQCgwwgxuAAAAAASUVORK5CYII=);
+  image-rendering: pixelated;
+  background-size: contain;
+  filter: drop-shadow(0 0 6px gold);
+  background-color: #a3ffa9;
+}
+
+:root {
+  --snake-color: #6dbb31;
+}
+
+.class-special-food{
+  background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAAElBMVEVHcEzetDVuWBaZfSjUrzf////CVzsZAAAAAXRSTlMAQObYZgAAAFhJREFUeNqNz0EKACEMQ1Fr6/2vPImGyNCNf6HyqKBDRYzWo04G1UGWaEZgr4TKGPZCR2mFuK5FPYPloBy1XTW6juwdE9g0/c6O7HfbKpLd32+SmU1mZPoAtRsDrII18DgAAAAASUVORK5CYII=);
+  image-rendering: pixelated;
+  background-size: contain;
+  filter: drop-shadow(0 0 6px #fca400);
+  background-color: #a3ffa9;
+}
+.class-snake {
+  background-color: var(--snake-color);
+  position: relative;
+}
+.class-snake-head-up {
+  background-image: url("/assets/head2eyes.png");
+  image-rendering: pixelated;
+  background-size: contain;
+  background-color: #a3ffa9;
+
+}
+
+.class-snake-head-down {
+  background-image: url("/assets/head2eyes.png");
+  image-rendering: pixelated;
+  background-size: contain;
+  background-color: #a3ffa9;
+  transform: rotate(180deg);
+}
+
+.class-snake-head-left {
+  background-image: url("/assets/head2eyes.png");
+  image-rendering: pixelated;
+  background-size: contain;
+  background-color: #a3ffa9;
+  transform: rotate(-90deg);
+}
+
+.class-snake-head-right {
+  background-image: url("/assets/head2eyes.png");
+  image-rendering: pixelated;
+  background-size: contain;
+  background-color: #a3ffa9;
+  transform: rotate(90deg);
+
+}
+
+.class-snake-mouth-open-up {
+  background-image: url("/assets/head_mouth_open_2_eyes.png");
+  image-rendering: pixelated;
+  background-size: contain;
+  background-color: #a3ffa9;
+}
+
+.class-snake-mouth-open-down {
+  background-image: url("/assets/head_mouth_open_2_eyes.png");
+  image-rendering: pixelated;
+  background-size: contain;
+  background-color: #a3ffa9;
+  transform: rotate(180deg);
+}
+
+.class-snake-mouth-open-left {
+  background-image: url("/assets/head_mouth_open_2_eyes.png");
+  image-rendering: pixelated;
+  background-size: contain;
+  background-color: #a3ffa9;
+  transform: rotate(-90deg);
+}
+
+.class-snake-mouth-open-right {
+  background-image: url("/assets/head_mouth_open_2_eyes_right.png");
+  image-rendering: pixelated;
+  background-size: contain;
+  background-color: #a3ffa9;
+
+}
 
 
 
+.class-snake-tail {
+  background-color: #282d28;
+  position: relative;
+  background-image: radial-gradient(ellipse at center, #7ed957 20%, transparent 20%), radial-gradient(ellipse at center, #7ed957 20%, transparent 20%);
+  background-position: 0 0, 15px 15px;
+  background-size: 30px 30px;
+}
 
+.class-snake:before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(ellipse at center, #7ed957 20%, transparent 20%), radial-gradient(ellipse at center, #7ed957 20%, transparent 20%);
+  background-position: 0 0, 15px 15px;
+  background-size: 30px 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+
+.class-default {
+  background-color: #a3ffa9;
+}
+
+
+.restart-button{
+  text-align: center;
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  padding: 10px 0 10px 10px ;
+  background-color: lightgray;
+  text-shadow: -1px -1px black, 1px 1px white;
+  color: gray;
+  -webkit-border-radius: 7px;
+  -moz-border-radius: 7px;
+  -o-border-radius: 7px;
+  border-radius: 7px;
+  box-shadow: 0 .2em gray;
+  cursor: pointer;
+  font-size: 25pt;
+
+}
+.restart-button:active {
+  box-shadow: none;
+  position: relative;
+  top: .2em;
+}
 

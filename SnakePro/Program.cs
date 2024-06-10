@@ -1,10 +1,12 @@
-using WebApplication2.GameClasses.DataBase;
+using WebApplication2.DataBase;
 using WebApplication2.hubs;
 
 // Create a new web application builder with the provided command-line arguments.
 var builder = WebApplication.CreateBuilder(args);
 // Add SignalR services to the container.
 builder.Services.AddSignalR();
+// Add services for in-memory caching to the service container.
+builder.Services.AddMemoryCache();
 // Add CORS services to the container.
 builder.Services.AddCors(options =>
 {
@@ -24,7 +26,7 @@ builder.Services.AddEndpointsApiExplorer();
 // Add Swagger generator services to the container.
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IFirebaseDbConnection, FirebaseDbConnection>();
+builder.Services.AddSingleton<IFirebaseDbConnection, FirebaseDbConnection>();
 
 // Add controller services to the container.
 builder.Services.AddControllers();

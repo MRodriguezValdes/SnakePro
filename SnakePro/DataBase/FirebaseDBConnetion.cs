@@ -2,9 +2,10 @@ using System.Text;
 using FirebaseAdmin;
 using FirebaseAdmin.Auth;
 using Google.Apis.Auth.OAuth2;
+using Microsoft.Extensions.Caching.Memory;
 using Newtonsoft.Json;
 
-namespace WebApplication2.GameClasses.DataBase
+namespace WebApplication2.DataBase
 {
     /// <summary>
     /// Defines the contract for a service that interacts with Firebase database.
@@ -14,7 +15,7 @@ namespace WebApplication2.GameClasses.DataBase
         Task<User> GetUserData(UserRecord userRecord);
         Task<UserRecord> AuthenticateUser(string userToken);
         Task SaveScore(int score);
-        Task<List<int>> GetTopScores(int count);
+        Task<Dictionary<string, List<int>>> GetTopScores(int count);
     }
 
     /// <summary>
@@ -25,14 +26,15 @@ namespace WebApplication2.GameClasses.DataBase
         // The URL of the Firebase Realtime Database. This is retrieved from the application configuration.
         private static string _firebaseDatabaseUrl = "";
 
-        // Represents the Firebase token of the authenticated user.
-        private static FirebaseToken? _userToken;
+        // An instance of IMemoryCache used for caching data in memory.
+        private readonly IMemoryCache? _cache;
 
         /// <summary>
         /// Initializes a new instance of the FirebaseDbConnection class.
         /// </summary>
         /// <param name="configuration">The application configuration, used to get Firebase settings.</param>
-        public FirebaseDbConnection(IConfiguration configuration)
+        /// <param name="cache">to be able to implement memory cache in the app</param>
+        public FirebaseDbConnection(IConfiguration configuration, IMemoryCache? cache)
         {
             // Ensure Firebase is initialized only once
             if (FirebaseApp.DefaultInstance != null) return;
@@ -42,6 +44,7 @@ namespace WebApplication2.GameClasses.DataBase
             {
                 Credential = GoogleCredential.FromFile(firebaseFilePath),
             });
+            _cache = cache;
         }
 
         /// <summary>
@@ -62,7 +65,8 @@ namespace WebApplication2.GameClasses.DataBase
                 throw new Exception("User does not exist!");
             }
 
-            _userToken = decodedToken;
+            // Store the token in the cache 
+            _cache?.Set("UserToken", decodedToken);
 
             return userRecord;
         }
@@ -74,7 +78,6 @@ namespace WebApplication2.GameClasses.DataBase
         /// <returns>A task that represents the asynchronous operation. The task result contains the User data.</returns>
         public Task<User> GetUserData(UserRecord userRecord)
         {
-            Console.WriteLine($"User logged in: {userRecord.DisplayName}, {userRecord.Email}");
             // Return a User object populated with the user's data
             return Task.FromResult(new User
             {
@@ -92,7 +95,13 @@ namespace WebApplication2.GameClasses.DataBase
         /// <exception cref="System.Net.Http.HttpRequestException">Thrown when the request to save the score fails.</exception>
         public async Task SaveScore(int score)
         {
-            var userRecord = await FirebaseAuth.DefaultInstance.GetUserAsync(_userToken?.Uid);
+            if (_cache == null || !_cache.TryGetValue("UserToken", out FirebaseToken? token))
+            {
+                // If the token is not in the cache, throw an exception
+                throw new Exception("User token not found in cache.");
+            }
+
+            var userRecord = await FirebaseAuth.DefaultInstance.GetUserAsync(token?.Uid);
             // Get a reference to the user's scores in the Firebase Realtime Database
             var scoresUrl = $"{_firebaseDatabaseUrl}/score/{userRecord.Uid}.json";
 
@@ -113,21 +122,21 @@ namespace WebApplication2.GameClasses.DataBase
         /// Retrieves the top scores from the Firebase Realtime Database.
         /// </summary>
         /// <param name="count">The number of top scores to retrieve.</param>
-        /// <returns>A task that represents the asynchronous operation. The task result contains a list of the top scores.</returns>
+        /// <returns>A task that represents the asynchronous operation. The task result contains a dictionary where the key is the user's email and the value is a list of the user's top scores.</returns>
         /// <exception cref="System.Exception">Thrown when there is an error retrieving the scores.</exception>
-        public async Task<List<int>> GetTopScores(int count)
+        public async Task<Dictionary<string, List<int>>> GetTopScores(int count)
         {
             try
             {
-                // Get a reference to the scores in the Firebase Realtime Database
+                // Define the URL for the scores in the Firebase Realtime Database
                 var scoresUrl = $"{_firebaseDatabaseUrl}/score.json";
 
-                // Create a new HttpClient
+                // Create a new HttpClient instance
                 using var client = new HttpClient();
                 // Send a GET request to the Firebase Realtime Database
                 var response = await client.GetAsync(scoresUrl);
 
-                // Throw an exception if the request failed
+                // Ensure the request was successful
                 response.EnsureSuccessStatusCode();
 
                 // Read the response content as a string
@@ -135,17 +144,39 @@ namespace WebApplication2.GameClasses.DataBase
                 // Deserialize the JSON string to a nested dictionary
                 var scores = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, int>>>(scoresJson);
 
-                // If the scores dictionary is null, return an empty list
-                if (scores == null) return [];
-                // Extract the scores, sort them in descending order and take the top 'count'
+                // If the scores dictionary is null, return an empty dictionary
+                if (scores == null) return new Dictionary<string, List<int>>();
+
+                // Extract the scores, sort them in descending order, and take the top 'count' scores
                 var topScores = scores
-                    .SelectMany(userScores => userScores.Value.Values)
-                    .OrderByDescending(score => score)
+                    .SelectMany(userScores =>
+                        userScores.Value.Select(score => new KeyValuePair<string, int>(userScores.Key, score.Value)))
+                    .OrderByDescending(score => score.Value)
                     .Take(count)
                     .ToList();
 
-                // Return the top scores
-                return topScores;
+                // Convert the list of scores to a dictionary
+                var topScoresDict = new Dictionary<string, List<int>>();
+                foreach (var score in topScores)
+                {
+                    // Get the user record for the current score
+                    var userRecord = await FirebaseAuth.DefaultInstance.GetUserAsync(score.Key);
+                    // Get the user data for the current user record
+                    var user = await GetUserData(userRecord);
+                    // If the user's email is already in the dictionary, add the current score to their list of scores
+                    // Otherwise, add a new entry to the dictionary for the user's email and their current score
+                    if (topScoresDict.ContainsKey(user.Email ?? string.Empty))
+                    {
+                        topScoresDict[user.Email ?? string.Empty].Add(score.Value);
+                    }
+                    else
+                    {
+                        topScoresDict[user.Email ?? string.Empty] = new List<int> { score.Value };
+                    }
+                }
+
+                // Return the dictionary of top scores
+                return topScoresDict;
             }
             catch (Exception ex)
             {
