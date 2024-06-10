@@ -2,6 +2,8 @@ package com.example.snakeprocontroller;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -169,17 +171,71 @@ public class MainActivity extends AppCompatActivity {
         editTextColumns.setText(String.valueOf(columns));
         editTextRows.setText(String.valueOf(rows));
 
-        // Set the positive button to save the new settings
-        builder.setPositiveButton("Save", (dialog, which) -> {
+        // Create the alert dialog
+        AlertDialog dialog = builder.create();
+
+        // Set the positive button (Save) and initially disable it
+        dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Save", (dialogInterface, which) -> {
             columns = Integer.parseInt(editTextColumns.getText().toString());
             rows = Integer.parseInt(editTextRows.getText().toString());
         });
+        dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", (dialogInterface, which) -> dialog.cancel());
 
-        // Set the negative button to cancel the dialog
-        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+        // Disable the Save button initially
+        dialog.setOnShowListener(dialogInterface -> {
+            Button saveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+            saveButton.setEnabled(false);
+
+            TextWatcher textWatcher = new TextWatcher() {
+                private boolean updating = false; // Flag to prevent infinite loop
+
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) { }
+
+                @Override
+                public void afterTextChanged(Editable s) {
+                    if (updating) return;
+
+                    updating = true;
+                    if (s == editTextColumns.getEditableText()) {
+                        editTextRows.setText(s.toString());
+                    } else if (s == editTextRows.getEditableText()) {
+                        editTextColumns.setText(s.toString());
+                    }
+
+                    String columnsText = editTextColumns.getText().toString();
+                    String rowsText = editTextRows.getText().toString();
+                    boolean valid = isValidInput(columnsText, rowsText);
+
+                    saveButton.setEnabled(valid);
+
+                    if (!valid && (columnsText.length() > 0 || rowsText.length() > 0)) {
+                        Toast.makeText(getApplicationContext(), "Both values must be between 10 and 30.", Toast.LENGTH_SHORT).show();
+                    }
+
+                    updating = false;
+                }
+            };
+
+            editTextColumns.addTextChangedListener(textWatcher);
+            editTextRows.addTextChangedListener(textWatcher);
+        });
 
         // Show the dialog
-        builder.show();
+        dialog.show();
+    }
+
+    private boolean isValidInput(String columnsText, String rowsText) {
+        try {
+            int columnsValue = Integer.parseInt(columnsText);
+            int rowsValue = Integer.parseInt(rowsText);
+            return columnsValue >= 10 && columnsValue <= 30 && rowsValue >= 10 && rowsValue <= 30;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 
     // Pauses the game by sending a pause request to the API
