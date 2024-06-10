@@ -24,6 +24,8 @@ export class HomeComponent implements OnInit {
   snakeColor: string = '#6dbb31';
   snakeHeadDirection = Direction.Up;
   firstMove: boolean = true;
+  public gameState: GameStates = GameStates.None;
+  audio = new Audio();
 
   constructor(private snakeCommunicationsService: SnakeCommunicationsService, private http: HttpClient, private userService: UserService) {
     if (typeof window !== 'undefined') {
@@ -47,6 +49,7 @@ export class HomeComponent implements OnInit {
         this.boardArray = board;
       });
       this.snakeCommunicationsService.getGameStates().subscribe((gameState: GameStates) => {
+        this.gameState = gameState;
         this.changeStateMessage(gameState);
         if (gameState === GameStates.GameOver) {
           this.snakeCommunicationsService.saveScore(this.score).subscribe(() => console.log("Score saved"));
@@ -97,6 +100,26 @@ export class HomeComponent implements OnInit {
       }
       this.pauseVisible = true;
     }
+
+    this.audio.src = "/assets/aves_4.mp3";
+    this.audio.load();
+    this.audio.loop = true;
+    this.audio.play();
+    const isMusicPlaying = localStorage.getItem('isMusicPlaying');
+    if (isMusicPlaying === 'true') {
+      const musicTime = localStorage.getItem('musicTime');
+      if (musicTime !== null) {
+        this.audio.currentTime = +musicTime;
+      }
+      this.audio.play();
+    }
+
+    // Actualiza el estado de reproducción y la posición de la música en el localStorage cada segundo
+    setInterval(() => {
+      localStorage.setItem('isMusicPlaying', this.audio.paused ? 'false' : 'true');
+      localStorage.setItem('musicTime', this.audio.currentTime.toString());
+    }, 1000);
+
   }
 
   changeStateMessage(gameState: GameStates) {
@@ -169,11 +192,21 @@ export class HomeComponent implements OnInit {
 
   startGame(): void {
     this.updateBoardDimensions();
-    this.snakeCommunicationsService.startGame(this.boardCols, this.boardRows).subscribe(() => console.log("Game started"));
+    this.snakeCommunicationsService.startGame(this.boardCols, this.boardRows).subscribe(() => {
+      console.log("Game started");
+      localStorage.setItem('gameBoard', JSON.stringify(this.boardArray));
+    });
     this.firstMove = true;
+    localStorage.removeItem('gameStarted');
+
+    // Start audio playback
+    this.audio.play().catch((error) => {
+      console.log('Audio play failed due to', error);
+      // Handle error here
+    });
   }
 
-  updateBoardDimensions(): void {
+      updateBoardDimensions(): void {
     const savedboardCols = localStorage.getItem('boardCols');
     if (savedboardCols !== null) {
       this.boardCols = +savedboardCols;
@@ -194,40 +227,41 @@ export class HomeComponent implements OnInit {
 
   @HostListener('document:keydown', ['$event'])
   handleKeyPress(event: KeyboardEvent) {
-    let newDirection = this.snakeHeadDirection;
-    switch (event.key) {
-      case 'ArrowUp':
-        newDirection = Direction.Up;
-        break;
-      case 'ArrowDown':
-        newDirection= Direction.Down;
-        break;
-      case 'ArrowLeft':
-        newDirection = Direction.Left;
-        break;
-      case 'ArrowRight':
-        newDirection= Direction.Right;
-        break;
-    }
-    console.log(this.firstMove)
-    if (this.isValidMove(newDirection)) {
-      this.snakeHeadDirection = newDirection;
-      localStorage.setItem('snakeHeadDirection', Direction[this.snakeHeadDirection]);
-      this.snakeCommunicationsService.setMovement(event.key).subscribe();
-      this.firstMove = false;  // Actualizar después del primer movimiento válido
-    }
+    if (this.gameState !== GameStates.GameOver) {
+      let newDirection = this.snakeHeadDirection;
+      switch (event.key) {
+        case 'ArrowUp':
+          newDirection = Direction.Up;
+          break;
+        case 'ArrowDown':
+          newDirection= Direction.Down;
+          break;
+        case 'ArrowLeft':
+          newDirection = Direction.Left;
+          break;
+        case 'ArrowRight':
+          newDirection= Direction.Right;
+          break;
+      }
+      if (this.isValidMove(newDirection)) {
+        this.snakeHeadDirection = newDirection;
+        localStorage.setItem('snakeHeadDirection', Direction[this.snakeHeadDirection]);
+        this.snakeCommunicationsService.setMovement(event.key).subscribe();
+        this.firstMove = false;
+      }
 
-    if (event.key === 'p') {
-      this.snakeCommunicationsService.pauseGame().subscribe(() => {
-        localStorage.setItem('gamePaused', 'true');
-        localStorage.setItem('gameBoard', JSON.stringify(this.boardArray));
-      });
-    } else if (event.key === ' ') {
-      this.snakeCommunicationsService.resumeGame().subscribe(() => {
-        localStorage.removeItem('gamePaused');
-        localStorage.removeItem('gameBoard');
-        localStorage.removeItem('snakeHeadDirection');
-      });
+      if (event.key === 'p') {
+        this.snakeCommunicationsService.pauseGame().subscribe(() => {
+          localStorage.setItem('gamePaused', 'true');
+          localStorage.setItem('gameBoard', JSON.stringify(this.boardArray));
+        });
+      } else if (event.key === ' ') {
+        this.snakeCommunicationsService.resumeGame().subscribe(() => {
+          localStorage.removeItem('gamePaused');
+          localStorage.removeItem('gameBoard');
+          localStorage.removeItem('snakeHeadDirection');
+        });
+      }
     }
   }
 
@@ -247,6 +281,7 @@ export class HomeComponent implements OnInit {
   isValidMove(newDirection: Direction): boolean {
     // Permitir cualquier movimiento si es el primer movimiento
     if (this.firstMove) {
+      localStorage.setItem('gameStarted', 'true');
       return true;
     }
 
